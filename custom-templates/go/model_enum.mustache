@@ -1,0 +1,142 @@
+// {{{classname}}} {{{description}}}{{^description}}the model '{{{classname}}}'{{/description}}
+type {{{classname}}} {{{format}}}{{^format}}{{dataType}}{{/format}}
+
+// List of {{{name}}}
+const (
+	{{#allowableValues}}
+	{{#enumVars}}
+	{{^-first}}
+	{{/-first}}
+	{{#enumClassPrefix}}{{{classname.toUpperCase}}}_{{/enumClassPrefix}}{{name}} {{{classname}}} = {{{value}}}
+	{{/enumVars}}
+	{{/allowableValues}}
+)
+
+// All allowed values of {{{classname}}} enum
+var Allowed{{{classname}}}EnumValues = []{{{classname}}}{
+	{{#allowableValues}}
+	{{#enumVars}}
+	{{{value}}},
+	{{/enumVars}}
+	{{/allowableValues}}
+}
+
+func (v *{{{classname}}}) generateNormalizedEnum() string {
+	if v == nil {
+		return ""
+	}
+
+	s := *v
+	var sb strings.Builder
+	sb.Grow(len(s) + 2) // Preallocate memory for efficiency
+	var prevUnderscore bool // Track consecutive underscores
+	for i, r := range s {
+		switch {
+		case unicode.IsUpper(r):
+			// Add an underscore if:
+			// 1. Not the first character
+			// 2. Previous character is NOT uppercase (to handle acronyms like "HTTPRequest")
+			// 3. Next character is lowercase (to avoid splitting acronyms)
+			if i > 0 && (!unicode.IsUpper(rune(s[i-1])) || (i+1 < len(s) && unicode.IsLower(rune(s[i+1])))) {
+				sb.WriteByte('_')
+			}
+			sb.WriteRune(unicode.ToLower(r))
+			prevUnderscore = false
+
+		case unicode.IsSpace(r) || r == '-' || r == '_': // Convert spaces, dashes, and underscores to `_`
+			if !prevUnderscore { // Avoid consecutive `_`
+				sb.WriteByte('_')
+				prevUnderscore = true
+			}
+
+		case unicode.IsLetter(r) || unicode.IsDigit(r): // Keep letters and numbers
+			sb.WriteRune(r)
+			prevUnderscore = false
+
+		default:
+			// Ignore symbols (e.g., `@#$%&*!`)
+		}
+	}
+
+	// Trim leading/trailing underscores
+	return strings.Trim(sb.String(), "_")
+}
+
+func (v *{{{classname}}}) UnmarshalJSON(src []byte) error {
+	var value {{{format}}}{{^format}}{{dataType}}{{/format}}
+	err := json.Unmarshal(src, &value)
+	if err != nil {
+		return err
+	}
+	enumTypeValue := {{{classname}}}(value)
+	for _, existing := range Allowed{{{classname}}}EnumValues {
+		if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
+			*v = enumTypeValue
+			return nil
+		}
+	}
+
+	return fmt.Errorf("%+v is not a valid {{classname}}", value)
+}
+
+// New{{{classname}}}FromValue returns a pointer to a valid {{{classname}}}
+// for the value passed as argument, or an error if the value passed is not allowed by the enum
+func New{{{classname}}}FromValue(v {{{format}}}{{^format}}{{dataType}}{{/format}}) (*{{{classname}}}, error) {
+	ev := {{{classname}}}(v)
+	if ev.IsValid() {
+		return &ev, nil
+	} else {
+		return nil, fmt.Errorf("invalid value '%v' for {{{classname}}}: valid values are %v", v, Allowed{{{classname}}}EnumValues)
+	}
+}
+
+// IsValid return true if the value is valid for the enum, false otherwise
+func (v {{{classname}}}) IsValid() bool {
+	for _, existing := range Allowed{{{classname}}}EnumValues {
+		if existing == v {
+			return true
+		}
+	}
+	return false
+}
+
+// Ptr returns reference to {{{name}}} value
+func (v {{{classname}}}) Ptr() *{{{classname}}} {
+	return &v
+}
+
+type Nullable{{{classname}}} struct {
+	value *{{{classname}}}
+	isSet bool
+}
+
+func (v Nullable{{classname}}) Get() *{{classname}} {
+	return v.value
+}
+
+func (v *Nullable{{classname}}) Set(val *{{classname}}) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v Nullable{{classname}}) IsSet() bool {
+	return v.isSet
+}
+
+func (v *Nullable{{classname}}) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullable{{classname}}(val *{{classname}}) *Nullable{{classname}} {
+	return &Nullable{{classname}}{value: val, isSet: true}
+}
+
+func (v Nullable{{{classname}}}) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *Nullable{{{classname}}}) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}

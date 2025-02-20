@@ -14,6 +14,8 @@ package goEtsy
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
+	"unicode"
 )
 
 // CreateShopShippingProfileRequestDestinationRegion The code of the region to which the listing ships. A region represents a set of countries. Supported regions are Europe Union and Non-Europe Union (countries in Europe not in EU). If `none`, request sets destination to destination_country_iso. Required if destination_country_iso is null or not provided.
@@ -33,6 +35,47 @@ var AllowedCreateShopShippingProfileRequestDestinationRegionEnumValues = []Creat
 	"none",
 }
 
+func (v *CreateShopShippingProfileRequestDestinationRegion) generateNormalizedEnum() string {
+	if v == nil {
+		return ""
+	}
+
+	s := *v
+	var sb strings.Builder
+	sb.Grow(len(s) + 2)     // Preallocate memory for efficiency
+	var prevUnderscore bool // Track consecutive underscores
+	for i, r := range s {
+		switch {
+		case unicode.IsUpper(r):
+			// Add an underscore if:
+			// 1. Not the first character
+			// 2. Previous character is NOT uppercase (to handle acronyms like "HTTPRequest")
+			// 3. Next character is lowercase (to avoid splitting acronyms)
+			if i > 0 && (!unicode.IsUpper(rune(s[i-1])) || (i+1 < len(s) && unicode.IsLower(rune(s[i+1])))) {
+				sb.WriteByte('_')
+			}
+			sb.WriteRune(unicode.ToLower(r))
+			prevUnderscore = false
+
+		case unicode.IsSpace(r) || r == '-' || r == '_': // Convert spaces, dashes, and underscores to `_`
+			if !prevUnderscore { // Avoid consecutive `_`
+				sb.WriteByte('_')
+				prevUnderscore = true
+			}
+
+		case unicode.IsLetter(r) || unicode.IsDigit(r): // Keep letters and numbers
+			sb.WriteRune(r)
+			prevUnderscore = false
+
+		default:
+			// Ignore symbols (e.g., `@#$%&*!`)
+		}
+	}
+
+	// Trim leading/trailing underscores
+	return strings.Trim(sb.String(), "_")
+}
+
 func (v *CreateShopShippingProfileRequestDestinationRegion) UnmarshalJSON(src []byte) error {
 	var value string
 	err := json.Unmarshal(src, &value)
@@ -41,7 +84,7 @@ func (v *CreateShopShippingProfileRequestDestinationRegion) UnmarshalJSON(src []
 	}
 	enumTypeValue := CreateShopShippingProfileRequestDestinationRegion(value)
 	for _, existing := range AllowedCreateShopShippingProfileRequestDestinationRegionEnumValues {
-		if existing == enumTypeValue {
+		if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
 			*v = enumTypeValue
 			return nil
 		}
