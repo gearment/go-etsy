@@ -14,6 +14,7 @@ package goEtsy
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"strings"
 	"unicode"
 )
@@ -67,6 +68,15 @@ var AllowedShopListingWhenMadeEnumValues = []ShopListingWhenMade{
 	"before_1700",
 }
 
+func (v *ShopListingWhenMade) isStringLike() bool {
+	if v == nil {
+		return false
+	}
+
+	// Check if it is a string or has an underlying type of string
+	return reflect.TypeOf(*v).Kind() == reflect.String
+}
+
 func (v *ShopListingWhenMade) generateNormalizedEnum() string {
 	if v == nil {
 		return ""
@@ -115,10 +125,19 @@ func (v *ShopListingWhenMade) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := ShopListingWhenMade(value)
-	for _, existing := range AllowedShopListingWhenMadeEnumValues {
-		if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-			*v = enumTypeValue
-			return nil
+	if enumTypeValue.isStringLike() {
+		for _, existing := range AllowedShopListingWhenMadeEnumValues {
+			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
+				*v = enumTypeValue
+				return nil
+			}
+		}
+	} else {
+		for _, existing := range AllowedShopListingWhenMadeEnumValues {
+			if existing == enumTypeValue {
+				*v = enumTypeValue
+				return nil
+			}
 		}
 	}
 

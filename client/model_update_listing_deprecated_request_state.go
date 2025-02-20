@@ -14,6 +14,7 @@ package goEtsy
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"strings"
 	"unicode"
 )
@@ -31,6 +32,15 @@ const (
 var AllowedUpdateListingDeprecatedRequestStateEnumValues = []UpdateListingDeprecatedRequestState{
 	"active",
 	"inactive",
+}
+
+func (v *UpdateListingDeprecatedRequestState) isStringLike() bool {
+	if v == nil {
+		return false
+	}
+
+	// Check if it is a string or has an underlying type of string
+	return reflect.TypeOf(*v).Kind() == reflect.String
 }
 
 func (v *UpdateListingDeprecatedRequestState) generateNormalizedEnum() string {
@@ -81,10 +91,19 @@ func (v *UpdateListingDeprecatedRequestState) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := UpdateListingDeprecatedRequestState(value)
-	for _, existing := range AllowedUpdateListingDeprecatedRequestStateEnumValues {
-		if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-			*v = enumTypeValue
-			return nil
+	if enumTypeValue.isStringLike() {
+		for _, existing := range AllowedUpdateListingDeprecatedRequestStateEnumValues {
+			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
+				*v = enumTypeValue
+				return nil
+			}
+		}
+	} else {
+		for _, existing := range AllowedUpdateListingDeprecatedRequestStateEnumValues {
+			if existing == enumTypeValue {
+				*v = enumTypeValue
+				return nil
+			}
 		}
 	}
 

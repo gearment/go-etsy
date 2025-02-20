@@ -14,6 +14,7 @@ package goEtsy
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"strings"
 	"unicode"
 )
@@ -29,6 +30,15 @@ const (
 // All allowed values of GetListingInventoryIncludesParameter enum
 var AllowedGetListingInventoryIncludesParameterEnumValues = []GetListingInventoryIncludesParameter{
 	"Listing",
+}
+
+func (v *GetListingInventoryIncludesParameter) isStringLike() bool {
+	if v == nil {
+		return false
+	}
+
+	// Check if it is a string or has an underlying type of string
+	return reflect.TypeOf(*v).Kind() == reflect.String
 }
 
 func (v *GetListingInventoryIncludesParameter) generateNormalizedEnum() string {
@@ -79,10 +89,19 @@ func (v *GetListingInventoryIncludesParameter) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := GetListingInventoryIncludesParameter(value)
-	for _, existing := range AllowedGetListingInventoryIncludesParameterEnumValues {
-		if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-			*v = enumTypeValue
-			return nil
+	if enumTypeValue.isStringLike() {
+		for _, existing := range AllowedGetListingInventoryIncludesParameterEnumValues {
+			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
+				*v = enumTypeValue
+				return nil
+			}
+		}
+	} else {
+		for _, existing := range AllowedGetListingInventoryIncludesParameterEnumValues {
+			if existing == enumTypeValue {
+				*v = enumTypeValue
+				return nil
+			}
 		}
 	}
 

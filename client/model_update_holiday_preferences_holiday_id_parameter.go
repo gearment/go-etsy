@@ -14,6 +14,7 @@ package goEtsy
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"strings"
 	"unicode"
 )
@@ -239,6 +240,15 @@ var AllowedUpdateHolidayPreferencesHolidayIdParameterEnumValues = []UpdateHolida
 	"105",
 }
 
+func (v *UpdateHolidayPreferencesHolidayIdParameter) isStringLike() bool {
+	if v == nil {
+		return false
+	}
+
+	// Check if it is a string or has an underlying type of string
+	return reflect.TypeOf(*v).Kind() == reflect.String
+}
+
 func (v *UpdateHolidayPreferencesHolidayIdParameter) generateNormalizedEnum() string {
 	if v == nil {
 		return ""
@@ -287,10 +297,19 @@ func (v *UpdateHolidayPreferencesHolidayIdParameter) UnmarshalJSON(src []byte) e
 		return err
 	}
 	enumTypeValue := UpdateHolidayPreferencesHolidayIdParameter(value)
-	for _, existing := range AllowedUpdateHolidayPreferencesHolidayIdParameterEnumValues {
-		if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-			*v = enumTypeValue
-			return nil
+	if enumTypeValue.isStringLike() {
+		for _, existing := range AllowedUpdateHolidayPreferencesHolidayIdParameterEnumValues {
+			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
+				*v = enumTypeValue
+				return nil
+			}
+		}
+	} else {
+		for _, existing := range AllowedUpdateHolidayPreferencesHolidayIdParameterEnumValues {
+			if existing == enumTypeValue {
+				*v = enumTypeValue
+				return nil
+			}
 		}
 	}
 

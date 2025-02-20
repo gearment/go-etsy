@@ -14,6 +14,7 @@ package goEtsy
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"strings"
 	"unicode"
 )
@@ -31,6 +32,15 @@ const (
 var AllowedCreateShopShippingProfileUpgradeRequestTypeEnumValues = []CreateShopShippingProfileUpgradeRequestType{
 	"0",
 	"1",
+}
+
+func (v *CreateShopShippingProfileUpgradeRequestType) isStringLike() bool {
+	if v == nil {
+		return false
+	}
+
+	// Check if it is a string or has an underlying type of string
+	return reflect.TypeOf(*v).Kind() == reflect.String
 }
 
 func (v *CreateShopShippingProfileUpgradeRequestType) generateNormalizedEnum() string {
@@ -81,10 +91,19 @@ func (v *CreateShopShippingProfileUpgradeRequestType) UnmarshalJSON(src []byte) 
 		return err
 	}
 	enumTypeValue := CreateShopShippingProfileUpgradeRequestType(value)
-	for _, existing := range AllowedCreateShopShippingProfileUpgradeRequestTypeEnumValues {
-		if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-			*v = enumTypeValue
-			return nil
+	if enumTypeValue.isStringLike() {
+		for _, existing := range AllowedCreateShopShippingProfileUpgradeRequestTypeEnumValues {
+			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
+				*v = enumTypeValue
+				return nil
+			}
+		}
+	} else {
+		for _, existing := range AllowedCreateShopShippingProfileUpgradeRequestTypeEnumValues {
+			if existing == enumTypeValue {
+				*v = enumTypeValue
+				return nil
+			}
 		}
 	}
 

@@ -14,6 +14,7 @@ package goEtsy
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"strings"
 	"unicode"
 )
@@ -41,6 +42,15 @@ var AllowedShopReceiptStatusEnumValues = []ShopReceiptStatus{
 	"canceled",
 	"fully refunded",
 	"partially refunded",
+}
+
+func (v *ShopReceiptStatus) isStringLike() bool {
+	if v == nil {
+		return false
+	}
+
+	// Check if it is a string or has an underlying type of string
+	return reflect.TypeOf(*v).Kind() == reflect.String
 }
 
 func (v *ShopReceiptStatus) generateNormalizedEnum() string {
@@ -91,10 +101,19 @@ func (v *ShopReceiptStatus) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := ShopReceiptStatus(value)
-	for _, existing := range AllowedShopReceiptStatusEnumValues {
-		if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-			*v = enumTypeValue
-			return nil
+	if enumTypeValue.isStringLike() {
+		for _, existing := range AllowedShopReceiptStatusEnumValues {
+			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
+				*v = enumTypeValue
+				return nil
+			}
+		}
+	} else {
+		for _, existing := range AllowedShopReceiptStatusEnumValues {
+			if existing == enumTypeValue {
+				*v = enumTypeValue
+				return nil
+			}
 		}
 	}
 
