@@ -40,21 +40,24 @@ var AllowedShopListingStateEnumValues = []ShopListingState{
 	"expired",
 }
 
-func (v *ShopListingState) isStringLike() bool {
-	if v == nil {
-		return false
-	}
-
-	// Check if it is a string or has an underlying type of string
-	return reflect.TypeOf(*v).Kind() == reflect.String
+var AllowedShopListingStateEnumValuesValidator = map[interface{}]struct{}{
+	ShopListingState("active").Ptr().generateNormalizedEnum():   struct{}{},
+	ShopListingState("inactive").Ptr().generateNormalizedEnum(): struct{}{},
+	ShopListingState("sold_out").Ptr().generateNormalizedEnum(): struct{}{},
+	ShopListingState("draft").Ptr().generateNormalizedEnum():    struct{}{},
+	ShopListingState("expired").Ptr().generateNormalizedEnum():  struct{}{},
 }
 
-func (v *ShopListingState) generateNormalizedEnum() string {
+func (v *ShopListingState) generateNormalizedEnum() any {
 	if v == nil {
-		return ""
+		return nil
 	}
 
 	s := *v
+	if reflect.TypeOf(*v).Kind() != reflect.String {
+		return s
+	}
+
 	var sb strings.Builder
 	sb.Grow(len(s) + 2)     // Preallocate memory for efficiency
 	var prevUnderscore bool // Track consecutive underscores
@@ -97,20 +100,9 @@ func (v *ShopListingState) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := ShopListingState(value)
-	if enumTypeValue.isStringLike() {
-		for _, existing := range AllowedShopListingStateEnumValues {
-			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-				*v = enumTypeValue
-				return nil
-			}
-		}
-	} else {
-		for _, existing := range AllowedShopListingStateEnumValues {
-			if existing == enumTypeValue {
-				*v = enumTypeValue
-				return nil
-			}
-		}
+	if _, existing := AllowedShopListingStateEnumValuesValidator[enumTypeValue.Ptr().generateNormalizedEnum()]; existing {
+		*v = enumTypeValue
+		return nil
 	}
 
 	return fmt.Errorf("%+v is not a valid ShopListingState", value)

@@ -240,21 +240,124 @@ var AllowedUpdateHolidayPreferencesHolidayIdParameterEnumValues = []UpdateHolida
 	"105",
 }
 
-func (v *UpdateHolidayPreferencesHolidayIdParameter) isStringLike() bool {
-	if v == nil {
-		return false
-	}
-
-	// Check if it is a string or has an underlying type of string
-	return reflect.TypeOf(*v).Kind() == reflect.String
+var AllowedUpdateHolidayPreferencesHolidayIdParameterEnumValuesValidator = map[interface{}]struct{}{
+	UpdateHolidayPreferencesHolidayIdParameter("1").Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("2").Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("3").Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("4").Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("5").Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("6").Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("7").Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("8").Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("9").Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("10").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("11").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("12").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("13").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("14").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("15").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("16").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("17").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("18").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("19").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("20").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("21").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("22").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("23").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("24").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("25").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("26").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("27").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("28").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("29").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("30").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("31").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("32").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("33").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("34").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("35").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("36").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("37").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("38").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("39").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("40").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("41").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("42").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("43").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("44").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("45").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("46").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("47").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("48").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("49").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("50").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("51").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("52").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("53").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("54").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("55").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("56").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("57").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("58").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("59").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("60").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("61").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("62").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("63").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("64").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("65").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("66").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("67").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("68").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("69").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("70").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("71").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("72").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("73").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("74").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("75").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("76").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("77").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("78").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("79").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("80").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("81").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("82").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("83").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("84").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("85").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("86").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("87").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("88").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("89").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("90").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("91").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("92").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("93").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("94").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("95").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("96").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("97").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("98").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("99").Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("100").Ptr().generateNormalizedEnum(): struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("101").Ptr().generateNormalizedEnum(): struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("102").Ptr().generateNormalizedEnum(): struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("103").Ptr().generateNormalizedEnum(): struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("104").Ptr().generateNormalizedEnum(): struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter("105").Ptr().generateNormalizedEnum(): struct{}{},
 }
 
-func (v *UpdateHolidayPreferencesHolidayIdParameter) generateNormalizedEnum() string {
+func (v *UpdateHolidayPreferencesHolidayIdParameter) generateNormalizedEnum() any {
 	if v == nil {
-		return ""
+		return nil
 	}
 
 	s := *v
+	if reflect.TypeOf(*v).Kind() != reflect.String {
+		return s
+	}
+
 	var sb strings.Builder
 	sb.Grow(len(s) + 2)     // Preallocate memory for efficiency
 	var prevUnderscore bool // Track consecutive underscores
@@ -297,20 +400,9 @@ func (v *UpdateHolidayPreferencesHolidayIdParameter) UnmarshalJSON(src []byte) e
 		return err
 	}
 	enumTypeValue := UpdateHolidayPreferencesHolidayIdParameter(value)
-	if enumTypeValue.isStringLike() {
-		for _, existing := range AllowedUpdateHolidayPreferencesHolidayIdParameterEnumValues {
-			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-				*v = enumTypeValue
-				return nil
-			}
-		}
-	} else {
-		for _, existing := range AllowedUpdateHolidayPreferencesHolidayIdParameterEnumValues {
-			if existing == enumTypeValue {
-				*v = enumTypeValue
-				return nil
-			}
-		}
+	if _, existing := AllowedUpdateHolidayPreferencesHolidayIdParameterEnumValuesValidator[enumTypeValue.Ptr().generateNormalizedEnum()]; existing {
+		*v = enumTypeValue
+		return nil
 	}
 
 	return fmt.Errorf("%+v is not a valid UpdateHolidayPreferencesHolidayIdParameter", value)

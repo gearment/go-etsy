@@ -36,21 +36,22 @@ var AllowedShopListingWhoMadeEnumValues = []ShopListingWhoMade{
 	"collective",
 }
 
-func (v *ShopListingWhoMade) isStringLike() bool {
-	if v == nil {
-		return false
-	}
-
-	// Check if it is a string or has an underlying type of string
-	return reflect.TypeOf(*v).Kind() == reflect.String
+var AllowedShopListingWhoMadeEnumValuesValidator = map[interface{}]struct{}{
+	ShopListingWhoMade("i_did").Ptr().generateNormalizedEnum():        struct{}{},
+	ShopListingWhoMade("someone_else").Ptr().generateNormalizedEnum(): struct{}{},
+	ShopListingWhoMade("collective").Ptr().generateNormalizedEnum():   struct{}{},
 }
 
-func (v *ShopListingWhoMade) generateNormalizedEnum() string {
+func (v *ShopListingWhoMade) generateNormalizedEnum() any {
 	if v == nil {
-		return ""
+		return nil
 	}
 
 	s := *v
+	if reflect.TypeOf(*v).Kind() != reflect.String {
+		return s
+	}
+
 	var sb strings.Builder
 	sb.Grow(len(s) + 2)     // Preallocate memory for efficiency
 	var prevUnderscore bool // Track consecutive underscores
@@ -93,20 +94,9 @@ func (v *ShopListingWhoMade) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := ShopListingWhoMade(value)
-	if enumTypeValue.isStringLike() {
-		for _, existing := range AllowedShopListingWhoMadeEnumValues {
-			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-				*v = enumTypeValue
-				return nil
-			}
-		}
-	} else {
-		for _, existing := range AllowedShopListingWhoMadeEnumValues {
-			if existing == enumTypeValue {
-				*v = enumTypeValue
-				return nil
-			}
-		}
+	if _, existing := AllowedShopListingWhoMadeEnumValuesValidator[enumTypeValue.Ptr().generateNormalizedEnum()]; existing {
+		*v = enumTypeValue
+		return nil
 	}
 
 	return fmt.Errorf("%+v is not a valid ShopListingWhoMade", value)

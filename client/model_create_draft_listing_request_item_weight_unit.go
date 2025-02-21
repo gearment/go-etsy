@@ -38,21 +38,23 @@ var AllowedCreateDraftListingRequestItemWeightUnitEnumValues = []CreateDraftList
 	"kg",
 }
 
-func (v *CreateDraftListingRequestItemWeightUnit) isStringLike() bool {
-	if v == nil {
-		return false
-	}
-
-	// Check if it is a string or has an underlying type of string
-	return reflect.TypeOf(*v).Kind() == reflect.String
+var AllowedCreateDraftListingRequestItemWeightUnitEnumValuesValidator = map[interface{}]struct{}{
+	CreateDraftListingRequestItemWeightUnit("oz").Ptr().generateNormalizedEnum(): struct{}{},
+	CreateDraftListingRequestItemWeightUnit("lb").Ptr().generateNormalizedEnum(): struct{}{},
+	CreateDraftListingRequestItemWeightUnit("g").Ptr().generateNormalizedEnum():  struct{}{},
+	CreateDraftListingRequestItemWeightUnit("kg").Ptr().generateNormalizedEnum(): struct{}{},
 }
 
-func (v *CreateDraftListingRequestItemWeightUnit) generateNormalizedEnum() string {
+func (v *CreateDraftListingRequestItemWeightUnit) generateNormalizedEnum() any {
 	if v == nil {
-		return ""
+		return nil
 	}
 
 	s := *v
+	if reflect.TypeOf(*v).Kind() != reflect.String {
+		return s
+	}
+
 	var sb strings.Builder
 	sb.Grow(len(s) + 2)     // Preallocate memory for efficiency
 	var prevUnderscore bool // Track consecutive underscores
@@ -95,20 +97,9 @@ func (v *CreateDraftListingRequestItemWeightUnit) UnmarshalJSON(src []byte) erro
 		return err
 	}
 	enumTypeValue := CreateDraftListingRequestItemWeightUnit(value)
-	if enumTypeValue.isStringLike() {
-		for _, existing := range AllowedCreateDraftListingRequestItemWeightUnitEnumValues {
-			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-				*v = enumTypeValue
-				return nil
-			}
-		}
-	} else {
-		for _, existing := range AllowedCreateDraftListingRequestItemWeightUnitEnumValues {
-			if existing == enumTypeValue {
-				*v = enumTypeValue
-				return nil
-			}
-		}
+	if _, existing := AllowedCreateDraftListingRequestItemWeightUnitEnumValuesValidator[enumTypeValue.Ptr().generateNormalizedEnum()]; existing {
+		*v = enumTypeValue
+		return nil
 	}
 
 	return fmt.Errorf("%+v is not a valid CreateDraftListingRequestItemWeightUnit", value)

@@ -44,21 +44,26 @@ var AllowedGetListingsByShopIncludesParameterInnerEnumValues = []GetListingsBySh
 	"Videos",
 }
 
-func (v *GetListingsByShopIncludesParameterInner) isStringLike() bool {
-	if v == nil {
-		return false
-	}
-
-	// Check if it is a string or has an underlying type of string
-	return reflect.TypeOf(*v).Kind() == reflect.String
+var AllowedGetListingsByShopIncludesParameterInnerEnumValuesValidator = map[interface{}]struct{}{
+	GetListingsByShopIncludesParameterInner("Shipping").Ptr().generateNormalizedEnum():     struct{}{},
+	GetListingsByShopIncludesParameterInner("Images").Ptr().generateNormalizedEnum():       struct{}{},
+	GetListingsByShopIncludesParameterInner("Shop").Ptr().generateNormalizedEnum():         struct{}{},
+	GetListingsByShopIncludesParameterInner("User").Ptr().generateNormalizedEnum():         struct{}{},
+	GetListingsByShopIncludesParameterInner("Translations").Ptr().generateNormalizedEnum(): struct{}{},
+	GetListingsByShopIncludesParameterInner("Inventory").Ptr().generateNormalizedEnum():    struct{}{},
+	GetListingsByShopIncludesParameterInner("Videos").Ptr().generateNormalizedEnum():       struct{}{},
 }
 
-func (v *GetListingsByShopIncludesParameterInner) generateNormalizedEnum() string {
+func (v *GetListingsByShopIncludesParameterInner) generateNormalizedEnum() any {
 	if v == nil {
-		return ""
+		return nil
 	}
 
 	s := *v
+	if reflect.TypeOf(*v).Kind() != reflect.String {
+		return s
+	}
+
 	var sb strings.Builder
 	sb.Grow(len(s) + 2)     // Preallocate memory for efficiency
 	var prevUnderscore bool // Track consecutive underscores
@@ -101,20 +106,9 @@ func (v *GetListingsByShopIncludesParameterInner) UnmarshalJSON(src []byte) erro
 		return err
 	}
 	enumTypeValue := GetListingsByShopIncludesParameterInner(value)
-	if enumTypeValue.isStringLike() {
-		for _, existing := range AllowedGetListingsByShopIncludesParameterInnerEnumValues {
-			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-				*v = enumTypeValue
-				return nil
-			}
-		}
-	} else {
-		for _, existing := range AllowedGetListingsByShopIncludesParameterInnerEnumValues {
-			if existing == enumTypeValue {
-				*v = enumTypeValue
-				return nil
-			}
-		}
+	if _, existing := AllowedGetListingsByShopIncludesParameterInnerEnumValuesValidator[enumTypeValue.Ptr().generateNormalizedEnum()]; existing {
+		*v = enumTypeValue
+		return nil
 	}
 
 	return fmt.Errorf("%+v is not a valid GetListingsByShopIncludesParameterInner", value)

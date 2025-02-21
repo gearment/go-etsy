@@ -40,21 +40,24 @@ var AllowedGetListingsByShopStateParameterEnumValues = []GetListingsByShopStateP
 	"expired",
 }
 
-func (v *GetListingsByShopStateParameter) isStringLike() bool {
-	if v == nil {
-		return false
-	}
-
-	// Check if it is a string or has an underlying type of string
-	return reflect.TypeOf(*v).Kind() == reflect.String
+var AllowedGetListingsByShopStateParameterEnumValuesValidator = map[interface{}]struct{}{
+	GetListingsByShopStateParameter("active").Ptr().generateNormalizedEnum():   struct{}{},
+	GetListingsByShopStateParameter("inactive").Ptr().generateNormalizedEnum(): struct{}{},
+	GetListingsByShopStateParameter("sold_out").Ptr().generateNormalizedEnum(): struct{}{},
+	GetListingsByShopStateParameter("draft").Ptr().generateNormalizedEnum():    struct{}{},
+	GetListingsByShopStateParameter("expired").Ptr().generateNormalizedEnum():  struct{}{},
 }
 
-func (v *GetListingsByShopStateParameter) generateNormalizedEnum() string {
+func (v *GetListingsByShopStateParameter) generateNormalizedEnum() any {
 	if v == nil {
-		return ""
+		return nil
 	}
 
 	s := *v
+	if reflect.TypeOf(*v).Kind() != reflect.String {
+		return s
+	}
+
 	var sb strings.Builder
 	sb.Grow(len(s) + 2)     // Preallocate memory for efficiency
 	var prevUnderscore bool // Track consecutive underscores
@@ -97,20 +100,9 @@ func (v *GetListingsByShopStateParameter) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := GetListingsByShopStateParameter(value)
-	if enumTypeValue.isStringLike() {
-		for _, existing := range AllowedGetListingsByShopStateParameterEnumValues {
-			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-				*v = enumTypeValue
-				return nil
-			}
-		}
-	} else {
-		for _, existing := range AllowedGetListingsByShopStateParameterEnumValues {
-			if existing == enumTypeValue {
-				*v = enumTypeValue
-				return nil
-			}
-		}
+	if _, existing := AllowedGetListingsByShopStateParameterEnumValuesValidator[enumTypeValue.Ptr().generateNormalizedEnum()]; existing {
+		*v = enumTypeValue
+		return nil
 	}
 
 	return fmt.Errorf("%+v is not a valid GetListingsByShopStateParameter", value)

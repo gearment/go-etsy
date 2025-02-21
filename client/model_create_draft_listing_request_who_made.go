@@ -36,21 +36,22 @@ var AllowedCreateDraftListingRequestWhoMadeEnumValues = []CreateDraftListingRequ
 	"collective",
 }
 
-func (v *CreateDraftListingRequestWhoMade) isStringLike() bool {
-	if v == nil {
-		return false
-	}
-
-	// Check if it is a string or has an underlying type of string
-	return reflect.TypeOf(*v).Kind() == reflect.String
+var AllowedCreateDraftListingRequestWhoMadeEnumValuesValidator = map[interface{}]struct{}{
+	CreateDraftListingRequestWhoMade("i_did").Ptr().generateNormalizedEnum():        struct{}{},
+	CreateDraftListingRequestWhoMade("someone_else").Ptr().generateNormalizedEnum(): struct{}{},
+	CreateDraftListingRequestWhoMade("collective").Ptr().generateNormalizedEnum():   struct{}{},
 }
 
-func (v *CreateDraftListingRequestWhoMade) generateNormalizedEnum() string {
+func (v *CreateDraftListingRequestWhoMade) generateNormalizedEnum() any {
 	if v == nil {
-		return ""
+		return nil
 	}
 
 	s := *v
+	if reflect.TypeOf(*v).Kind() != reflect.String {
+		return s
+	}
+
 	var sb strings.Builder
 	sb.Grow(len(s) + 2)     // Preallocate memory for efficiency
 	var prevUnderscore bool // Track consecutive underscores
@@ -93,20 +94,9 @@ func (v *CreateDraftListingRequestWhoMade) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := CreateDraftListingRequestWhoMade(value)
-	if enumTypeValue.isStringLike() {
-		for _, existing := range AllowedCreateDraftListingRequestWhoMadeEnumValues {
-			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-				*v = enumTypeValue
-				return nil
-			}
-		}
-	} else {
-		for _, existing := range AllowedCreateDraftListingRequestWhoMadeEnumValues {
-			if existing == enumTypeValue {
-				*v = enumTypeValue
-				return nil
-			}
-		}
+	if _, existing := AllowedCreateDraftListingRequestWhoMadeEnumValuesValidator[enumTypeValue.Ptr().generateNormalizedEnum()]; existing {
+		*v = enumTypeValue
+		return nil
 	}
 
 	return fmt.Errorf("%+v is not a valid CreateDraftListingRequestWhoMade", value)

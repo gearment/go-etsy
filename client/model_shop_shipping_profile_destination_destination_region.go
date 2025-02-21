@@ -36,21 +36,22 @@ var AllowedShopShippingProfileDestinationDestinationRegionEnumValues = []ShopShi
 	"none",
 }
 
-func (v *ShopShippingProfileDestinationDestinationRegion) isStringLike() bool {
-	if v == nil {
-		return false
-	}
-
-	// Check if it is a string or has an underlying type of string
-	return reflect.TypeOf(*v).Kind() == reflect.String
+var AllowedShopShippingProfileDestinationDestinationRegionEnumValuesValidator = map[interface{}]struct{}{
+	ShopShippingProfileDestinationDestinationRegion("eu").Ptr().generateNormalizedEnum():     struct{}{},
+	ShopShippingProfileDestinationDestinationRegion("non_eu").Ptr().generateNormalizedEnum(): struct{}{},
+	ShopShippingProfileDestinationDestinationRegion("none").Ptr().generateNormalizedEnum():   struct{}{},
 }
 
-func (v *ShopShippingProfileDestinationDestinationRegion) generateNormalizedEnum() string {
+func (v *ShopShippingProfileDestinationDestinationRegion) generateNormalizedEnum() any {
 	if v == nil {
-		return ""
+		return nil
 	}
 
 	s := *v
+	if reflect.TypeOf(*v).Kind() != reflect.String {
+		return s
+	}
+
 	var sb strings.Builder
 	sb.Grow(len(s) + 2)     // Preallocate memory for efficiency
 	var prevUnderscore bool // Track consecutive underscores
@@ -93,20 +94,9 @@ func (v *ShopShippingProfileDestinationDestinationRegion) UnmarshalJSON(src []by
 		return err
 	}
 	enumTypeValue := ShopShippingProfileDestinationDestinationRegion(value)
-	if enumTypeValue.isStringLike() {
-		for _, existing := range AllowedShopShippingProfileDestinationDestinationRegionEnumValues {
-			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-				*v = enumTypeValue
-				return nil
-			}
-		}
-	} else {
-		for _, existing := range AllowedShopShippingProfileDestinationDestinationRegionEnumValues {
-			if existing == enumTypeValue {
-				*v = enumTypeValue
-				return nil
-			}
-		}
+	if _, existing := AllowedShopShippingProfileDestinationDestinationRegionEnumValuesValidator[enumTypeValue.Ptr().generateNormalizedEnum()]; existing {
+		*v = enumTypeValue
+		return nil
 	}
 
 	return fmt.Errorf("%+v is not a valid ShopShippingProfileDestinationDestinationRegion", value)

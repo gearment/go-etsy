@@ -46,21 +46,27 @@ var AllowedUpdateListingRequestItemDimensionsUnitEnumValues = []UpdateListingReq
 	"inches",
 }
 
-func (v *UpdateListingRequestItemDimensionsUnit) isStringLike() bool {
-	if v == nil {
-		return false
-	}
-
-	// Check if it is a string or has an underlying type of string
-	return reflect.TypeOf(*v).Kind() == reflect.String
+var AllowedUpdateListingRequestItemDimensionsUnitEnumValuesValidator = map[interface{}]struct{}{
+	UpdateListingRequestItemDimensionsUnit("").Ptr().generateNormalizedEnum():       struct{}{},
+	UpdateListingRequestItemDimensionsUnit("in").Ptr().generateNormalizedEnum():     struct{}{},
+	UpdateListingRequestItemDimensionsUnit("ft").Ptr().generateNormalizedEnum():     struct{}{},
+	UpdateListingRequestItemDimensionsUnit("mm").Ptr().generateNormalizedEnum():     struct{}{},
+	UpdateListingRequestItemDimensionsUnit("cm").Ptr().generateNormalizedEnum():     struct{}{},
+	UpdateListingRequestItemDimensionsUnit("m").Ptr().generateNormalizedEnum():      struct{}{},
+	UpdateListingRequestItemDimensionsUnit("yd").Ptr().generateNormalizedEnum():     struct{}{},
+	UpdateListingRequestItemDimensionsUnit("inches").Ptr().generateNormalizedEnum(): struct{}{},
 }
 
-func (v *UpdateListingRequestItemDimensionsUnit) generateNormalizedEnum() string {
+func (v *UpdateListingRequestItemDimensionsUnit) generateNormalizedEnum() any {
 	if v == nil {
-		return ""
+		return nil
 	}
 
 	s := *v
+	if reflect.TypeOf(*v).Kind() != reflect.String {
+		return s
+	}
+
 	var sb strings.Builder
 	sb.Grow(len(s) + 2)     // Preallocate memory for efficiency
 	var prevUnderscore bool // Track consecutive underscores
@@ -103,20 +109,9 @@ func (v *UpdateListingRequestItemDimensionsUnit) UnmarshalJSON(src []byte) error
 		return err
 	}
 	enumTypeValue := UpdateListingRequestItemDimensionsUnit(value)
-	if enumTypeValue.isStringLike() {
-		for _, existing := range AllowedUpdateListingRequestItemDimensionsUnitEnumValues {
-			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-				*v = enumTypeValue
-				return nil
-			}
-		}
-	} else {
-		for _, existing := range AllowedUpdateListingRequestItemDimensionsUnitEnumValues {
-			if existing == enumTypeValue {
-				*v = enumTypeValue
-				return nil
-			}
-		}
+	if _, existing := AllowedUpdateListingRequestItemDimensionsUnitEnumValuesValidator[enumTypeValue.Ptr().generateNormalizedEnum()]; existing {
+		*v = enumTypeValue
+		return nil
 	}
 
 	return fmt.Errorf("%+v is not a valid UpdateListingRequestItemDimensionsUnit", value)

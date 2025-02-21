@@ -44,21 +44,26 @@ var AllowedCreateDraftListingRequestItemDimensionsUnitEnumValues = []CreateDraft
 	"inches",
 }
 
-func (v *CreateDraftListingRequestItemDimensionsUnit) isStringLike() bool {
-	if v == nil {
-		return false
-	}
-
-	// Check if it is a string or has an underlying type of string
-	return reflect.TypeOf(*v).Kind() == reflect.String
+var AllowedCreateDraftListingRequestItemDimensionsUnitEnumValuesValidator = map[interface{}]struct{}{
+	CreateDraftListingRequestItemDimensionsUnit("in").Ptr().generateNormalizedEnum():     struct{}{},
+	CreateDraftListingRequestItemDimensionsUnit("ft").Ptr().generateNormalizedEnum():     struct{}{},
+	CreateDraftListingRequestItemDimensionsUnit("mm").Ptr().generateNormalizedEnum():     struct{}{},
+	CreateDraftListingRequestItemDimensionsUnit("cm").Ptr().generateNormalizedEnum():     struct{}{},
+	CreateDraftListingRequestItemDimensionsUnit("m").Ptr().generateNormalizedEnum():      struct{}{},
+	CreateDraftListingRequestItemDimensionsUnit("yd").Ptr().generateNormalizedEnum():     struct{}{},
+	CreateDraftListingRequestItemDimensionsUnit("inches").Ptr().generateNormalizedEnum(): struct{}{},
 }
 
-func (v *CreateDraftListingRequestItemDimensionsUnit) generateNormalizedEnum() string {
+func (v *CreateDraftListingRequestItemDimensionsUnit) generateNormalizedEnum() any {
 	if v == nil {
-		return ""
+		return nil
 	}
 
 	s := *v
+	if reflect.TypeOf(*v).Kind() != reflect.String {
+		return s
+	}
+
 	var sb strings.Builder
 	sb.Grow(len(s) + 2)     // Preallocate memory for efficiency
 	var prevUnderscore bool // Track consecutive underscores
@@ -101,20 +106,9 @@ func (v *CreateDraftListingRequestItemDimensionsUnit) UnmarshalJSON(src []byte) 
 		return err
 	}
 	enumTypeValue := CreateDraftListingRequestItemDimensionsUnit(value)
-	if enumTypeValue.isStringLike() {
-		for _, existing := range AllowedCreateDraftListingRequestItemDimensionsUnitEnumValues {
-			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-				*v = enumTypeValue
-				return nil
-			}
-		}
-	} else {
-		for _, existing := range AllowedCreateDraftListingRequestItemDimensionsUnitEnumValues {
-			if existing == enumTypeValue {
-				*v = enumTypeValue
-				return nil
-			}
-		}
+	if _, existing := AllowedCreateDraftListingRequestItemDimensionsUnitEnumValuesValidator[enumTypeValue.Ptr().generateNormalizedEnum()]; existing {
+		*v = enumTypeValue
+		return nil
 	}
 
 	return fmt.Errorf("%+v is not a valid CreateDraftListingRequestItemDimensionsUnit", value)

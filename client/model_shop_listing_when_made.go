@@ -68,21 +68,38 @@ var AllowedShopListingWhenMadeEnumValues = []ShopListingWhenMade{
 	"before_1700",
 }
 
-func (v *ShopListingWhenMade) isStringLike() bool {
-	if v == nil {
-		return false
-	}
-
-	// Check if it is a string or has an underlying type of string
-	return reflect.TypeOf(*v).Kind() == reflect.String
+var AllowedShopListingWhenMadeEnumValuesValidator = map[interface{}]struct{}{
+	ShopListingWhenMade("made_to_order").Ptr().generateNormalizedEnum(): struct{}{},
+	ShopListingWhenMade("2020_2024").Ptr().generateNormalizedEnum():     struct{}{},
+	ShopListingWhenMade("2010_2019").Ptr().generateNormalizedEnum():     struct{}{},
+	ShopListingWhenMade("2005_2009").Ptr().generateNormalizedEnum():     struct{}{},
+	ShopListingWhenMade("before_2005").Ptr().generateNormalizedEnum():   struct{}{},
+	ShopListingWhenMade("2000_2004").Ptr().generateNormalizedEnum():     struct{}{},
+	ShopListingWhenMade("1990s").Ptr().generateNormalizedEnum():         struct{}{},
+	ShopListingWhenMade("1980s").Ptr().generateNormalizedEnum():         struct{}{},
+	ShopListingWhenMade("1970s").Ptr().generateNormalizedEnum():         struct{}{},
+	ShopListingWhenMade("1960s").Ptr().generateNormalizedEnum():         struct{}{},
+	ShopListingWhenMade("1950s").Ptr().generateNormalizedEnum():         struct{}{},
+	ShopListingWhenMade("1940s").Ptr().generateNormalizedEnum():         struct{}{},
+	ShopListingWhenMade("1930s").Ptr().generateNormalizedEnum():         struct{}{},
+	ShopListingWhenMade("1920s").Ptr().generateNormalizedEnum():         struct{}{},
+	ShopListingWhenMade("1910s").Ptr().generateNormalizedEnum():         struct{}{},
+	ShopListingWhenMade("1900s").Ptr().generateNormalizedEnum():         struct{}{},
+	ShopListingWhenMade("1800s").Ptr().generateNormalizedEnum():         struct{}{},
+	ShopListingWhenMade("1700s").Ptr().generateNormalizedEnum():         struct{}{},
+	ShopListingWhenMade("before_1700").Ptr().generateNormalizedEnum():   struct{}{},
 }
 
-func (v *ShopListingWhenMade) generateNormalizedEnum() string {
+func (v *ShopListingWhenMade) generateNormalizedEnum() any {
 	if v == nil {
-		return ""
+		return nil
 	}
 
 	s := *v
+	if reflect.TypeOf(*v).Kind() != reflect.String {
+		return s
+	}
+
 	var sb strings.Builder
 	sb.Grow(len(s) + 2)     // Preallocate memory for efficiency
 	var prevUnderscore bool // Track consecutive underscores
@@ -125,20 +142,9 @@ func (v *ShopListingWhenMade) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := ShopListingWhenMade(value)
-	if enumTypeValue.isStringLike() {
-		for _, existing := range AllowedShopListingWhenMadeEnumValues {
-			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-				*v = enumTypeValue
-				return nil
-			}
-		}
-	} else {
-		for _, existing := range AllowedShopListingWhenMadeEnumValues {
-			if existing == enumTypeValue {
-				*v = enumTypeValue
-				return nil
-			}
-		}
+	if _, existing := AllowedShopListingWhenMadeEnumValuesValidator[enumTypeValue.Ptr().generateNormalizedEnum()]; existing {
+		*v = enumTypeValue
+		return nil
 	}
 
 	return fmt.Errorf("%+v is not a valid ShopListingWhenMade", value)

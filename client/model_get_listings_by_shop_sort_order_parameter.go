@@ -42,21 +42,25 @@ var AllowedGetListingsByShopSortOrderParameterEnumValues = []GetListingsByShopSo
 	"down",
 }
 
-func (v *GetListingsByShopSortOrderParameter) isStringLike() bool {
-	if v == nil {
-		return false
-	}
-
-	// Check if it is a string or has an underlying type of string
-	return reflect.TypeOf(*v).Kind() == reflect.String
+var AllowedGetListingsByShopSortOrderParameterEnumValuesValidator = map[interface{}]struct{}{
+	GetListingsByShopSortOrderParameter("asc").Ptr().generateNormalizedEnum():        struct{}{},
+	GetListingsByShopSortOrderParameter("ascending").Ptr().generateNormalizedEnum():  struct{}{},
+	GetListingsByShopSortOrderParameter("desc").Ptr().generateNormalizedEnum():       struct{}{},
+	GetListingsByShopSortOrderParameter("descending").Ptr().generateNormalizedEnum(): struct{}{},
+	GetListingsByShopSortOrderParameter("up").Ptr().generateNormalizedEnum():         struct{}{},
+	GetListingsByShopSortOrderParameter("down").Ptr().generateNormalizedEnum():       struct{}{},
 }
 
-func (v *GetListingsByShopSortOrderParameter) generateNormalizedEnum() string {
+func (v *GetListingsByShopSortOrderParameter) generateNormalizedEnum() any {
 	if v == nil {
-		return ""
+		return nil
 	}
 
 	s := *v
+	if reflect.TypeOf(*v).Kind() != reflect.String {
+		return s
+	}
+
 	var sb strings.Builder
 	sb.Grow(len(s) + 2)     // Preallocate memory for efficiency
 	var prevUnderscore bool // Track consecutive underscores
@@ -99,20 +103,9 @@ func (v *GetListingsByShopSortOrderParameter) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := GetListingsByShopSortOrderParameter(value)
-	if enumTypeValue.isStringLike() {
-		for _, existing := range AllowedGetListingsByShopSortOrderParameterEnumValues {
-			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-				*v = enumTypeValue
-				return nil
-			}
-		}
-	} else {
-		for _, existing := range AllowedGetListingsByShopSortOrderParameterEnumValues {
-			if existing == enumTypeValue {
-				*v = enumTypeValue
-				return nil
-			}
-		}
+	if _, existing := AllowedGetListingsByShopSortOrderParameterEnumValuesValidator[enumTypeValue.Ptr().generateNormalizedEnum()]; existing {
+		*v = enumTypeValue
+		return nil
 	}
 
 	return fmt.Errorf("%+v is not a valid GetListingsByShopSortOrderParameter", value)

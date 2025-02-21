@@ -34,21 +34,21 @@ var AllowedCreateShopShippingProfileRequestProcessingTimeUnitEnumValues = []Crea
 	"weeks",
 }
 
-func (v *CreateShopShippingProfileRequestProcessingTimeUnit) isStringLike() bool {
-	if v == nil {
-		return false
-	}
-
-	// Check if it is a string or has an underlying type of string
-	return reflect.TypeOf(*v).Kind() == reflect.String
+var AllowedCreateShopShippingProfileRequestProcessingTimeUnitEnumValuesValidator = map[interface{}]struct{}{
+	CreateShopShippingProfileRequestProcessingTimeUnit("business_days").Ptr().generateNormalizedEnum(): struct{}{},
+	CreateShopShippingProfileRequestProcessingTimeUnit("weeks").Ptr().generateNormalizedEnum():         struct{}{},
 }
 
-func (v *CreateShopShippingProfileRequestProcessingTimeUnit) generateNormalizedEnum() string {
+func (v *CreateShopShippingProfileRequestProcessingTimeUnit) generateNormalizedEnum() any {
 	if v == nil {
-		return ""
+		return nil
 	}
 
 	s := *v
+	if reflect.TypeOf(*v).Kind() != reflect.String {
+		return s
+	}
+
 	var sb strings.Builder
 	sb.Grow(len(s) + 2)     // Preallocate memory for efficiency
 	var prevUnderscore bool // Track consecutive underscores
@@ -91,20 +91,9 @@ func (v *CreateShopShippingProfileRequestProcessingTimeUnit) UnmarshalJSON(src [
 		return err
 	}
 	enumTypeValue := CreateShopShippingProfileRequestProcessingTimeUnit(value)
-	if enumTypeValue.isStringLike() {
-		for _, existing := range AllowedCreateShopShippingProfileRequestProcessingTimeUnitEnumValues {
-			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-				*v = enumTypeValue
-				return nil
-			}
-		}
-	} else {
-		for _, existing := range AllowedCreateShopShippingProfileRequestProcessingTimeUnitEnumValues {
-			if existing == enumTypeValue {
-				*v = enumTypeValue
-				return nil
-			}
-		}
+	if _, existing := AllowedCreateShopShippingProfileRequestProcessingTimeUnitEnumValuesValidator[enumTypeValue.Ptr().generateNormalizedEnum()]; existing {
+		*v = enumTypeValue
+		return nil
 	}
 
 	return fmt.Errorf("%+v is not a valid CreateShopShippingProfileRequestProcessingTimeUnit", value)

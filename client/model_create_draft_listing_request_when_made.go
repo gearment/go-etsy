@@ -68,21 +68,38 @@ var AllowedCreateDraftListingRequestWhenMadeEnumValues = []CreateDraftListingReq
 	"before_1700",
 }
 
-func (v *CreateDraftListingRequestWhenMade) isStringLike() bool {
-	if v == nil {
-		return false
-	}
-
-	// Check if it is a string or has an underlying type of string
-	return reflect.TypeOf(*v).Kind() == reflect.String
+var AllowedCreateDraftListingRequestWhenMadeEnumValuesValidator = map[interface{}]struct{}{
+	CreateDraftListingRequestWhenMade("made_to_order").Ptr().generateNormalizedEnum(): struct{}{},
+	CreateDraftListingRequestWhenMade("2020_2024").Ptr().generateNormalizedEnum():     struct{}{},
+	CreateDraftListingRequestWhenMade("2010_2019").Ptr().generateNormalizedEnum():     struct{}{},
+	CreateDraftListingRequestWhenMade("2005_2009").Ptr().generateNormalizedEnum():     struct{}{},
+	CreateDraftListingRequestWhenMade("before_2005").Ptr().generateNormalizedEnum():   struct{}{},
+	CreateDraftListingRequestWhenMade("2000_2004").Ptr().generateNormalizedEnum():     struct{}{},
+	CreateDraftListingRequestWhenMade("1990s").Ptr().generateNormalizedEnum():         struct{}{},
+	CreateDraftListingRequestWhenMade("1980s").Ptr().generateNormalizedEnum():         struct{}{},
+	CreateDraftListingRequestWhenMade("1970s").Ptr().generateNormalizedEnum():         struct{}{},
+	CreateDraftListingRequestWhenMade("1960s").Ptr().generateNormalizedEnum():         struct{}{},
+	CreateDraftListingRequestWhenMade("1950s").Ptr().generateNormalizedEnum():         struct{}{},
+	CreateDraftListingRequestWhenMade("1940s").Ptr().generateNormalizedEnum():         struct{}{},
+	CreateDraftListingRequestWhenMade("1930s").Ptr().generateNormalizedEnum():         struct{}{},
+	CreateDraftListingRequestWhenMade("1920s").Ptr().generateNormalizedEnum():         struct{}{},
+	CreateDraftListingRequestWhenMade("1910s").Ptr().generateNormalizedEnum():         struct{}{},
+	CreateDraftListingRequestWhenMade("1900s").Ptr().generateNormalizedEnum():         struct{}{},
+	CreateDraftListingRequestWhenMade("1800s").Ptr().generateNormalizedEnum():         struct{}{},
+	CreateDraftListingRequestWhenMade("1700s").Ptr().generateNormalizedEnum():         struct{}{},
+	CreateDraftListingRequestWhenMade("before_1700").Ptr().generateNormalizedEnum():   struct{}{},
 }
 
-func (v *CreateDraftListingRequestWhenMade) generateNormalizedEnum() string {
+func (v *CreateDraftListingRequestWhenMade) generateNormalizedEnum() any {
 	if v == nil {
-		return ""
+		return nil
 	}
 
 	s := *v
+	if reflect.TypeOf(*v).Kind() != reflect.String {
+		return s
+	}
+
 	var sb strings.Builder
 	sb.Grow(len(s) + 2)     // Preallocate memory for efficiency
 	var prevUnderscore bool // Track consecutive underscores
@@ -125,20 +142,9 @@ func (v *CreateDraftListingRequestWhenMade) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := CreateDraftListingRequestWhenMade(value)
-	if enumTypeValue.isStringLike() {
-		for _, existing := range AllowedCreateDraftListingRequestWhenMadeEnumValues {
-			if existing.generateNormalizedEnum() == enumTypeValue.generateNormalizedEnum() {
-				*v = enumTypeValue
-				return nil
-			}
-		}
-	} else {
-		for _, existing := range AllowedCreateDraftListingRequestWhenMadeEnumValues {
-			if existing == enumTypeValue {
-				*v = enumTypeValue
-				return nil
-			}
-		}
+	if _, existing := AllowedCreateDraftListingRequestWhenMadeEnumValuesValidator[enumTypeValue.Ptr().generateNormalizedEnum()]; existing {
+		*v = enumTypeValue
+		return nil
 	}
 
 	return fmt.Errorf("%+v is not a valid CreateDraftListingRequestWhenMade", value)
