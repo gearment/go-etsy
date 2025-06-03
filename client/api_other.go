@@ -206,13 +206,13 @@ func (a *OtherAPIService) PingExecute(r OtherAPIPingRequest) (*Pong, *http.Respo
 }
 
 type OtherAPITokenScopesRequest struct {
-	ctx        context.Context
-	ApiService OtherAPI
-	token      *string
+	ctx                context.Context
+	ApiService         OtherAPI
+	tokenScopesRequest *TokenScopesRequest
 }
 
-func (r OtherAPITokenScopesRequest) Token(token string) OtherAPITokenScopesRequest {
-	r.token = &token
+func (r OtherAPITokenScopesRequest) TokenScopesRequest(tokenScopesRequest TokenScopesRequest) OtherAPITokenScopesRequest {
+	r.tokenScopesRequest = &tokenScopesRequest
 	return r
 }
 
@@ -258,12 +258,9 @@ func (a *OtherAPIService) TokenScopesExecute(r OtherAPITokenScopesRequest) (map[
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.token == nil {
-		return localVarReturnValue, nil, reportError("token is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -279,7 +276,8 @@ func (a *OtherAPIService) TokenScopesExecute(r OtherAPITokenScopesRequest) (map[
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "token", r.token, "", "")
+	// body params
+	localVarPostBody = r.tokenScopesRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

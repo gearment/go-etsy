@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateReceiptShipment
 
-> ShopReceipt CreateReceiptShipment(ctx, shopId, receiptId).TrackingCode(trackingCode).CarrierName(carrierName).SendBcc(sendBcc).NoteToBuyer(noteToBuyer).Execute()
+> ShopReceipt CreateReceiptShipment(ctx, shopId, receiptId).CreateReceiptShipmentRequest(createReceiptShipmentRequest).Execute()
 
 
 
@@ -34,14 +34,11 @@ import (
 func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	receiptId := int64(56) // int64 | The receipt to submit tracking for.
-	trackingCode := "trackingCode_example" // string | The tracking code for this receipt. (optional)
-	carrierName := "carrierName_example" // string | The carrier name for this receipt. (optional)
-	sendBcc := true // bool | If true, the shipping notification will be sent to the seller as well (optional)
-	noteToBuyer := "noteToBuyer_example" // string | Message to include in notification to the buyer. (optional)
+	createReceiptShipmentRequest := *openapiclient.NewCreateReceiptShipmentRequest() // CreateReceiptShipmentRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopReceiptAPI.CreateReceiptShipment(context.Background(), shopId, receiptId).TrackingCode(trackingCode).CarrierName(carrierName).SendBcc(sendBcc).NoteToBuyer(noteToBuyer).Execute()
+	resp, r, err := apiClient.ShopReceiptAPI.CreateReceiptShipment(context.Background(), shopId, receiptId).CreateReceiptShipmentRequest(createReceiptShipmentRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopReceiptAPI.CreateReceiptShipment``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -69,10 +66,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **trackingCode** | **string** | The tracking code for this receipt. | 
- **carrierName** | **string** | The carrier name for this receipt. | 
- **sendBcc** | **bool** | If true, the shipping notification will be sent to the seller as well | 
- **noteToBuyer** | **string** | Message to include in notification to the buyer. | 
+ **createReceiptShipmentRequest** | [**CreateReceiptShipmentRequest**](CreateReceiptShipmentRequest.md) |  | 
 
 ### Return type
 
@@ -84,7 +78,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -261,7 +255,7 @@ Name | Type | Description  | Notes
 
 ## UpdateShopReceipt
 
-> ShopReceipt UpdateShopReceipt(ctx, shopId, receiptId).WasShipped(wasShipped).WasPaid(wasPaid).Execute()
+> ShopReceipt UpdateShopReceipt(ctx, shopId, receiptId).UpdateShopReceiptRequest(updateShopReceiptRequest).Execute()
 
 
 
@@ -282,12 +276,11 @@ import (
 func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	receiptId := int64(56) // int64 | The numeric ID for the [receipt](/documentation/reference#tag/Shop-Receipt) associated to this transaction.
-	wasShipped := true // bool | When `true`, returns receipts where the seller shipped the product(s) in this receipt. When `false`, returns receipts where shipment has not been set. (optional)
-	wasPaid := true // bool | When `true`, returns receipts where the seller has recieved payment for the receipt. When `false`, returns receipts where payment has not been received. (optional)
+	updateShopReceiptRequest := *openapiclient.NewUpdateShopReceiptRequest() // UpdateShopReceiptRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopReceiptAPI.UpdateShopReceipt(context.Background(), shopId, receiptId).WasShipped(wasShipped).WasPaid(wasPaid).Execute()
+	resp, r, err := apiClient.ShopReceiptAPI.UpdateShopReceipt(context.Background(), shopId, receiptId).UpdateShopReceiptRequest(updateShopReceiptRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopReceiptAPI.UpdateShopReceipt``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -315,8 +308,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **wasShipped** | **bool** | When &#x60;true&#x60;, returns receipts where the seller shipped the product(s) in this receipt. When &#x60;false&#x60;, returns receipts where shipment has not been set. | 
- **wasPaid** | **bool** | When &#x60;true&#x60;, returns receipts where the seller has recieved payment for the receipt. When &#x60;false&#x60;, returns receipts where payment has not been received. | 
+ **updateShopReceiptRequest** | [**UpdateShopReceiptRequest**](UpdateShopReceiptRequest.md) |  | 
 
 ### Return type
 
@@ -328,7 +320,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

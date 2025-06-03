@@ -131,22 +131,14 @@ type ShopReturnPolicyAPI interface {
 type ShopReturnPolicyAPIService service
 
 type ShopReturnPolicyAPIConsolidateShopReturnPoliciesRequest struct {
-	ctx                       context.Context
-	ApiService                ShopReturnPolicyAPI
-	shopId                    int64
-	sourceReturnPolicyId      *int64
-	destinationReturnPolicyId *int64
+	ctx                                  context.Context
+	ApiService                           ShopReturnPolicyAPI
+	shopId                               int64
+	consolidateShopReturnPoliciesRequest *ConsolidateShopReturnPoliciesRequest
 }
 
-// The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies).
-func (r ShopReturnPolicyAPIConsolidateShopReturnPoliciesRequest) SourceReturnPolicyId(sourceReturnPolicyId int64) ShopReturnPolicyAPIConsolidateShopReturnPoliciesRequest {
-	r.sourceReturnPolicyId = &sourceReturnPolicyId
-	return r
-}
-
-// The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies).
-func (r ShopReturnPolicyAPIConsolidateShopReturnPoliciesRequest) DestinationReturnPolicyId(destinationReturnPolicyId int64) ShopReturnPolicyAPIConsolidateShopReturnPoliciesRequest {
-	r.destinationReturnPolicyId = &destinationReturnPolicyId
+func (r ShopReturnPolicyAPIConsolidateShopReturnPoliciesRequest) ConsolidateShopReturnPoliciesRequest(consolidateShopReturnPoliciesRequest ConsolidateShopReturnPoliciesRequest) ShopReturnPolicyAPIConsolidateShopReturnPoliciesRequest {
+	r.consolidateShopReturnPoliciesRequest = &consolidateShopReturnPoliciesRequest
 	return r
 }
 
@@ -198,21 +190,9 @@ func (a *ShopReturnPolicyAPIService) ConsolidateShopReturnPoliciesExecute(r Shop
 	if r.shopId < 1 {
 		return localVarReturnValue, nil, reportError("shopId must be greater than 1")
 	}
-	if r.sourceReturnPolicyId == nil {
-		return localVarReturnValue, nil, reportError("sourceReturnPolicyId is required and must be specified")
-	}
-	if *r.sourceReturnPolicyId < 1 {
-		return localVarReturnValue, nil, reportError("sourceReturnPolicyId must be greater than 1")
-	}
-	if r.destinationReturnPolicyId == nil {
-		return localVarReturnValue, nil, reportError("destinationReturnPolicyId is required and must be specified")
-	}
-	if *r.destinationReturnPolicyId < 1 {
-		return localVarReturnValue, nil, reportError("destinationReturnPolicyId must be greater than 1")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -228,8 +208,8 @@ func (a *ShopReturnPolicyAPIService) ConsolidateShopReturnPoliciesExecute(r Shop
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "source_return_policy_id", r.sourceReturnPolicyId, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "destination_return_policy_id", r.destinationReturnPolicyId, "", "")
+	// body params
+	localVarPostBody = r.consolidateShopReturnPoliciesRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -336,27 +316,14 @@ func (a *ShopReturnPolicyAPIService) ConsolidateShopReturnPoliciesExecute(r Shop
 }
 
 type ShopReturnPolicyAPICreateShopReturnPolicyRequest struct {
-	ctx              context.Context
-	ApiService       ShopReturnPolicyAPI
-	shopId           int64
-	acceptsReturns   *bool
-	acceptsExchanges *bool
-	returnDeadline   *int64
+	ctx                           context.Context
+	ApiService                    ShopReturnPolicyAPI
+	shopId                        int64
+	createShopReturnPolicyRequest *CreateShopReturnPolicyRequest
 }
 
-func (r ShopReturnPolicyAPICreateShopReturnPolicyRequest) AcceptsReturns(acceptsReturns bool) ShopReturnPolicyAPICreateShopReturnPolicyRequest {
-	r.acceptsReturns = &acceptsReturns
-	return r
-}
-
-func (r ShopReturnPolicyAPICreateShopReturnPolicyRequest) AcceptsExchanges(acceptsExchanges bool) ShopReturnPolicyAPICreateShopReturnPolicyRequest {
-	r.acceptsExchanges = &acceptsExchanges
-	return r
-}
-
-// The deadline for the Return Policy, measured in days. The value must be one of the following: [7, 14, 21, 30, 45, 60, 90].
-func (r ShopReturnPolicyAPICreateShopReturnPolicyRequest) ReturnDeadline(returnDeadline int64) ShopReturnPolicyAPICreateShopReturnPolicyRequest {
-	r.returnDeadline = &returnDeadline
+func (r ShopReturnPolicyAPICreateShopReturnPolicyRequest) CreateShopReturnPolicyRequest(createShopReturnPolicyRequest CreateShopReturnPolicyRequest) ShopReturnPolicyAPICreateShopReturnPolicyRequest {
+	r.createShopReturnPolicyRequest = &createShopReturnPolicyRequest
 	return r
 }
 
@@ -408,15 +375,9 @@ func (a *ShopReturnPolicyAPIService) CreateShopReturnPolicyExecute(r ShopReturnP
 	if r.shopId < 1 {
 		return localVarReturnValue, nil, reportError("shopId must be greater than 1")
 	}
-	if r.acceptsReturns == nil {
-		return localVarReturnValue, nil, reportError("acceptsReturns is required and must be specified")
-	}
-	if r.acceptsExchanges == nil {
-		return localVarReturnValue, nil, reportError("acceptsExchanges is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -432,11 +393,8 @@ func (a *ShopReturnPolicyAPIService) CreateShopReturnPolicyExecute(r ShopReturnP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "accepts_returns", r.acceptsReturns, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "accepts_exchanges", r.acceptsExchanges, "", "")
-	if r.returnDeadline != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "return_deadline", r.returnDeadline, "", "")
-	}
+	// body params
+	localVarPostBody = r.createShopReturnPolicyRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1032,28 +990,15 @@ func (a *ShopReturnPolicyAPIService) GetShopReturnPolicyExecute(r ShopReturnPoli
 }
 
 type ShopReturnPolicyAPIUpdateShopReturnPolicyRequest struct {
-	ctx              context.Context
-	ApiService       ShopReturnPolicyAPI
-	shopId           int64
-	returnPolicyId   int64
-	acceptsReturns   *bool
-	acceptsExchanges *bool
-	returnDeadline   *int64
+	ctx                           context.Context
+	ApiService                    ShopReturnPolicyAPI
+	shopId                        int64
+	returnPolicyId                int64
+	createShopReturnPolicyRequest *CreateShopReturnPolicyRequest
 }
 
-func (r ShopReturnPolicyAPIUpdateShopReturnPolicyRequest) AcceptsReturns(acceptsReturns bool) ShopReturnPolicyAPIUpdateShopReturnPolicyRequest {
-	r.acceptsReturns = &acceptsReturns
-	return r
-}
-
-func (r ShopReturnPolicyAPIUpdateShopReturnPolicyRequest) AcceptsExchanges(acceptsExchanges bool) ShopReturnPolicyAPIUpdateShopReturnPolicyRequest {
-	r.acceptsExchanges = &acceptsExchanges
-	return r
-}
-
-// The deadline for the Return Policy, measured in days. The value must be one of the following: [7, 14, 21, 30, 45, 60, 90].
-func (r ShopReturnPolicyAPIUpdateShopReturnPolicyRequest) ReturnDeadline(returnDeadline int64) ShopReturnPolicyAPIUpdateShopReturnPolicyRequest {
-	r.returnDeadline = &returnDeadline
+func (r ShopReturnPolicyAPIUpdateShopReturnPolicyRequest) CreateShopReturnPolicyRequest(createShopReturnPolicyRequest CreateShopReturnPolicyRequest) ShopReturnPolicyAPIUpdateShopReturnPolicyRequest {
+	r.createShopReturnPolicyRequest = &createShopReturnPolicyRequest
 	return r
 }
 
@@ -1111,15 +1056,9 @@ func (a *ShopReturnPolicyAPIService) UpdateShopReturnPolicyExecute(r ShopReturnP
 	if r.returnPolicyId < 1 {
 		return localVarReturnValue, nil, reportError("returnPolicyId must be greater than 1")
 	}
-	if r.acceptsReturns == nil {
-		return localVarReturnValue, nil, reportError("acceptsReturns is required and must be specified")
-	}
-	if r.acceptsExchanges == nil {
-		return localVarReturnValue, nil, reportError("acceptsExchanges is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1135,11 +1074,8 @@ func (a *ShopReturnPolicyAPIService) UpdateShopReturnPolicyExecute(r ShopReturnP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "accepts_returns", r.acceptsReturns, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "accepts_exchanges", r.acceptsExchanges, "", "")
-	if r.returnDeadline != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "return_deadline", r.returnDeadline, "", "")
-	}
+	// body params
+	localVarPostBody = r.createShopReturnPolicyRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

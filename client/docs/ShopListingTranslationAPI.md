@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 ## CreateListingTranslation
 
-> ListingTranslation CreateListingTranslation(ctx, shopId, listingId, language).Title(title).Description(description).Tags(tags).Execute()
+> ListingTranslation CreateListingTranslation(ctx, shopId, listingId, language).UpdateListingTranslationRequest(updateListingTranslationRequest).Execute()
 
 
 
@@ -34,13 +34,11 @@ func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
 	language := "language_example" // string | The IETF language tag for the language of this translation. Ex: `de`, `en`, `es`, `fr`, `it`, `ja`, `nl`, `pl`, `pt`.
-	title := "title_example" // string | The title of the Listing of this Translation.
-	description := "description_example" // string | The description of the Listing of this Translation.
-	tags := []string{"Inner_example"} // []string | The tags of the Listing of this Translation. (optional)
+	updateListingTranslationRequest := *openapiclient.NewUpdateListingTranslationRequest("Title_example", "Description_example") // UpdateListingTranslationRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopListingTranslationAPI.CreateListingTranslation(context.Background(), shopId, listingId, language).Title(title).Description(description).Tags(tags).Execute()
+	resp, r, err := apiClient.ShopListingTranslationAPI.CreateListingTranslation(context.Background(), shopId, listingId, language).UpdateListingTranslationRequest(updateListingTranslationRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopListingTranslationAPI.CreateListingTranslation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -70,9 +68,7 @@ Name | Type | Description  | Notes
 
 
 
- **title** | **string** | The title of the Listing of this Translation. | 
- **description** | **string** | The description of the Listing of this Translation. | 
- **tags** | **[]string** | The tags of the Listing of this Translation. | 
+ **updateListingTranslationRequest** | [**UpdateListingTranslationRequest**](UpdateListingTranslationRequest.md) |  | 
 
 ### Return type
 
@@ -84,7 +80,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -170,7 +166,7 @@ Name | Type | Description  | Notes
 
 ## UpdateListingTranslation
 
-> ListingTranslation UpdateListingTranslation(ctx, shopId, listingId, language).Title(title).Description(description).Tags(tags).Execute()
+> ListingTranslation UpdateListingTranslation(ctx, shopId, listingId, language).UpdateListingTranslationRequest(updateListingTranslationRequest).Execute()
 
 
 
@@ -192,13 +188,11 @@ func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
 	language := "language_example" // string | The IETF language tag for the language of this translation. Ex: `de`, `en`, `es`, `fr`, `it`, `ja`, `nl`, `pl`, `pt`.
-	title := "title_example" // string | The title of the Listing of this Translation.
-	description := "description_example" // string | The description of the Listing of this Translation.
-	tags := []string{"Inner_example"} // []string | The tags of the Listing of this Translation. (optional)
+	updateListingTranslationRequest := *openapiclient.NewUpdateListingTranslationRequest("Title_example", "Description_example") // UpdateListingTranslationRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopListingTranslationAPI.UpdateListingTranslation(context.Background(), shopId, listingId, language).Title(title).Description(description).Tags(tags).Execute()
+	resp, r, err := apiClient.ShopListingTranslationAPI.UpdateListingTranslation(context.Background(), shopId, listingId, language).UpdateListingTranslationRequest(updateListingTranslationRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopListingTranslationAPI.UpdateListingTranslation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -228,9 +222,7 @@ Name | Type | Description  | Notes
 
 
 
- **title** | **string** | The title of the Listing of this Translation. | 
- **description** | **string** | The description of the Listing of this Translation. | 
- **tags** | **[]string** | The tags of the Listing of this Translation. | 
+ **updateListingTranslationRequest** | [**UpdateListingTranslationRequest**](UpdateListingTranslationRequest.md) |  | 
 
 ### Return type
 
@@ -242,7 +234,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

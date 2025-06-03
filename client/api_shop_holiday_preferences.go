@@ -217,16 +217,15 @@ func (a *ShopHolidayPreferencesAPIService) GetHolidayPreferencesExecute(r ShopHo
 }
 
 type ShopHolidayPreferencesAPIUpdateHolidayPreferencesRequest struct {
-	ctx        context.Context
-	ApiService ShopHolidayPreferencesAPI
-	shopId     int64
-	holidayId  UpdateHolidayPreferencesHolidayIdParameter
-	isWorking  *bool
+	ctx                             context.Context
+	ApiService                      ShopHolidayPreferencesAPI
+	shopId                          int64
+	holidayId                       UpdateHolidayPreferencesHolidayIdParameter
+	updateHolidayPreferencesRequest *UpdateHolidayPreferencesRequest
 }
 
-// A boolean value for whether the shop will process orders on a particular holiday.
-func (r ShopHolidayPreferencesAPIUpdateHolidayPreferencesRequest) IsWorking(isWorking bool) ShopHolidayPreferencesAPIUpdateHolidayPreferencesRequest {
-	r.isWorking = &isWorking
+func (r ShopHolidayPreferencesAPIUpdateHolidayPreferencesRequest) UpdateHolidayPreferencesRequest(updateHolidayPreferencesRequest UpdateHolidayPreferencesRequest) ShopHolidayPreferencesAPIUpdateHolidayPreferencesRequest {
+	r.updateHolidayPreferencesRequest = &updateHolidayPreferencesRequest
 	return r
 }
 
@@ -281,12 +280,9 @@ func (a *ShopHolidayPreferencesAPIService) UpdateHolidayPreferencesExecute(r Sho
 	if r.shopId < 1 {
 		return localVarReturnValue, nil, reportError("shopId must be greater than 1")
 	}
-	if r.isWorking == nil {
-		return localVarReturnValue, nil, reportError("isWorking is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -302,7 +298,8 @@ func (a *ShopHolidayPreferencesAPIService) UpdateHolidayPreferencesExecute(r Sho
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "is_working", r.isWorking, "", "")
+	// body params
+	localVarPostBody = r.updateHolidayPreferencesRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

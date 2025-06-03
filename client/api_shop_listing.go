@@ -323,227 +323,14 @@ type ShopListingAPI interface {
 type ShopListingAPIService service
 
 type ShopListingAPICreateDraftListingRequest struct {
-	ctx                         context.Context
-	ApiService                  ShopListingAPI
-	shopId                      int64
-	quantity                    *int64
-	title                       *string
-	description                 *string
-	price                       *float32
-	whoMade                     *CreateDraftListingRequestWhoMade
-	whenMade                    *CreateDraftListingRequestWhenMade
-	taxonomyId                  *int64
-	shippingProfileId           *int64
-	returnPolicyId              *int64
-	materials                   *[]string
-	shopSectionId               *int64
-	processingMin               *int64
-	processingMax               *int64
-	tags                        *[]string
-	styles                      *[]string
-	itemWeight                  *float32
-	itemLength                  *float32
-	itemWidth                   *float32
-	itemHeight                  *float32
-	itemWeightUnit              *CreateDraftListingRequestItemWeightUnit
-	itemDimensionsUnit          *CreateDraftListingRequestItemDimensionsUnit
-	isPersonalizable            *bool
-	personalizationIsRequired   *bool
-	personalizationCharCountMax *int64
-	personalizationInstructions *string
-	productionPartnerIds        *[]int64
-	imageIds                    *[]int64
-	isSupply                    *bool
-	isCustomizable              *bool
-	shouldAutoRenew             *bool
-	isTaxable                   *bool
-	type_                       *CreateDraftListingRequestType
+	ctx                       context.Context
+	ApiService                ShopListingAPI
+	shopId                    int64
+	createDraftListingRequest *CreateDraftListingRequest
 }
 
-// The positive non-zero number of products available for purchase in the listing. Note: The listing quantity is the sum of available offering quantities. You can request the quantities for individual offerings from the ListingInventory resource using the [getListingInventory](/documentation/reference#operation/getListingInventory) endpoint.
-func (r ShopListingAPICreateDraftListingRequest) Quantity(quantity int64) ShopListingAPICreateDraftListingRequest {
-	r.quantity = &quantity
-	return r
-}
-
-// The listing&#39;s title string. When creating or updating a listing, valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{P}\\\\p{Sm}\\\\p{Zs}™©®]/u) You can only use the %, :, &amp; and + characters once each.
-func (r ShopListingAPICreateDraftListingRequest) Title(title string) ShopListingAPICreateDraftListingRequest {
-	r.title = &title
-	return r
-}
-
-// A description string of the product for sale in the listing.
-func (r ShopListingAPICreateDraftListingRequest) Description(description string) ShopListingAPICreateDraftListingRequest {
-	r.description = &description
-	return r
-}
-
-// The positive non-zero price of the product. (Sold product listings are private) Note: The price is the minimum possible price. The [&#x60;getListingInventory&#x60;](/documentation/reference/#operation/getListingInventory) method requests exact prices for available offerings.
-func (r ShopListingAPICreateDraftListingRequest) Price(price float32) ShopListingAPICreateDraftListingRequest {
-	r.price = &price
-	return r
-}
-
-func (r ShopListingAPICreateDraftListingRequest) WhoMade(whoMade CreateDraftListingRequestWhoMade) ShopListingAPICreateDraftListingRequest {
-	r.whoMade = &whoMade
-	return r
-}
-
-func (r ShopListingAPICreateDraftListingRequest) WhenMade(whenMade CreateDraftListingRequestWhenMade) ShopListingAPICreateDraftListingRequest {
-	r.whenMade = &whenMade
-	return r
-}
-
-// The numerical taxonomy ID of the listing. See [SellerTaxonomy](/documentation/reference#tag/SellerTaxonomy) and [BuyerTaxonomy](/documentation/reference#tag/BuyerTaxonomy) for more information.
-func (r ShopListingAPICreateDraftListingRequest) TaxonomyId(taxonomyId int64) ShopListingAPICreateDraftListingRequest {
-	r.taxonomyId = &taxonomyId
-	return r
-}
-
-// The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is &#x60;physical&#x60;.
-func (r ShopListingAPICreateDraftListingRequest) ShippingProfileId(shippingProfileId int64) ShopListingAPICreateDraftListingRequest {
-	r.shippingProfileId = &shippingProfileId
-	return r
-}
-
-// The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies).
-func (r ShopListingAPICreateDraftListingRequest) ReturnPolicyId(returnPolicyId int64) ShopListingAPICreateDraftListingRequest {
-	r.returnPolicyId = &returnPolicyId
-	return r
-}
-
-// A list of material strings for materials used in the product. Valid materials strings contain only letters, numbers, and whitespace characters. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}]/u) Default value is null.
-func (r ShopListingAPICreateDraftListingRequest) Materials(materials []string) ShopListingAPICreateDraftListingRequest {
-	r.materials = &materials
-	return r
-}
-
-// The numeric ID of the [shop section](/documentation/reference#tag/Shop-Section) for this listing. Default value is null.
-func (r ShopListingAPICreateDraftListingRequest) ShopSectionId(shopSectionId int64) ShopListingAPICreateDraftListingRequest {
-	r.shopSectionId = &shopSectionId
-	return r
-}
-
-// The minimum number of days required to process this listing. Default value is null.
-func (r ShopListingAPICreateDraftListingRequest) ProcessingMin(processingMin int64) ShopListingAPICreateDraftListingRequest {
-	r.processingMin = &processingMin
-	return r
-}
-
-// The maximum number of days required to process this listing. Default value is null.
-func (r ShopListingAPICreateDraftListingRequest) ProcessingMax(processingMax int64) ShopListingAPICreateDraftListingRequest {
-	r.processingMax = &processingMax
-	return r
-}
-
-// A comma-separated list of tag strings for the listing. When creating or updating a listing, valid tag strings contain only letters, numbers, whitespace characters, -, &#39;, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}\\\\-&#39;™©®]/u) Default value is null.
-func (r ShopListingAPICreateDraftListingRequest) Tags(tags []string) ShopListingAPICreateDraftListingRequest {
-	r.tags = &tags
-	return r
-}
-
-// An array of style strings for this listing, each of which is free-form text string such as \\\&quot;Formal\\\&quot;, or \\\&quot;Steampunk\\\&quot;. When creating or updating a listing, the listing may have up to two styles. Valid style strings contain only letters, numbers, and whitespace characters. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}]/u) Default value is null.
-func (r ShopListingAPICreateDraftListingRequest) Styles(styles []string) ShopListingAPICreateDraftListingRequest {
-	r.styles = &styles
-	return r
-}
-
-// The numeric weight of the product measured in units set in &#39;item_weight_unit&#39;. Default value is null. If set, the value must be greater than 0.
-func (r ShopListingAPICreateDraftListingRequest) ItemWeight(itemWeight float32) ShopListingAPICreateDraftListingRequest {
-	r.itemWeight = &itemWeight
-	return r
-}
-
-// The numeric length of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0.
-func (r ShopListingAPICreateDraftListingRequest) ItemLength(itemLength float32) ShopListingAPICreateDraftListingRequest {
-	r.itemLength = &itemLength
-	return r
-}
-
-// The numeric width of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0.
-func (r ShopListingAPICreateDraftListingRequest) ItemWidth(itemWidth float32) ShopListingAPICreateDraftListingRequest {
-	r.itemWidth = &itemWidth
-	return r
-}
-
-// The numeric height of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0.
-func (r ShopListingAPICreateDraftListingRequest) ItemHeight(itemHeight float32) ShopListingAPICreateDraftListingRequest {
-	r.itemHeight = &itemHeight
-	return r
-}
-
-func (r ShopListingAPICreateDraftListingRequest) ItemWeightUnit(itemWeightUnit CreateDraftListingRequestItemWeightUnit) ShopListingAPICreateDraftListingRequest {
-	r.itemWeightUnit = &itemWeightUnit
-	return r
-}
-
-func (r ShopListingAPICreateDraftListingRequest) ItemDimensionsUnit(itemDimensionsUnit CreateDraftListingRequestItemDimensionsUnit) ShopListingAPICreateDraftListingRequest {
-	r.itemDimensionsUnit = &itemDimensionsUnit
-	return r
-}
-
-// When true, this listing is personalizable. The default value is null.
-func (r ShopListingAPICreateDraftListingRequest) IsPersonalizable(isPersonalizable bool) ShopListingAPICreateDraftListingRequest {
-	r.isPersonalizable = &isPersonalizable
-	return r
-}
-
-// When true, this listing requires personalization. The default value is null. Will only change if is_personalizable is &#39;true&#39;.
-func (r ShopListingAPICreateDraftListingRequest) PersonalizationIsRequired(personalizationIsRequired bool) ShopListingAPICreateDraftListingRequest {
-	r.personalizationIsRequired = &personalizationIsRequired
-	return r
-}
-
-// This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is &#39;true&#39;.
-func (r ShopListingAPICreateDraftListingRequest) PersonalizationCharCountMax(personalizationCharCountMax int64) ShopListingAPICreateDraftListingRequest {
-	r.personalizationCharCountMax = &personalizationCharCountMax
-	return r
-}
-
-// A string representing instructions for the buyer to enter the personalization. Will only change if is_personalizable is &#39;true&#39;.
-func (r ShopListingAPICreateDraftListingRequest) PersonalizationInstructions(personalizationInstructions string) ShopListingAPICreateDraftListingRequest {
-	r.personalizationInstructions = &personalizationInstructions
-	return r
-}
-
-// An array of unique IDs of production partner ids.
-func (r ShopListingAPICreateDraftListingRequest) ProductionPartnerIds(productionPartnerIds []int64) ShopListingAPICreateDraftListingRequest {
-	r.productionPartnerIds = &productionPartnerIds
-	return r
-}
-
-// An array of numeric image IDs of the images in a listing, which can include up to 10 images.
-func (r ShopListingAPICreateDraftListingRequest) ImageIds(imageIds []int64) ShopListingAPICreateDraftListingRequest {
-	r.imageIds = &imageIds
-	return r
-}
-
-// When true, tags the listing as a supply product, else indicates that it&#39;s a finished product. Helps buyers locate the listing under the Supplies heading. Requires &#39;who_made&#39; and &#39;when_made&#39;.
-func (r ShopListingAPICreateDraftListingRequest) IsSupply(isSupply bool) ShopListingAPICreateDraftListingRequest {
-	r.isSupply = &isSupply
-	return r
-}
-
-// When true, a buyer may contact the seller for a customized order. The default value is true when a shop accepts custom orders. Does not apply to shops that do not accept custom orders.
-func (r ShopListingAPICreateDraftListingRequest) IsCustomizable(isCustomizable bool) ShopListingAPICreateDraftListingRequest {
-	r.isCustomizable = &isCustomizable
-	return r
-}
-
-// When true, renews a listing for four months upon expiration.
-func (r ShopListingAPICreateDraftListingRequest) ShouldAutoRenew(shouldAutoRenew bool) ShopListingAPICreateDraftListingRequest {
-	r.shouldAutoRenew = &shouldAutoRenew
-	return r
-}
-
-// When true, applicable [shop](/documentation/reference#tag/Shop) tax rates apply to this listing at checkout.
-func (r ShopListingAPICreateDraftListingRequest) IsTaxable(isTaxable bool) ShopListingAPICreateDraftListingRequest {
-	r.isTaxable = &isTaxable
-	return r
-}
-
-func (r ShopListingAPICreateDraftListingRequest) Type_(type_ CreateDraftListingRequestType) ShopListingAPICreateDraftListingRequest {
-	r.type_ = &type_
+func (r ShopListingAPICreateDraftListingRequest) CreateDraftListingRequest(createDraftListingRequest CreateDraftListingRequest) ShopListingAPICreateDraftListingRequest {
+	r.createDraftListingRequest = &createDraftListingRequest
 	return r
 }
 
@@ -595,33 +382,9 @@ func (a *ShopListingAPIService) CreateDraftListingExecute(r ShopListingAPICreate
 	if r.shopId < 1 {
 		return localVarReturnValue, nil, reportError("shopId must be greater than 1")
 	}
-	if r.quantity == nil {
-		return localVarReturnValue, nil, reportError("quantity is required and must be specified")
-	}
-	if r.title == nil {
-		return localVarReturnValue, nil, reportError("title is required and must be specified")
-	}
-	if r.description == nil {
-		return localVarReturnValue, nil, reportError("description is required and must be specified")
-	}
-	if r.price == nil {
-		return localVarReturnValue, nil, reportError("price is required and must be specified")
-	}
-	if r.whoMade == nil {
-		return localVarReturnValue, nil, reportError("whoMade is required and must be specified")
-	}
-	if r.whenMade == nil {
-		return localVarReturnValue, nil, reportError("whenMade is required and must be specified")
-	}
-	if r.taxonomyId == nil {
-		return localVarReturnValue, nil, reportError("taxonomyId is required and must be specified")
-	}
-	if *r.taxonomyId < 1 {
-		return localVarReturnValue, nil, reportError("taxonomyId must be greater than 1")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -637,88 +400,8 @@ func (a *ShopListingAPIService) CreateDraftListingExecute(r ShopListingAPICreate
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "quantity", r.quantity, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "title", r.title, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "description", r.description, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "price", r.price, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "who_made", r.whoMade, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "when_made", r.whenMade, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "taxonomy_id", r.taxonomyId, "", "")
-	if r.shippingProfileId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "shipping_profile_id", r.shippingProfileId, "", "")
-	}
-	if r.returnPolicyId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "return_policy_id", r.returnPolicyId, "", "")
-	}
-	if r.materials != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "materials", r.materials, "", "csv")
-	}
-	if r.shopSectionId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "shop_section_id", r.shopSectionId, "", "")
-	}
-	if r.processingMin != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "processing_min", r.processingMin, "", "")
-	}
-	if r.processingMax != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "processing_max", r.processingMax, "", "")
-	}
-	if r.tags != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "tags", r.tags, "", "csv")
-	}
-	if r.styles != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "styles", r.styles, "", "csv")
-	}
-	if r.itemWeight != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_weight", r.itemWeight, "", "")
-	}
-	if r.itemLength != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_length", r.itemLength, "", "")
-	}
-	if r.itemWidth != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_width", r.itemWidth, "", "")
-	}
-	if r.itemHeight != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_height", r.itemHeight, "", "")
-	}
-	if r.itemWeightUnit != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_weight_unit", r.itemWeightUnit, "", "")
-	}
-	if r.itemDimensionsUnit != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_dimensions_unit", r.itemDimensionsUnit, "", "")
-	}
-	if r.isPersonalizable != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "is_personalizable", r.isPersonalizable, "", "")
-	}
-	if r.personalizationIsRequired != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "personalization_is_required", r.personalizationIsRequired, "", "")
-	}
-	if r.personalizationCharCountMax != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "personalization_char_count_max", r.personalizationCharCountMax, "", "")
-	}
-	if r.personalizationInstructions != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "personalization_instructions", r.personalizationInstructions, "", "")
-	}
-	if r.productionPartnerIds != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "production_partner_ids", r.productionPartnerIds, "", "csv")
-	}
-	if r.imageIds != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "image_ids", r.imageIds, "", "csv")
-	}
-	if r.isSupply != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "is_supply", r.isSupply, "", "")
-	}
-	if r.isCustomizable != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "is_customizable", r.isCustomizable, "", "")
-	}
-	if r.shouldAutoRenew != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "should_auto_renew", r.shouldAutoRenew, "", "")
-	}
-	if r.isTaxable != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "is_taxable", r.isTaxable, "", "")
-	}
-	if r.type_ != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "type", r.type_, "", "")
-	}
+	// body params
+	localVarPostBody = r.createDraftListingRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3382,199 +3065,15 @@ func (a *ShopListingAPIService) GetListingsByShopSectionIdExecute(r ShopListingA
 }
 
 type ShopListingAPIUpdateListingRequest struct {
-	ctx                         context.Context
-	ApiService                  ShopListingAPI
-	shopId                      int64
-	listingId                   int64
-	imageIds                    *[]int64
-	title                       *string
-	description                 *string
-	materials                   *[]string
-	shouldAutoRenew             *bool
-	shippingProfileId           *int64
-	returnPolicyId              *int64
-	shopSectionId               *int64
-	itemWeight                  *float32
-	itemLength                  *float32
-	itemWidth                   *float32
-	itemHeight                  *float32
-	itemWeightUnit              *UpdateListingRequestItemWeightUnit
-	itemDimensionsUnit          *UpdateListingRequestItemDimensionsUnit
-	isTaxable                   *bool
-	taxonomyId                  *int64
-	tags                        *[]string
-	whoMade                     *CreateDraftListingRequestWhoMade
-	whenMade                    *CreateDraftListingRequestWhenMade
-	featuredRank                *int64
-	isPersonalizable            *bool
-	personalizationIsRequired   *bool
-	personalizationCharCountMax *int64
-	personalizationInstructions *string
-	state                       *UpdateListingDeprecatedRequestState
-	isSupply                    *bool
-	productionPartnerIds        *[]int64
-	type_                       *UpdateListingDeprecatedRequestType
+	ctx                  context.Context
+	ApiService           ShopListingAPI
+	shopId               int64
+	listingId            int64
+	updateListingRequest *UpdateListingRequest
 }
 
-// An array of numeric image IDs of the images in a listing, which can include up to 10 images.
-func (r ShopListingAPIUpdateListingRequest) ImageIds(imageIds []int64) ShopListingAPIUpdateListingRequest {
-	r.imageIds = &imageIds
-	return r
-}
-
-// The listing&#39;s title string. When creating or updating a listing, valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{P}\\\\p{Sm}\\\\p{Zs}™©®]/u) You can only use the %, :, &amp; and + characters once each.
-func (r ShopListingAPIUpdateListingRequest) Title(title string) ShopListingAPIUpdateListingRequest {
-	r.title = &title
-	return r
-}
-
-// A description string of the product for sale in the listing.
-func (r ShopListingAPIUpdateListingRequest) Description(description string) ShopListingAPIUpdateListingRequest {
-	r.description = &description
-	return r
-}
-
-// A list of material strings for materials used in the product. Valid materials strings contain only letters, numbers, and whitespace characters. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}]/u) Default value is null.
-func (r ShopListingAPIUpdateListingRequest) Materials(materials []string) ShopListingAPIUpdateListingRequest {
-	r.materials = &materials
-	return r
-}
-
-// When true, renews a listing for four months upon expiration.
-func (r ShopListingAPIUpdateListingRequest) ShouldAutoRenew(shouldAutoRenew bool) ShopListingAPIUpdateListingRequest {
-	r.shouldAutoRenew = &shouldAutoRenew
-	return r
-}
-
-// The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is &#x60;physical&#x60;.
-func (r ShopListingAPIUpdateListingRequest) ShippingProfileId(shippingProfileId int64) ShopListingAPIUpdateListingRequest {
-	r.shippingProfileId = &shippingProfileId
-	return r
-}
-
-// The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies). Required for active physical listings. This requirement does not apply to listings of EU-based shops.
-func (r ShopListingAPIUpdateListingRequest) ReturnPolicyId(returnPolicyId int64) ShopListingAPIUpdateListingRequest {
-	r.returnPolicyId = &returnPolicyId
-	return r
-}
-
-// The numeric ID of the [shop section](/documentation/reference#tag/Shop-Section) for this listing. Default value is null.
-func (r ShopListingAPIUpdateListingRequest) ShopSectionId(shopSectionId int64) ShopListingAPIUpdateListingRequest {
-	r.shopSectionId = &shopSectionId
-	return r
-}
-
-// The numeric weight of the product measured in units set in &#39;item_weight_unit&#39;. Default value is null. If set, the value must be greater than 0.
-func (r ShopListingAPIUpdateListingRequest) ItemWeight(itemWeight float32) ShopListingAPIUpdateListingRequest {
-	r.itemWeight = &itemWeight
-	return r
-}
-
-// The numeric length of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0.
-func (r ShopListingAPIUpdateListingRequest) ItemLength(itemLength float32) ShopListingAPIUpdateListingRequest {
-	r.itemLength = &itemLength
-	return r
-}
-
-// The numeric width of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0.
-func (r ShopListingAPIUpdateListingRequest) ItemWidth(itemWidth float32) ShopListingAPIUpdateListingRequest {
-	r.itemWidth = &itemWidth
-	return r
-}
-
-// The numeric height of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0.
-func (r ShopListingAPIUpdateListingRequest) ItemHeight(itemHeight float32) ShopListingAPIUpdateListingRequest {
-	r.itemHeight = &itemHeight
-	return r
-}
-
-func (r ShopListingAPIUpdateListingRequest) ItemWeightUnit(itemWeightUnit UpdateListingRequestItemWeightUnit) ShopListingAPIUpdateListingRequest {
-	r.itemWeightUnit = &itemWeightUnit
-	return r
-}
-
-func (r ShopListingAPIUpdateListingRequest) ItemDimensionsUnit(itemDimensionsUnit UpdateListingRequestItemDimensionsUnit) ShopListingAPIUpdateListingRequest {
-	r.itemDimensionsUnit = &itemDimensionsUnit
-	return r
-}
-
-// When true, applicable [shop](/documentation/reference#tag/Shop) tax rates apply to this listing at checkout.
-func (r ShopListingAPIUpdateListingRequest) IsTaxable(isTaxable bool) ShopListingAPIUpdateListingRequest {
-	r.isTaxable = &isTaxable
-	return r
-}
-
-// The numerical taxonomy ID of the listing. See [SellerTaxonomy](/documentation/reference#tag/SellerTaxonomy) and [BuyerTaxonomy](/documentation/reference#tag/BuyerTaxonomy) for more information.
-func (r ShopListingAPIUpdateListingRequest) TaxonomyId(taxonomyId int64) ShopListingAPIUpdateListingRequest {
-	r.taxonomyId = &taxonomyId
-	return r
-}
-
-// A comma-separated list of tag strings for the listing. When creating or updating a listing, valid tag strings contain only letters, numbers, whitespace characters, -, &#39;, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}\\\\-&#39;™©®]/u) Default value is null.
-func (r ShopListingAPIUpdateListingRequest) Tags(tags []string) ShopListingAPIUpdateListingRequest {
-	r.tags = &tags
-	return r
-}
-
-func (r ShopListingAPIUpdateListingRequest) WhoMade(whoMade CreateDraftListingRequestWhoMade) ShopListingAPIUpdateListingRequest {
-	r.whoMade = &whoMade
-	return r
-}
-
-func (r ShopListingAPIUpdateListingRequest) WhenMade(whenMade CreateDraftListingRequestWhenMade) ShopListingAPIUpdateListingRequest {
-	r.whenMade = &whenMade
-	return r
-}
-
-// The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop’s home page.
-func (r ShopListingAPIUpdateListingRequest) FeaturedRank(featuredRank int64) ShopListingAPIUpdateListingRequest {
-	r.featuredRank = &featuredRank
-	return r
-}
-
-// When true, this listing is personalizable. The default value is null.
-func (r ShopListingAPIUpdateListingRequest) IsPersonalizable(isPersonalizable bool) ShopListingAPIUpdateListingRequest {
-	r.isPersonalizable = &isPersonalizable
-	return r
-}
-
-// When true, this listing requires personalization. The default value is null. Will only change if is_personalizable is &#39;true&#39;.
-func (r ShopListingAPIUpdateListingRequest) PersonalizationIsRequired(personalizationIsRequired bool) ShopListingAPIUpdateListingRequest {
-	r.personalizationIsRequired = &personalizationIsRequired
-	return r
-}
-
-// This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is &#39;true&#39;.
-func (r ShopListingAPIUpdateListingRequest) PersonalizationCharCountMax(personalizationCharCountMax int64) ShopListingAPIUpdateListingRequest {
-	r.personalizationCharCountMax = &personalizationCharCountMax
-	return r
-}
-
-// A string representing instructions for the buyer to enter the personalization. Will only change if is_personalizable is &#39;true&#39;.
-func (r ShopListingAPIUpdateListingRequest) PersonalizationInstructions(personalizationInstructions string) ShopListingAPIUpdateListingRequest {
-	r.personalizationInstructions = &personalizationInstructions
-	return r
-}
-
-func (r ShopListingAPIUpdateListingRequest) State(state UpdateListingDeprecatedRequestState) ShopListingAPIUpdateListingRequest {
-	r.state = &state
-	return r
-}
-
-// When true, tags the listing as a supply product, else indicates that it&#39;s a finished product. Helps buyers locate the listing under the Supplies heading. Requires &#39;who_made&#39; and &#39;when_made&#39;.
-func (r ShopListingAPIUpdateListingRequest) IsSupply(isSupply bool) ShopListingAPIUpdateListingRequest {
-	r.isSupply = &isSupply
-	return r
-}
-
-// An array of unique IDs of production partner ids.
-func (r ShopListingAPIUpdateListingRequest) ProductionPartnerIds(productionPartnerIds []int64) ShopListingAPIUpdateListingRequest {
-	r.productionPartnerIds = &productionPartnerIds
-	return r
-}
-
-func (r ShopListingAPIUpdateListingRequest) Type_(type_ UpdateListingDeprecatedRequestType) ShopListingAPIUpdateListingRequest {
-	r.type_ = &type_
+func (r ShopListingAPIUpdateListingRequest) UpdateListingRequest(updateListingRequest UpdateListingRequest) ShopListingAPIUpdateListingRequest {
+	r.updateListingRequest = &updateListingRequest
 	return r
 }
 
@@ -3634,7 +3133,7 @@ func (a *ShopListingAPIService) UpdateListingExecute(r ShopListingAPIUpdateListi
 	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -3650,90 +3149,8 @@ func (a *ShopListingAPIService) UpdateListingExecute(r ShopListingAPIUpdateListi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.imageIds != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "image_ids", r.imageIds, "", "csv")
-	}
-	if r.title != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "title", r.title, "", "")
-	}
-	if r.description != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "description", r.description, "", "")
-	}
-	if r.materials != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "materials", r.materials, "", "csv")
-	}
-	if r.shouldAutoRenew != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "should_auto_renew", r.shouldAutoRenew, "", "")
-	}
-	if r.shippingProfileId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "shipping_profile_id", r.shippingProfileId, "", "")
-	}
-	if r.returnPolicyId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "return_policy_id", r.returnPolicyId, "", "")
-	}
-	if r.shopSectionId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "shop_section_id", r.shopSectionId, "", "")
-	}
-	if r.itemWeight != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_weight", r.itemWeight, "", "")
-	}
-	if r.itemLength != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_length", r.itemLength, "", "")
-	}
-	if r.itemWidth != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_width", r.itemWidth, "", "")
-	}
-	if r.itemHeight != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_height", r.itemHeight, "", "")
-	}
-	if r.itemWeightUnit != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_weight_unit", r.itemWeightUnit, "", "")
-	}
-	if r.itemDimensionsUnit != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_dimensions_unit", r.itemDimensionsUnit, "", "")
-	}
-	if r.isTaxable != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "is_taxable", r.isTaxable, "", "")
-	}
-	if r.taxonomyId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "taxonomy_id", r.taxonomyId, "", "")
-	}
-	if r.tags != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "tags", r.tags, "", "csv")
-	}
-	if r.whoMade != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "who_made", r.whoMade, "", "")
-	}
-	if r.whenMade != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "when_made", r.whenMade, "", "")
-	}
-	if r.featuredRank != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "featured_rank", r.featuredRank, "", "")
-	}
-	if r.isPersonalizable != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "is_personalizable", r.isPersonalizable, "", "")
-	}
-	if r.personalizationIsRequired != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "personalization_is_required", r.personalizationIsRequired, "", "")
-	}
-	if r.personalizationCharCountMax != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "personalization_char_count_max", r.personalizationCharCountMax, "", "")
-	}
-	if r.personalizationInstructions != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "personalization_instructions", r.personalizationInstructions, "", "")
-	}
-	if r.state != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "state", r.state, "", "")
-	}
-	if r.isSupply != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "is_supply", r.isSupply, "", "")
-	}
-	if r.productionPartnerIds != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "production_partner_ids", r.productionPartnerIds, "", "csv")
-	}
-	if r.type_ != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "type", r.type_, "", "")
-	}
+	// body params
+	localVarPostBody = r.updateListingRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3851,192 +3268,15 @@ func (a *ShopListingAPIService) UpdateListingExecute(r ShopListingAPIUpdateListi
 }
 
 type ShopListingAPIUpdateListingDeprecatedRequest struct {
-	ctx                         context.Context
-	ApiService                  ShopListingAPI
-	shopId                      int64
-	listingId                   int64
-	imageIds                    *[]int64
-	title                       *string
-	description                 *string
-	materials                   *[]string
-	shouldAutoRenew             *bool
-	shippingProfileId           *int64
-	shopSectionId               *int64
-	itemWeight                  *float32
-	itemLength                  *float32
-	itemWidth                   *float32
-	itemHeight                  *float32
-	itemWeightUnit              *CreateDraftListingRequestItemWeightUnit
-	itemDimensionsUnit          *CreateDraftListingRequestItemDimensionsUnit
-	isTaxable                   *bool
-	taxonomyId                  *int64
-	tags                        *[]string
-	whoMade                     *CreateDraftListingRequestWhoMade
-	whenMade                    *CreateDraftListingRequestWhenMade
-	featuredRank                *int64
-	isPersonalizable            *bool
-	personalizationIsRequired   *bool
-	personalizationCharCountMax *int64
-	personalizationInstructions *string
-	state                       *UpdateListingDeprecatedRequestState
-	isSupply                    *bool
-	productionPartnerIds        *[]int64
-	type_                       *UpdateListingDeprecatedRequestType
+	ctx                            context.Context
+	ApiService                     ShopListingAPI
+	shopId                         int64
+	listingId                      int64
+	updateListingDeprecatedRequest *UpdateListingDeprecatedRequest
 }
 
-// An array of numeric image IDs of the images in a listing, which can include up to 10 images.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) ImageIds(imageIds []int64) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.imageIds = &imageIds
-	return r
-}
-
-// The listing&#39;s title string. When creating or updating a listing, valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{P}\\\\p{Sm}\\\\p{Zs}™©®]/u) You can only use the %, :, &amp; and + characters once each.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) Title(title string) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.title = &title
-	return r
-}
-
-// A description string of the product for sale in the listing.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) Description(description string) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.description = &description
-	return r
-}
-
-// A list of material strings for materials used in the product. Valid materials strings contain only letters, numbers, and whitespace characters. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}]/u) Default value is null.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) Materials(materials []string) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.materials = &materials
-	return r
-}
-
-// When true, renews a listing for four months upon expiration.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) ShouldAutoRenew(shouldAutoRenew bool) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.shouldAutoRenew = &shouldAutoRenew
-	return r
-}
-
-// The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is &#x60;physical&#x60;.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) ShippingProfileId(shippingProfileId int64) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.shippingProfileId = &shippingProfileId
-	return r
-}
-
-// The numeric ID of the [shop section](/documentation/reference#tag/Shop-Section) for this listing. Default value is null.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) ShopSectionId(shopSectionId int64) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.shopSectionId = &shopSectionId
-	return r
-}
-
-// The numeric weight of the product measured in units set in &#39;item_weight_unit&#39;. Default value is null. If set, the value must be greater than 0.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) ItemWeight(itemWeight float32) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.itemWeight = &itemWeight
-	return r
-}
-
-// The numeric length of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) ItemLength(itemLength float32) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.itemLength = &itemLength
-	return r
-}
-
-// The numeric width of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) ItemWidth(itemWidth float32) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.itemWidth = &itemWidth
-	return r
-}
-
-// The numeric height of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) ItemHeight(itemHeight float32) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.itemHeight = &itemHeight
-	return r
-}
-
-func (r ShopListingAPIUpdateListingDeprecatedRequest) ItemWeightUnit(itemWeightUnit CreateDraftListingRequestItemWeightUnit) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.itemWeightUnit = &itemWeightUnit
-	return r
-}
-
-func (r ShopListingAPIUpdateListingDeprecatedRequest) ItemDimensionsUnit(itemDimensionsUnit CreateDraftListingRequestItemDimensionsUnit) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.itemDimensionsUnit = &itemDimensionsUnit
-	return r
-}
-
-// When true, applicable [shop](/documentation/reference#tag/Shop) tax rates apply to this listing at checkout.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) IsTaxable(isTaxable bool) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.isTaxable = &isTaxable
-	return r
-}
-
-// The numerical taxonomy ID of the listing. See [SellerTaxonomy](/documentation/reference#tag/SellerTaxonomy) and [BuyerTaxonomy](/documentation/reference#tag/BuyerTaxonomy) for more information.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) TaxonomyId(taxonomyId int64) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.taxonomyId = &taxonomyId
-	return r
-}
-
-// A comma-separated list of tag strings for the listing. When creating or updating a listing, valid tag strings contain only letters, numbers, whitespace characters, -, &#39;, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}\\\\-&#39;™©®]/u) Default value is null.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) Tags(tags []string) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.tags = &tags
-	return r
-}
-
-func (r ShopListingAPIUpdateListingDeprecatedRequest) WhoMade(whoMade CreateDraftListingRequestWhoMade) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.whoMade = &whoMade
-	return r
-}
-
-func (r ShopListingAPIUpdateListingDeprecatedRequest) WhenMade(whenMade CreateDraftListingRequestWhenMade) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.whenMade = &whenMade
-	return r
-}
-
-// The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop’s home page.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) FeaturedRank(featuredRank int64) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.featuredRank = &featuredRank
-	return r
-}
-
-// When true, this listing is personalizable. The default value is null.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) IsPersonalizable(isPersonalizable bool) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.isPersonalizable = &isPersonalizable
-	return r
-}
-
-// When true, this listing requires personalization. The default value is null. Will only change if is_personalizable is &#39;true&#39;.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) PersonalizationIsRequired(personalizationIsRequired bool) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.personalizationIsRequired = &personalizationIsRequired
-	return r
-}
-
-// This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is &#39;true&#39;.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) PersonalizationCharCountMax(personalizationCharCountMax int64) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.personalizationCharCountMax = &personalizationCharCountMax
-	return r
-}
-
-// A string representing instructions for the buyer to enter the personalization. Will only change if is_personalizable is &#39;true&#39;.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) PersonalizationInstructions(personalizationInstructions string) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.personalizationInstructions = &personalizationInstructions
-	return r
-}
-
-func (r ShopListingAPIUpdateListingDeprecatedRequest) State(state UpdateListingDeprecatedRequestState) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.state = &state
-	return r
-}
-
-// When true, tags the listing as a supply product, else indicates that it&#39;s a finished product. Helps buyers locate the listing under the Supplies heading. Requires &#39;who_made&#39; and &#39;when_made&#39;.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) IsSupply(isSupply bool) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.isSupply = &isSupply
-	return r
-}
-
-// An array of unique IDs of production partner ids.
-func (r ShopListingAPIUpdateListingDeprecatedRequest) ProductionPartnerIds(productionPartnerIds []int64) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.productionPartnerIds = &productionPartnerIds
-	return r
-}
-
-func (r ShopListingAPIUpdateListingDeprecatedRequest) Type_(type_ UpdateListingDeprecatedRequestType) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.type_ = &type_
+func (r ShopListingAPIUpdateListingDeprecatedRequest) UpdateListingDeprecatedRequest(updateListingDeprecatedRequest UpdateListingDeprecatedRequest) ShopListingAPIUpdateListingDeprecatedRequest {
+	r.updateListingDeprecatedRequest = &updateListingDeprecatedRequest
 	return r
 }
 
@@ -4096,7 +3336,7 @@ func (a *ShopListingAPIService) UpdateListingDeprecatedExecute(r ShopListingAPIU
 	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -4112,87 +3352,8 @@ func (a *ShopListingAPIService) UpdateListingDeprecatedExecute(r ShopListingAPIU
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.imageIds != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "image_ids", r.imageIds, "", "csv")
-	}
-	if r.title != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "title", r.title, "", "")
-	}
-	if r.description != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "description", r.description, "", "")
-	}
-	if r.materials != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "materials", r.materials, "", "csv")
-	}
-	if r.shouldAutoRenew != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "should_auto_renew", r.shouldAutoRenew, "", "")
-	}
-	if r.shippingProfileId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "shipping_profile_id", r.shippingProfileId, "", "")
-	}
-	if r.shopSectionId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "shop_section_id", r.shopSectionId, "", "")
-	}
-	if r.itemWeight != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_weight", r.itemWeight, "", "")
-	}
-	if r.itemLength != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_length", r.itemLength, "", "")
-	}
-	if r.itemWidth != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_width", r.itemWidth, "", "")
-	}
-	if r.itemHeight != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_height", r.itemHeight, "", "")
-	}
-	if r.itemWeightUnit != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_weight_unit", r.itemWeightUnit, "", "")
-	}
-	if r.itemDimensionsUnit != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "item_dimensions_unit", r.itemDimensionsUnit, "", "")
-	}
-	if r.isTaxable != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "is_taxable", r.isTaxable, "", "")
-	}
-	if r.taxonomyId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "taxonomy_id", r.taxonomyId, "", "")
-	}
-	if r.tags != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "tags", r.tags, "", "csv")
-	}
-	if r.whoMade != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "who_made", r.whoMade, "", "")
-	}
-	if r.whenMade != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "when_made", r.whenMade, "", "")
-	}
-	if r.featuredRank != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "featured_rank", r.featuredRank, "", "")
-	}
-	if r.isPersonalizable != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "is_personalizable", r.isPersonalizable, "", "")
-	}
-	if r.personalizationIsRequired != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "personalization_is_required", r.personalizationIsRequired, "", "")
-	}
-	if r.personalizationCharCountMax != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "personalization_char_count_max", r.personalizationCharCountMax, "", "")
-	}
-	if r.personalizationInstructions != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "personalization_instructions", r.personalizationInstructions, "", "")
-	}
-	if r.state != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "state", r.state, "", "")
-	}
-	if r.isSupply != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "is_supply", r.isSupply, "", "")
-	}
-	if r.productionPartnerIds != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "production_partner_ids", r.productionPartnerIds, "", "csv")
-	}
-	if r.type_ != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "type", r.type_, "", "")
-	}
+	// body params
+	localVarPostBody = r.updateListingDeprecatedRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4310,31 +3471,16 @@ func (a *ShopListingAPIService) UpdateListingDeprecatedExecute(r ShopListingAPIU
 }
 
 type ShopListingAPIUpdateListingPropertyRequest struct {
-	ctx        context.Context
-	ApiService ShopListingAPI
-	shopId     int64
-	listingId  int64
-	propertyId int64
-	valueIds   *[]int64
-	values     *[]string
-	scaleId    *int64
+	ctx                          context.Context
+	ApiService                   ShopListingAPI
+	shopId                       int64
+	listingId                    int64
+	propertyId                   int64
+	updateListingPropertyRequest *UpdateListingPropertyRequest
 }
 
-// An array of unique IDs of multiple Etsy [listing property](/documentation/reference#operation/getListingProperties) values. For example, if your listing offers different sizes of a product, then the value ID list contains value IDs for each size.
-func (r ShopListingAPIUpdateListingPropertyRequest) ValueIds(valueIds []int64) ShopListingAPIUpdateListingPropertyRequest {
-	r.valueIds = &valueIds
-	return r
-}
-
-// An array of value strings for multiple Etsy [listing property](/documentation/reference#operation/getListingProperties) values. For example, if your listing offers different colored products, then the values array contains the color strings for each color. Note: parenthesis characters (&#x60;(&#x60; and &#x60;)&#x60;) are not allowed.
-func (r ShopListingAPIUpdateListingPropertyRequest) Values(values []string) ShopListingAPIUpdateListingPropertyRequest {
-	r.values = &values
-	return r
-}
-
-// The numeric ID of a single Etsy.com measurement scale. For example, for shoe size, there are three &#x60;scale_id&#x60;s available - &#x60;UK&#x60;, &#x60;US/Canada&#x60;, and &#x60;EU&#x60;, where &#x60;US/Canada&#x60; has &#x60;scale_id&#x60; 19.
-func (r ShopListingAPIUpdateListingPropertyRequest) ScaleId(scaleId int64) ShopListingAPIUpdateListingPropertyRequest {
-	r.scaleId = &scaleId
+func (r ShopListingAPIUpdateListingPropertyRequest) UpdateListingPropertyRequest(updateListingPropertyRequest UpdateListingPropertyRequest) ShopListingAPIUpdateListingPropertyRequest {
+	r.updateListingPropertyRequest = &updateListingPropertyRequest
 	return r
 }
 
@@ -4398,15 +3544,9 @@ func (a *ShopListingAPIService) UpdateListingPropertyExecute(r ShopListingAPIUpd
 	if r.propertyId < 1 {
 		return localVarReturnValue, nil, reportError("propertyId must be greater than 1")
 	}
-	if r.valueIds == nil {
-		return localVarReturnValue, nil, reportError("valueIds is required and must be specified")
-	}
-	if r.values == nil {
-		return localVarReturnValue, nil, reportError("values is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -4422,11 +3562,8 @@ func (a *ShopListingAPIService) UpdateListingPropertyExecute(r ShopListingAPIUpd
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "value_ids", r.valueIds, "", "csv")
-	parameterAddToHeaderOrQuery(localVarFormParams, "values", r.values, "", "csv")
-	if r.scaleId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "scale_id", r.scaleId, "", "")
-	}
+	// body params
+	localVarPostBody = r.updateListingPropertyRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

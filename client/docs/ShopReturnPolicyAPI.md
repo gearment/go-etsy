@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## ConsolidateShopReturnPolicies
 
-> ShopReturnPolicy ConsolidateShopReturnPolicies(ctx, shopId).SourceReturnPolicyId(sourceReturnPolicyId).DestinationReturnPolicyId(destinationReturnPolicyId).Execute()
+> ShopReturnPolicy ConsolidateShopReturnPolicies(ctx, shopId).ConsolidateShopReturnPoliciesRequest(consolidateShopReturnPoliciesRequest).Execute()
 
 
 
@@ -35,12 +35,11 @@ import (
 
 func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	sourceReturnPolicyId := int64(56) // int64 | The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies).
-	destinationReturnPolicyId := int64(56) // int64 | The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies).
+	consolidateShopReturnPoliciesRequest := *openapiclient.NewConsolidateShopReturnPoliciesRequest(int64(123), int64(123)) // ConsolidateShopReturnPoliciesRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopReturnPolicyAPI.ConsolidateShopReturnPolicies(context.Background(), shopId).SourceReturnPolicyId(sourceReturnPolicyId).DestinationReturnPolicyId(destinationReturnPolicyId).Execute()
+	resp, r, err := apiClient.ShopReturnPolicyAPI.ConsolidateShopReturnPolicies(context.Background(), shopId).ConsolidateShopReturnPoliciesRequest(consolidateShopReturnPoliciesRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopReturnPolicyAPI.ConsolidateShopReturnPolicies``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -66,8 +65,7 @@ Other parameters are passed through a pointer to a apiConsolidateShopReturnPolic
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **sourceReturnPolicyId** | **int64** | The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies). | 
- **destinationReturnPolicyId** | **int64** | The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies). | 
+ **consolidateShopReturnPoliciesRequest** | [**ConsolidateShopReturnPoliciesRequest**](ConsolidateShopReturnPoliciesRequest.md) |  | 
 
 ### Return type
 
@@ -79,7 +77,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -89,7 +87,7 @@ Name | Type | Description  | Notes
 
 ## CreateShopReturnPolicy
 
-> ShopReturnPolicy CreateShopReturnPolicy(ctx, shopId).AcceptsReturns(acceptsReturns).AcceptsExchanges(acceptsExchanges).ReturnDeadline(returnDeadline).Execute()
+> ShopReturnPolicy CreateShopReturnPolicy(ctx, shopId).CreateShopReturnPolicyRequest(createShopReturnPolicyRequest).Execute()
 
 
 
@@ -109,13 +107,11 @@ import (
 
 func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	acceptsReturns := true // bool | 
-	acceptsExchanges := true // bool | 
-	returnDeadline := int64(56) // int64 | The deadline for the Return Policy, measured in days. The value must be one of the following: [7, 14, 21, 30, 45, 60, 90]. (optional)
+	createShopReturnPolicyRequest := *openapiclient.NewCreateShopReturnPolicyRequest(false, false) // CreateShopReturnPolicyRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopReturnPolicyAPI.CreateShopReturnPolicy(context.Background(), shopId).AcceptsReturns(acceptsReturns).AcceptsExchanges(acceptsExchanges).ReturnDeadline(returnDeadline).Execute()
+	resp, r, err := apiClient.ShopReturnPolicyAPI.CreateShopReturnPolicy(context.Background(), shopId).CreateShopReturnPolicyRequest(createShopReturnPolicyRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopReturnPolicyAPI.CreateShopReturnPolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -141,9 +137,7 @@ Other parameters are passed through a pointer to a apiCreateShopReturnPolicyRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **acceptsReturns** | **bool** |  | 
- **acceptsExchanges** | **bool** |  | 
- **returnDeadline** | **int64** | The deadline for the Return Policy, measured in days. The value must be one of the following: [7, 14, 21, 30, 45, 60, 90]. | 
+ **createShopReturnPolicyRequest** | [**CreateShopReturnPolicyRequest**](CreateShopReturnPolicyRequest.md) |  | 
 
 ### Return type
 
@@ -155,7 +149,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -379,7 +373,7 @@ Name | Type | Description  | Notes
 
 ## UpdateShopReturnPolicy
 
-> ShopReturnPolicy UpdateShopReturnPolicy(ctx, shopId, returnPolicyId).AcceptsReturns(acceptsReturns).AcceptsExchanges(acceptsExchanges).ReturnDeadline(returnDeadline).Execute()
+> ShopReturnPolicy UpdateShopReturnPolicy(ctx, shopId, returnPolicyId).CreateShopReturnPolicyRequest(createShopReturnPolicyRequest).Execute()
 
 
 
@@ -400,13 +394,11 @@ import (
 func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	returnPolicyId := int64(56) // int64 | The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies).
-	acceptsReturns := true // bool | 
-	acceptsExchanges := true // bool | 
-	returnDeadline := int64(56) // int64 | The deadline for the Return Policy, measured in days. The value must be one of the following: [7, 14, 21, 30, 45, 60, 90]. (optional)
+	createShopReturnPolicyRequest := *openapiclient.NewCreateShopReturnPolicyRequest(false, false) // CreateShopReturnPolicyRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopReturnPolicyAPI.UpdateShopReturnPolicy(context.Background(), shopId, returnPolicyId).AcceptsReturns(acceptsReturns).AcceptsExchanges(acceptsExchanges).ReturnDeadline(returnDeadline).Execute()
+	resp, r, err := apiClient.ShopReturnPolicyAPI.UpdateShopReturnPolicy(context.Background(), shopId, returnPolicyId).CreateShopReturnPolicyRequest(createShopReturnPolicyRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopReturnPolicyAPI.UpdateShopReturnPolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -434,9 +426,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **acceptsReturns** | **bool** |  | 
- **acceptsExchanges** | **bool** |  | 
- **returnDeadline** | **int64** | The deadline for the Return Policy, measured in days. The value must be one of the following: [7, 14, 21, 30, 45, 60, 90]. | 
+ **createShopReturnPolicyRequest** | [**CreateShopReturnPolicyRequest**](CreateShopReturnPolicyRequest.md) |  | 
 
 ### Return type
 
@@ -448,7 +438,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

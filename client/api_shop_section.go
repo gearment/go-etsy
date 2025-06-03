@@ -114,15 +114,14 @@ type ShopSectionAPI interface {
 type ShopSectionAPIService service
 
 type ShopSectionAPICreateShopSectionRequest struct {
-	ctx        context.Context
-	ApiService ShopSectionAPI
-	shopId     int64
-	title      *string
+	ctx                      context.Context
+	ApiService               ShopSectionAPI
+	shopId                   int64
+	createShopSectionRequest *CreateShopSectionRequest
 }
 
-// The title string for a shop section.
-func (r ShopSectionAPICreateShopSectionRequest) Title(title string) ShopSectionAPICreateShopSectionRequest {
-	r.title = &title
+func (r ShopSectionAPICreateShopSectionRequest) CreateShopSectionRequest(createShopSectionRequest CreateShopSectionRequest) ShopSectionAPICreateShopSectionRequest {
+	r.createShopSectionRequest = &createShopSectionRequest
 	return r
 }
 
@@ -174,12 +173,9 @@ func (a *ShopSectionAPIService) CreateShopSectionExecute(r ShopSectionAPICreateS
 	if r.shopId < 1 {
 		return localVarReturnValue, nil, reportError("shopId must be greater than 1")
 	}
-	if r.title == nil {
-		return localVarReturnValue, nil, reportError("title is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -195,7 +191,8 @@ func (a *ShopSectionAPIService) CreateShopSectionExecute(r ShopSectionAPICreateS
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "title", r.title, "", "")
+	// body params
+	localVarPostBody = r.createShopSectionRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -791,16 +788,15 @@ func (a *ShopSectionAPIService) GetShopSectionsExecute(r ShopSectionAPIGetShopSe
 }
 
 type ShopSectionAPIUpdateShopSectionRequest struct {
-	ctx           context.Context
-	ApiService    ShopSectionAPI
-	shopId        int64
-	shopSectionId int64
-	title         *string
+	ctx                      context.Context
+	ApiService               ShopSectionAPI
+	shopId                   int64
+	shopSectionId            int64
+	createShopSectionRequest *CreateShopSectionRequest
 }
 
-// The title string for a shop section.
-func (r ShopSectionAPIUpdateShopSectionRequest) Title(title string) ShopSectionAPIUpdateShopSectionRequest {
-	r.title = &title
+func (r ShopSectionAPIUpdateShopSectionRequest) CreateShopSectionRequest(createShopSectionRequest CreateShopSectionRequest) ShopSectionAPIUpdateShopSectionRequest {
+	r.createShopSectionRequest = &createShopSectionRequest
 	return r
 }
 
@@ -858,12 +854,9 @@ func (a *ShopSectionAPIService) UpdateShopSectionExecute(r ShopSectionAPIUpdateS
 	if r.shopSectionId < 1 {
 		return localVarReturnValue, nil, reportError("shopSectionId must be greater than 1")
 	}
-	if r.title == nil {
-		return localVarReturnValue, nil, reportError("title is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -879,7 +872,8 @@ func (a *ShopSectionAPIService) UpdateShopSectionExecute(r ShopSectionAPIUpdateS
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "title", r.title, "", "")
+	// body params
+	localVarPostBody = r.createShopSectionRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

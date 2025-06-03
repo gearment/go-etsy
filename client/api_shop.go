@@ -578,43 +578,14 @@ func (a *ShopAPIService) GetShopByOwnerUserIdExecute(r ShopAPIGetShopByOwnerUser
 }
 
 type ShopAPIUpdateShopRequest struct {
-	ctx                context.Context
-	ApiService         ShopAPI
-	shopId             int64
-	title              *string
-	announcement       *string
-	saleMessage        *string
-	digitalSaleMessage *string
-	policyAdditional   *string
+	ctx               context.Context
+	ApiService        ShopAPI
+	shopId            int64
+	updateShopRequest *UpdateShopRequest
 }
 
-// A brief heading string for the shop&#39;s main page.
-func (r ShopAPIUpdateShopRequest) Title(title string) ShopAPIUpdateShopRequest {
-	r.title = &title
-	return r
-}
-
-// An announcement string to buyers that displays on the shop&#39;s homepage.
-func (r ShopAPIUpdateShopRequest) Announcement(announcement string) ShopAPIUpdateShopRequest {
-	r.announcement = &announcement
-	return r
-}
-
-// A message string sent to users who complete a purchase from this shop.
-func (r ShopAPIUpdateShopRequest) SaleMessage(saleMessage string) ShopAPIUpdateShopRequest {
-	r.saleMessage = &saleMessage
-	return r
-}
-
-// A message string sent to users who purchase a digital item from this shop.
-func (r ShopAPIUpdateShopRequest) DigitalSaleMessage(digitalSaleMessage string) ShopAPIUpdateShopRequest {
-	r.digitalSaleMessage = &digitalSaleMessage
-	return r
-}
-
-// The shop&#39;s additional policies string (may be blank).
-func (r ShopAPIUpdateShopRequest) PolicyAdditional(policyAdditional string) ShopAPIUpdateShopRequest {
-	r.policyAdditional = &policyAdditional
+func (r ShopAPIUpdateShopRequest) UpdateShopRequest(updateShopRequest UpdateShopRequest) ShopAPIUpdateShopRequest {
+	r.updateShopRequest = &updateShopRequest
 	return r
 }
 
@@ -668,7 +639,7 @@ func (a *ShopAPIService) UpdateShopExecute(r ShopAPIUpdateShopRequest) (*Shop, *
 	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -684,21 +655,8 @@ func (a *ShopAPIService) UpdateShopExecute(r ShopAPIUpdateShopRequest) (*Shop, *
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.title != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "title", r.title, "", "")
-	}
-	if r.announcement != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "announcement", r.announcement, "", "")
-	}
-	if r.saleMessage != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "sale_message", r.saleMessage, "", "")
-	}
-	if r.digitalSaleMessage != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "digital_sale_message", r.digitalSaleMessage, "", "")
-	}
-	if r.policyAdditional != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "policy_additional", r.policyAdditional, "", "")
-	}
+	// body params
+	localVarPostBody = r.updateShopRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

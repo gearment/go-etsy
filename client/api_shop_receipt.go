@@ -98,37 +98,15 @@ type ShopReceiptAPI interface {
 type ShopReceiptAPIService service
 
 type ShopReceiptAPICreateReceiptShipmentRequest struct {
-	ctx          context.Context
-	ApiService   ShopReceiptAPI
-	shopId       int64
-	receiptId    int64
-	trackingCode *string
-	carrierName  *string
-	sendBcc      *bool
-	noteToBuyer  *string
+	ctx                          context.Context
+	ApiService                   ShopReceiptAPI
+	shopId                       int64
+	receiptId                    int64
+	createReceiptShipmentRequest *CreateReceiptShipmentRequest
 }
 
-// The tracking code for this receipt.
-func (r ShopReceiptAPICreateReceiptShipmentRequest) TrackingCode(trackingCode string) ShopReceiptAPICreateReceiptShipmentRequest {
-	r.trackingCode = &trackingCode
-	return r
-}
-
-// The carrier name for this receipt.
-func (r ShopReceiptAPICreateReceiptShipmentRequest) CarrierName(carrierName string) ShopReceiptAPICreateReceiptShipmentRequest {
-	r.carrierName = &carrierName
-	return r
-}
-
-// If true, the shipping notification will be sent to the seller as well
-func (r ShopReceiptAPICreateReceiptShipmentRequest) SendBcc(sendBcc bool) ShopReceiptAPICreateReceiptShipmentRequest {
-	r.sendBcc = &sendBcc
-	return r
-}
-
-// Message to include in notification to the buyer.
-func (r ShopReceiptAPICreateReceiptShipmentRequest) NoteToBuyer(noteToBuyer string) ShopReceiptAPICreateReceiptShipmentRequest {
-	r.noteToBuyer = &noteToBuyer
+func (r ShopReceiptAPICreateReceiptShipmentRequest) CreateReceiptShipmentRequest(createReceiptShipmentRequest CreateReceiptShipmentRequest) ShopReceiptAPICreateReceiptShipmentRequest {
+	r.createReceiptShipmentRequest = &createReceiptShipmentRequest
 	return r
 }
 
@@ -188,7 +166,7 @@ func (a *ShopReceiptAPIService) CreateReceiptShipmentExecute(r ShopReceiptAPICre
 	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -204,18 +182,8 @@ func (a *ShopReceiptAPIService) CreateReceiptShipmentExecute(r ShopReceiptAPICre
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.trackingCode != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "tracking_code", r.trackingCode, "", "")
-	}
-	if r.carrierName != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "carrier_name", r.carrierName, "", "")
-	}
-	if r.sendBcc != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "send_bcc", r.sendBcc, "", "")
-	}
-	if r.noteToBuyer != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "note_to_buyer", r.noteToBuyer, "", "")
-	}
+	// body params
+	localVarPostBody = r.createReceiptShipmentRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -826,23 +794,15 @@ func (a *ShopReceiptAPIService) GetShopReceiptsExecute(r ShopReceiptAPIGetShopRe
 }
 
 type ShopReceiptAPIUpdateShopReceiptRequest struct {
-	ctx        context.Context
-	ApiService ShopReceiptAPI
-	shopId     int64
-	receiptId  int64
-	wasShipped *bool
-	wasPaid    *bool
+	ctx                      context.Context
+	ApiService               ShopReceiptAPI
+	shopId                   int64
+	receiptId                int64
+	updateShopReceiptRequest *UpdateShopReceiptRequest
 }
 
-// When &#x60;true&#x60;, returns receipts where the seller shipped the product(s) in this receipt. When &#x60;false&#x60;, returns receipts where shipment has not been set.
-func (r ShopReceiptAPIUpdateShopReceiptRequest) WasShipped(wasShipped bool) ShopReceiptAPIUpdateShopReceiptRequest {
-	r.wasShipped = &wasShipped
-	return r
-}
-
-// When &#x60;true&#x60;, returns receipts where the seller has recieved payment for the receipt. When &#x60;false&#x60;, returns receipts where payment has not been received.
-func (r ShopReceiptAPIUpdateShopReceiptRequest) WasPaid(wasPaid bool) ShopReceiptAPIUpdateShopReceiptRequest {
-	r.wasPaid = &wasPaid
+func (r ShopReceiptAPIUpdateShopReceiptRequest) UpdateShopReceiptRequest(updateShopReceiptRequest UpdateShopReceiptRequest) ShopReceiptAPIUpdateShopReceiptRequest {
+	r.updateShopReceiptRequest = &updateShopReceiptRequest
 	return r
 }
 
@@ -902,7 +862,7 @@ func (a *ShopReceiptAPIService) UpdateShopReceiptExecute(r ShopReceiptAPIUpdateS
 	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -918,12 +878,8 @@ func (a *ShopReceiptAPIService) UpdateShopReceiptExecute(r ShopReceiptAPIUpdateS
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.wasShipped != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "was_shipped", r.wasShipped, "", "")
-	}
-	if r.wasPaid != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "was_paid", r.wasPaid, "", "")
-	}
+	// body params
+	localVarPostBody = r.updateShopReceiptRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

@@ -72,7 +72,7 @@ Other parameters are passed through a pointer to a apiPingRequest struct via the
 
 ## TokenScopes
 
-> map[string]interface{} TokenScopes(ctx).Token(token).Execute()
+> map[string]interface{} TokenScopes(ctx).TokenScopesRequest(tokenScopesRequest).Execute()
 
 
 
@@ -91,11 +91,11 @@ import (
 )
 
 func main() {
-	token := "token_example" // string | 
+	tokenScopesRequest := *openapiclient.NewTokenScopesRequest("Token_example") // TokenScopesRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.OtherAPI.TokenScopes(context.Background()).Token(token).Execute()
+	resp, r, err := apiClient.OtherAPI.TokenScopes(context.Background()).TokenScopesRequest(tokenScopesRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `OtherAPI.TokenScopes``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -116,7 +116,7 @@ Other parameters are passed through a pointer to a apiTokenScopesRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **string** |  | 
+ **tokenScopesRequest** | [**TokenScopesRequest**](TokenScopesRequest.md) |  | 
 
 ### Return type
 
@@ -128,7 +128,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

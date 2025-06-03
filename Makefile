@@ -3,6 +3,8 @@ GOFMT_FILES?=$$(find . -name '*.go' | grep -v vendor)
 GOFMT := "goimports"
 ETSY_SPEC?=$$(ls etsy_*.json | sort -dr | head -n 1)
 ETSY_FILES?=$$(find client -name '*.go')
+GO_POST_PROCESS_FILE=$$(which gofmt)
+export GO_POST_PROCESS_FILE
 
 fmt: ## Run gofmt for all .go files
 	@$(GOFMT) -w $(GOFMT_FILES)
@@ -24,7 +26,14 @@ test-server:
 	clear
 	@goconvey
 
-generate:
+preprocess-spec:
+	@jq . $(ETSY_SPEC) > $(ETSY_SPEC).tmp
+	#@bash scripts/fix_includes.sh $(ETSY_SPEC).tmp $(ETSY_SPEC)
+	@mv $(ETSY_SPEC).tmp $(ETSY_SPEC)
+	@sed -i 's|"application/x-www-form-urlencoded"|"application/json"|g' $(ETSY_SPEC)
+	@rm -f $(ETSY_SPEC).tmp
+
+generate: preprocess-spec
 	@rm -rf client
 	@openapi-generator-cli generate \
 		-i $(ETSY_SPEC) \

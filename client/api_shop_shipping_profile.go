@@ -276,104 +276,14 @@ type ShopShippingProfileAPI interface {
 type ShopShippingProfileAPIService service
 
 type ShopShippingProfileAPICreateShopShippingProfileRequest struct {
-	ctx                   context.Context
-	ApiService            ShopShippingProfileAPI
-	shopId                int64
-	title                 *string
-	originCountryIso      *string
-	primaryCost           *float32
-	secondaryCost         *float32
-	minProcessingTime     *int64
-	maxProcessingTime     *int64
-	processingTimeUnit    *CreateShopShippingProfileRequestProcessingTimeUnit
-	destinationCountryIso *string
-	destinationRegion     *CreateShopShippingProfileRequestDestinationRegion
-	originPostalCode      *string
-	shippingCarrierId     *int64
-	mailClass             *string
-	minDeliveryDays       *int64
-	maxDeliveryDays       *int64
+	ctx                              context.Context
+	ApiService                       ShopShippingProfileAPI
+	shopId                           int64
+	createShopShippingProfileRequest *CreateShopShippingProfileRequest
 }
 
-// The name string of this shipping profile.
-func (r ShopShippingProfileAPICreateShopShippingProfileRequest) Title(title string) ShopShippingProfileAPICreateShopShippingProfileRequest {
-	r.title = &title
-	return r
-}
-
-// The ISO code of the country from which the listing ships.
-func (r ShopShippingProfileAPICreateShopShippingProfileRequest) OriginCountryIso(originCountryIso string) ShopShippingProfileAPICreateShopShippingProfileRequest {
-	r.originCountryIso = &originCountryIso
-	return r
-}
-
-// The cost of shipping to this country/region alone, measured in the store&#39;s default currency.
-func (r ShopShippingProfileAPICreateShopShippingProfileRequest) PrimaryCost(primaryCost float32) ShopShippingProfileAPICreateShopShippingProfileRequest {
-	r.primaryCost = &primaryCost
-	return r
-}
-
-// The cost of shipping to this country/region with another item, measured in the store&#39;s default currency.
-func (r ShopShippingProfileAPICreateShopShippingProfileRequest) SecondaryCost(secondaryCost float32) ShopShippingProfileAPICreateShopShippingProfileRequest {
-	r.secondaryCost = &secondaryCost
-	return r
-}
-
-// The minimum time required to process to ship listings with this shipping profile.
-func (r ShopShippingProfileAPICreateShopShippingProfileRequest) MinProcessingTime(minProcessingTime int64) ShopShippingProfileAPICreateShopShippingProfileRequest {
-	r.minProcessingTime = &minProcessingTime
-	return r
-}
-
-// The maximum processing time the listing needs to ship.
-func (r ShopShippingProfileAPICreateShopShippingProfileRequest) MaxProcessingTime(maxProcessingTime int64) ShopShippingProfileAPICreateShopShippingProfileRequest {
-	r.maxProcessingTime = &maxProcessingTime
-	return r
-}
-
-func (r ShopShippingProfileAPICreateShopShippingProfileRequest) ProcessingTimeUnit(processingTimeUnit CreateShopShippingProfileRequestProcessingTimeUnit) ShopShippingProfileAPICreateShopShippingProfileRequest {
-	r.processingTimeUnit = &processingTimeUnit
-	return r
-}
-
-// The ISO code of the country to which the listing ships. If null, request sets destination to destination_region. Required if destination_region is null or not provided.
-func (r ShopShippingProfileAPICreateShopShippingProfileRequest) DestinationCountryIso(destinationCountryIso string) ShopShippingProfileAPICreateShopShippingProfileRequest {
-	r.destinationCountryIso = &destinationCountryIso
-	return r
-}
-
-func (r ShopShippingProfileAPICreateShopShippingProfileRequest) DestinationRegion(destinationRegion CreateShopShippingProfileRequestDestinationRegion) ShopShippingProfileAPICreateShopShippingProfileRequest {
-	r.destinationRegion = &destinationRegion
-	return r
-}
-
-// The postal code string (not necessarily a number) for the location from which the listing ships. Required if the &#x60;origin_country_iso&#x60; supports postal codes. See the [Fulfillment Tutorial docs](https://developer.etsy.com/documentation/tutorials/fulfillment/#countries-requiring-postal-codes) for more info
-func (r ShopShippingProfileAPICreateShopShippingProfileRequest) OriginPostalCode(originPostalCode string) ShopShippingProfileAPICreateShopShippingProfileRequest {
-	r.originPostalCode = &originPostalCode
-	return r
-}
-
-// The unique ID of a supported shipping carrier, which is used to calculate an Estimated Delivery Date. **Required with &#x60;mail_class&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null.
-func (r ShopShippingProfileAPICreateShopShippingProfileRequest) ShippingCarrierId(shippingCarrierId int64) ShopShippingProfileAPICreateShopShippingProfileRequest {
-	r.shippingCarrierId = &shippingCarrierId
-	return r
-}
-
-// The unique ID string of a shipping carrier&#39;s mail class, which is used to calculate an estimated delivery date. **Required with &#x60;shipping_carrier_id&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null.
-func (r ShopShippingProfileAPICreateShopShippingProfileRequest) MailClass(mailClass string) ShopShippingProfileAPICreateShopShippingProfileRequest {
-	r.mailClass = &mailClass
-	return r
-}
-
-// The minimum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;max_delivery_days&#x60;** if &#x60;mail_class&#x60; is null.
-func (r ShopShippingProfileAPICreateShopShippingProfileRequest) MinDeliveryDays(minDeliveryDays int64) ShopShippingProfileAPICreateShopShippingProfileRequest {
-	r.minDeliveryDays = &minDeliveryDays
-	return r
-}
-
-// The maximum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;min_delivery_days&#x60;** if &#x60;mail_class&#x60; is null.
-func (r ShopShippingProfileAPICreateShopShippingProfileRequest) MaxDeliveryDays(maxDeliveryDays int64) ShopShippingProfileAPICreateShopShippingProfileRequest {
-	r.maxDeliveryDays = &maxDeliveryDays
+func (r ShopShippingProfileAPICreateShopShippingProfileRequest) CreateShopShippingProfileRequest(createShopShippingProfileRequest CreateShopShippingProfileRequest) ShopShippingProfileAPICreateShopShippingProfileRequest {
+	r.createShopShippingProfileRequest = &createShopShippingProfileRequest
 	return r
 }
 
@@ -425,45 +335,9 @@ func (a *ShopShippingProfileAPIService) CreateShopShippingProfileExecute(r ShopS
 	if r.shopId < 1 {
 		return localVarReturnValue, nil, reportError("shopId must be greater than 1")
 	}
-	if r.title == nil {
-		return localVarReturnValue, nil, reportError("title is required and must be specified")
-	}
-	if r.originCountryIso == nil {
-		return localVarReturnValue, nil, reportError("originCountryIso is required and must be specified")
-	}
-	if r.primaryCost == nil {
-		return localVarReturnValue, nil, reportError("primaryCost is required and must be specified")
-	}
-	if *r.primaryCost < 0 {
-		return localVarReturnValue, nil, reportError("primaryCost must be greater than 0")
-	}
-	if r.secondaryCost == nil {
-		return localVarReturnValue, nil, reportError("secondaryCost is required and must be specified")
-	}
-	if *r.secondaryCost < 0 {
-		return localVarReturnValue, nil, reportError("secondaryCost must be greater than 0")
-	}
-	if r.minProcessingTime == nil {
-		return localVarReturnValue, nil, reportError("minProcessingTime is required and must be specified")
-	}
-	if *r.minProcessingTime < 1 {
-		return localVarReturnValue, nil, reportError("minProcessingTime must be greater than 1")
-	}
-	if *r.minProcessingTime > 10 {
-		return localVarReturnValue, nil, reportError("minProcessingTime must be less than 10")
-	}
-	if r.maxProcessingTime == nil {
-		return localVarReturnValue, nil, reportError("maxProcessingTime is required and must be specified")
-	}
-	if *r.maxProcessingTime < 1 {
-		return localVarReturnValue, nil, reportError("maxProcessingTime must be greater than 1")
-	}
-	if *r.maxProcessingTime > 10 {
-		return localVarReturnValue, nil, reportError("maxProcessingTime must be less than 10")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -479,36 +353,8 @@ func (a *ShopShippingProfileAPIService) CreateShopShippingProfileExecute(r ShopS
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "title", r.title, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "origin_country_iso", r.originCountryIso, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "primary_cost", r.primaryCost, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "secondary_cost", r.secondaryCost, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "min_processing_time", r.minProcessingTime, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "max_processing_time", r.maxProcessingTime, "", "")
-	if r.processingTimeUnit != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "processing_time_unit", r.processingTimeUnit, "", "")
-	}
-	if r.destinationCountryIso != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "destination_country_iso", r.destinationCountryIso, "", "")
-	}
-	if r.destinationRegion != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "destination_region", r.destinationRegion, "", "")
-	}
-	if r.originPostalCode != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "origin_postal_code", r.originPostalCode, "", "")
-	}
-	if r.shippingCarrierId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "shipping_carrier_id", r.shippingCarrierId, "", "")
-	}
-	if r.mailClass != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "mail_class", r.mailClass, "", "")
-	}
-	if r.minDeliveryDays != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "min_delivery_days", r.minDeliveryDays, "", "")
-	}
-	if r.maxDeliveryDays != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "max_delivery_days", r.maxDeliveryDays, "", "")
-	}
+	// body params
+	localVarPostBody = r.createShopShippingProfileRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -604,64 +450,15 @@ func (a *ShopShippingProfileAPIService) CreateShopShippingProfileExecute(r ShopS
 }
 
 type ShopShippingProfileAPICreateShopShippingProfileDestinationRequest struct {
-	ctx                   context.Context
-	ApiService            ShopShippingProfileAPI
-	shopId                int64
-	shippingProfileId     int64
-	primaryCost           *float32
-	secondaryCost         *float32
-	destinationCountryIso *string
-	destinationRegion     *CreateShopShippingProfileRequestDestinationRegion
-	shippingCarrierId     *int64
-	mailClass             *string
-	minDeliveryDays       *int64
-	maxDeliveryDays       *int64
+	ctx                                         context.Context
+	ApiService                                  ShopShippingProfileAPI
+	shopId                                      int64
+	shippingProfileId                           int64
+	createShopShippingProfileDestinationRequest *CreateShopShippingProfileDestinationRequest
 }
 
-// The cost of shipping to this country/region alone, measured in the store&#39;s default currency.
-func (r ShopShippingProfileAPICreateShopShippingProfileDestinationRequest) PrimaryCost(primaryCost float32) ShopShippingProfileAPICreateShopShippingProfileDestinationRequest {
-	r.primaryCost = &primaryCost
-	return r
-}
-
-// The cost of shipping to this country/region with another item, measured in the store&#39;s default currency.
-func (r ShopShippingProfileAPICreateShopShippingProfileDestinationRequest) SecondaryCost(secondaryCost float32) ShopShippingProfileAPICreateShopShippingProfileDestinationRequest {
-	r.secondaryCost = &secondaryCost
-	return r
-}
-
-// The ISO code of the country to which the listing ships. If null, request sets destination to destination_region. Required if destination_region is null or not provided.
-func (r ShopShippingProfileAPICreateShopShippingProfileDestinationRequest) DestinationCountryIso(destinationCountryIso string) ShopShippingProfileAPICreateShopShippingProfileDestinationRequest {
-	r.destinationCountryIso = &destinationCountryIso
-	return r
-}
-
-func (r ShopShippingProfileAPICreateShopShippingProfileDestinationRequest) DestinationRegion(destinationRegion CreateShopShippingProfileRequestDestinationRegion) ShopShippingProfileAPICreateShopShippingProfileDestinationRequest {
-	r.destinationRegion = &destinationRegion
-	return r
-}
-
-// The unique ID of a supported shipping carrier, which is used to calculate an Estimated Delivery Date. **Required with &#x60;mail_class&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null.
-func (r ShopShippingProfileAPICreateShopShippingProfileDestinationRequest) ShippingCarrierId(shippingCarrierId int64) ShopShippingProfileAPICreateShopShippingProfileDestinationRequest {
-	r.shippingCarrierId = &shippingCarrierId
-	return r
-}
-
-// The unique ID string of a shipping carrier&#39;s mail class, which is used to calculate an estimated delivery date. **Required with &#x60;shipping_carrier_id&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null.
-func (r ShopShippingProfileAPICreateShopShippingProfileDestinationRequest) MailClass(mailClass string) ShopShippingProfileAPICreateShopShippingProfileDestinationRequest {
-	r.mailClass = &mailClass
-	return r
-}
-
-// The minimum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;max_delivery_days&#x60;** if &#x60;mail_class&#x60; is null.
-func (r ShopShippingProfileAPICreateShopShippingProfileDestinationRequest) MinDeliveryDays(minDeliveryDays int64) ShopShippingProfileAPICreateShopShippingProfileDestinationRequest {
-	r.minDeliveryDays = &minDeliveryDays
-	return r
-}
-
-// The maximum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;min_delivery_days&#x60;** if &#x60;mail_class&#x60; is null.
-func (r ShopShippingProfileAPICreateShopShippingProfileDestinationRequest) MaxDeliveryDays(maxDeliveryDays int64) ShopShippingProfileAPICreateShopShippingProfileDestinationRequest {
-	r.maxDeliveryDays = &maxDeliveryDays
+func (r ShopShippingProfileAPICreateShopShippingProfileDestinationRequest) CreateShopShippingProfileDestinationRequest(createShopShippingProfileDestinationRequest CreateShopShippingProfileDestinationRequest) ShopShippingProfileAPICreateShopShippingProfileDestinationRequest {
+	r.createShopShippingProfileDestinationRequest = &createShopShippingProfileDestinationRequest
 	return r
 }
 
@@ -719,21 +516,9 @@ func (a *ShopShippingProfileAPIService) CreateShopShippingProfileDestinationExec
 	if r.shippingProfileId < 1 {
 		return localVarReturnValue, nil, reportError("shippingProfileId must be greater than 1")
 	}
-	if r.primaryCost == nil {
-		return localVarReturnValue, nil, reportError("primaryCost is required and must be specified")
-	}
-	if *r.primaryCost < 0 {
-		return localVarReturnValue, nil, reportError("primaryCost must be greater than 0")
-	}
-	if r.secondaryCost == nil {
-		return localVarReturnValue, nil, reportError("secondaryCost is required and must be specified")
-	}
-	if *r.secondaryCost < 0 {
-		return localVarReturnValue, nil, reportError("secondaryCost must be greater than 0")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -749,26 +534,8 @@ func (a *ShopShippingProfileAPIService) CreateShopShippingProfileDestinationExec
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "primary_cost", r.primaryCost, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "secondary_cost", r.secondaryCost, "", "")
-	if r.destinationCountryIso != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "destination_country_iso", r.destinationCountryIso, "", "")
-	}
-	if r.destinationRegion != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "destination_region", r.destinationRegion, "", "")
-	}
-	if r.shippingCarrierId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "shipping_carrier_id", r.shippingCarrierId, "", "")
-	}
-	if r.mailClass != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "mail_class", r.mailClass, "", "")
-	}
-	if r.minDeliveryDays != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "min_delivery_days", r.minDeliveryDays, "", "")
-	}
-	if r.maxDeliveryDays != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "max_delivery_days", r.maxDeliveryDays, "", "")
-	}
+	// body params
+	localVarPostBody = r.createShopShippingProfileDestinationRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -864,64 +631,15 @@ func (a *ShopShippingProfileAPIService) CreateShopShippingProfileDestinationExec
 }
 
 type ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest struct {
-	ctx               context.Context
-	ApiService        ShopShippingProfileAPI
-	shopId            int64
-	shippingProfileId int64
-	type_             *CreateShopShippingProfileUpgradeRequestType
-	upgradeName       *string
-	price             *float32
-	secondaryPrice    *float32
-	shippingCarrierId *int64
-	mailClass         *string
-	minDeliveryDays   *int64
-	maxDeliveryDays   *int64
+	ctx                                     context.Context
+	ApiService                              ShopShippingProfileAPI
+	shopId                                  int64
+	shippingProfileId                       int64
+	createShopShippingProfileUpgradeRequest *CreateShopShippingProfileUpgradeRequest
 }
 
-func (r ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest) Type_(type_ CreateShopShippingProfileUpgradeRequestType) ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest {
-	r.type_ = &type_
-	return r
-}
-
-// Name for the shipping upgrade shown to shoppers at checkout, e.g. USPS Priority.
-func (r ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest) UpgradeName(upgradeName string) ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest {
-	r.upgradeName = &upgradeName
-	return r
-}
-
-// Additional cost of adding the shipping upgrade.
-func (r ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest) Price(price float32) ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest {
-	r.price = &price
-	return r
-}
-
-// Additional cost of adding the shipping upgrade for each additional item.
-func (r ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest) SecondaryPrice(secondaryPrice float32) ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest {
-	r.secondaryPrice = &secondaryPrice
-	return r
-}
-
-// The unique ID of a supported shipping carrier, which is used to calculate an Estimated Delivery Date. **Required with &#x60;mail_class&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null.
-func (r ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest) ShippingCarrierId(shippingCarrierId int64) ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest {
-	r.shippingCarrierId = &shippingCarrierId
-	return r
-}
-
-// The unique ID string of a shipping carrier&#39;s mail class, which is used to calculate an estimated delivery date. **Required with &#x60;shipping_carrier_id&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null.
-func (r ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest) MailClass(mailClass string) ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest {
-	r.mailClass = &mailClass
-	return r
-}
-
-// The minimum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;max_delivery_days&#x60;** if &#x60;mail_class&#x60; is null.
-func (r ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest) MinDeliveryDays(minDeliveryDays int64) ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest {
-	r.minDeliveryDays = &minDeliveryDays
-	return r
-}
-
-// The maximum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;min_delivery_days&#x60;** if &#x60;mail_class&#x60; is null.
-func (r ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest) MaxDeliveryDays(maxDeliveryDays int64) ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest {
-	r.maxDeliveryDays = &maxDeliveryDays
+func (r ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest) CreateShopShippingProfileUpgradeRequest(createShopShippingProfileUpgradeRequest CreateShopShippingProfileUpgradeRequest) ShopShippingProfileAPICreateShopShippingProfileUpgradeRequest {
+	r.createShopShippingProfileUpgradeRequest = &createShopShippingProfileUpgradeRequest
 	return r
 }
 
@@ -979,27 +697,9 @@ func (a *ShopShippingProfileAPIService) CreateShopShippingProfileUpgradeExecute(
 	if r.shippingProfileId < 1 {
 		return localVarReturnValue, nil, reportError("shippingProfileId must be greater than 1")
 	}
-	if r.type_ == nil {
-		return localVarReturnValue, nil, reportError("type_ is required and must be specified")
-	}
-	if r.upgradeName == nil {
-		return localVarReturnValue, nil, reportError("upgradeName is required and must be specified")
-	}
-	if r.price == nil {
-		return localVarReturnValue, nil, reportError("price is required and must be specified")
-	}
-	if *r.price < 0 {
-		return localVarReturnValue, nil, reportError("price must be greater than 0")
-	}
-	if r.secondaryPrice == nil {
-		return localVarReturnValue, nil, reportError("secondaryPrice is required and must be specified")
-	}
-	if *r.secondaryPrice < 0 {
-		return localVarReturnValue, nil, reportError("secondaryPrice must be greater than 0")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1015,22 +715,8 @@ func (a *ShopShippingProfileAPIService) CreateShopShippingProfileUpgradeExecute(
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "type", r.type_, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "upgrade_name", r.upgradeName, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "price", r.price, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "secondary_price", r.secondaryPrice, "", "")
-	if r.shippingCarrierId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "shipping_carrier_id", r.shippingCarrierId, "", "")
-	}
-	if r.mailClass != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "mail_class", r.mailClass, "", "")
-	}
-	if r.minDeliveryDays != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "min_delivery_days", r.minDeliveryDays, "", "")
-	}
-	if r.maxDeliveryDays != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "max_delivery_days", r.maxDeliveryDays, "", "")
-	}
+	// body params
+	localVarPostBody = r.createShopShippingProfileUpgradeRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2548,50 +2234,15 @@ func (a *ShopShippingProfileAPIService) GetShopShippingProfilesExecute(r ShopShi
 }
 
 type ShopShippingProfileAPIUpdateShopShippingProfileRequest struct {
-	ctx                context.Context
-	ApiService         ShopShippingProfileAPI
-	shopId             int64
-	shippingProfileId  int64
-	title              *string
-	originCountryIso   *string
-	minProcessingTime  *int64
-	maxProcessingTime  *int64
-	processingTimeUnit *CreateShopShippingProfileRequestProcessingTimeUnit
-	originPostalCode   *string
+	ctx                              context.Context
+	ApiService                       ShopShippingProfileAPI
+	shopId                           int64
+	shippingProfileId                int64
+	updateShopShippingProfileRequest *UpdateShopShippingProfileRequest
 }
 
-// The name string of this shipping profile.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileRequest) Title(title string) ShopShippingProfileAPIUpdateShopShippingProfileRequest {
-	r.title = &title
-	return r
-}
-
-// The ISO code of the country from which the listing ships.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileRequest) OriginCountryIso(originCountryIso string) ShopShippingProfileAPIUpdateShopShippingProfileRequest {
-	r.originCountryIso = &originCountryIso
-	return r
-}
-
-// The minimum time required to process to ship listings with this shipping profile.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileRequest) MinProcessingTime(minProcessingTime int64) ShopShippingProfileAPIUpdateShopShippingProfileRequest {
-	r.minProcessingTime = &minProcessingTime
-	return r
-}
-
-// The maximum processing time the listing needs to ship.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileRequest) MaxProcessingTime(maxProcessingTime int64) ShopShippingProfileAPIUpdateShopShippingProfileRequest {
-	r.maxProcessingTime = &maxProcessingTime
-	return r
-}
-
-func (r ShopShippingProfileAPIUpdateShopShippingProfileRequest) ProcessingTimeUnit(processingTimeUnit CreateShopShippingProfileRequestProcessingTimeUnit) ShopShippingProfileAPIUpdateShopShippingProfileRequest {
-	r.processingTimeUnit = &processingTimeUnit
-	return r
-}
-
-// The postal code string (not necessarily a number) for the location from which the listing ships. Required if the &#x60;origin_country_iso&#x60; supports postal codes. See the [Fulfillment Tutorial docs](https://developer.etsy.com/documentation/tutorials/fulfillment/#countries-requiring-postal-codes) for more info
-func (r ShopShippingProfileAPIUpdateShopShippingProfileRequest) OriginPostalCode(originPostalCode string) ShopShippingProfileAPIUpdateShopShippingProfileRequest {
-	r.originPostalCode = &originPostalCode
+func (r ShopShippingProfileAPIUpdateShopShippingProfileRequest) UpdateShopShippingProfileRequest(updateShopShippingProfileRequest UpdateShopShippingProfileRequest) ShopShippingProfileAPIUpdateShopShippingProfileRequest {
+	r.updateShopShippingProfileRequest = &updateShopShippingProfileRequest
 	return r
 }
 
@@ -2651,7 +2302,7 @@ func (a *ShopShippingProfileAPIService) UpdateShopShippingProfileExecute(r ShopS
 	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -2667,24 +2318,8 @@ func (a *ShopShippingProfileAPIService) UpdateShopShippingProfileExecute(r ShopS
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.title != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "title", r.title, "", "")
-	}
-	if r.originCountryIso != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "origin_country_iso", r.originCountryIso, "", "")
-	}
-	if r.minProcessingTime != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "min_processing_time", r.minProcessingTime, "", "")
-	}
-	if r.maxProcessingTime != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "max_processing_time", r.maxProcessingTime, "", "")
-	}
-	if r.processingTimeUnit != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "processing_time_unit", r.processingTimeUnit, "", "")
-	}
-	if r.originPostalCode != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "origin_postal_code", r.originPostalCode, "", "")
-	}
+	// body params
+	localVarPostBody = r.updateShopShippingProfileRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2802,65 +2437,16 @@ func (a *ShopShippingProfileAPIService) UpdateShopShippingProfileExecute(r ShopS
 }
 
 type ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest struct {
-	ctx                          context.Context
-	ApiService                   ShopShippingProfileAPI
-	shopId                       int64
-	shippingProfileId            int64
-	shippingProfileDestinationId int64
-	primaryCost                  *float32
-	secondaryCost                *float32
-	destinationCountryIso        *string
-	destinationRegion            *CreateShopShippingProfileRequestDestinationRegion
-	shippingCarrierId            *int64
-	mailClass                    *string
-	minDeliveryDays              *int64
-	maxDeliveryDays              *int64
+	ctx                                         context.Context
+	ApiService                                  ShopShippingProfileAPI
+	shopId                                      int64
+	shippingProfileId                           int64
+	shippingProfileDestinationId                int64
+	updateShopShippingProfileDestinationRequest *UpdateShopShippingProfileDestinationRequest
 }
 
-// The cost of shipping to this country/region alone, measured in the store&#39;s default currency.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest) PrimaryCost(primaryCost float32) ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest {
-	r.primaryCost = &primaryCost
-	return r
-}
-
-// The cost of shipping to this country/region with another item, measured in the store&#39;s default currency.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest) SecondaryCost(secondaryCost float32) ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest {
-	r.secondaryCost = &secondaryCost
-	return r
-}
-
-// The ISO code of the country to which the listing ships. If null, request sets destination to destination_region. Required if destination_region is null or not provided.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest) DestinationCountryIso(destinationCountryIso string) ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest {
-	r.destinationCountryIso = &destinationCountryIso
-	return r
-}
-
-func (r ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest) DestinationRegion(destinationRegion CreateShopShippingProfileRequestDestinationRegion) ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest {
-	r.destinationRegion = &destinationRegion
-	return r
-}
-
-// The unique ID of a supported shipping carrier, which is used to calculate an Estimated Delivery Date. **Required with &#x60;mail_class&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest) ShippingCarrierId(shippingCarrierId int64) ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest {
-	r.shippingCarrierId = &shippingCarrierId
-	return r
-}
-
-// The unique ID string of a shipping carrier&#39;s mail class, which is used to calculate an estimated delivery date. **Required with &#x60;shipping_carrier_id&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest) MailClass(mailClass string) ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest {
-	r.mailClass = &mailClass
-	return r
-}
-
-// The minimum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;max_delivery_days&#x60;** if &#x60;mail_class&#x60; is null.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest) MinDeliveryDays(minDeliveryDays int64) ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest {
-	r.minDeliveryDays = &minDeliveryDays
-	return r
-}
-
-// The maximum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;min_delivery_days&#x60;** if &#x60;mail_class&#x60; is null.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest) MaxDeliveryDays(maxDeliveryDays int64) ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest {
-	r.maxDeliveryDays = &maxDeliveryDays
+func (r ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest) UpdateShopShippingProfileDestinationRequest(updateShopShippingProfileDestinationRequest UpdateShopShippingProfileDestinationRequest) ShopShippingProfileAPIUpdateShopShippingProfileDestinationRequest {
+	r.updateShopShippingProfileDestinationRequest = &updateShopShippingProfileDestinationRequest
 	return r
 }
 
@@ -2926,7 +2512,7 @@ func (a *ShopShippingProfileAPIService) UpdateShopShippingProfileDestinationExec
 	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -2942,30 +2528,8 @@ func (a *ShopShippingProfileAPIService) UpdateShopShippingProfileDestinationExec
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.primaryCost != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "primary_cost", r.primaryCost, "", "")
-	}
-	if r.secondaryCost != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "secondary_cost", r.secondaryCost, "", "")
-	}
-	if r.destinationCountryIso != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "destination_country_iso", r.destinationCountryIso, "", "")
-	}
-	if r.destinationRegion != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "destination_region", r.destinationRegion, "", "")
-	}
-	if r.shippingCarrierId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "shipping_carrier_id", r.shippingCarrierId, "", "")
-	}
-	if r.mailClass != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "mail_class", r.mailClass, "", "")
-	}
-	if r.minDeliveryDays != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "min_delivery_days", r.minDeliveryDays, "", "")
-	}
-	if r.maxDeliveryDays != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "max_delivery_days", r.maxDeliveryDays, "", "")
-	}
+	// body params
+	localVarPostBody = r.updateShopShippingProfileDestinationRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3083,65 +2647,16 @@ func (a *ShopShippingProfileAPIService) UpdateShopShippingProfileDestinationExec
 }
 
 type ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest struct {
-	ctx               context.Context
-	ApiService        ShopShippingProfileAPI
-	shopId            int64
-	shippingProfileId int64
-	upgradeId         int64
-	upgradeName       *string
-	type_             *CreateShopShippingProfileUpgradeRequestType
-	price             *float32
-	secondaryPrice    *float32
-	shippingCarrierId *int64
-	mailClass         *string
-	minDeliveryDays   *int64
-	maxDeliveryDays   *int64
+	ctx                                     context.Context
+	ApiService                              ShopShippingProfileAPI
+	shopId                                  int64
+	shippingProfileId                       int64
+	upgradeId                               int64
+	updateShopShippingProfileUpgradeRequest *UpdateShopShippingProfileUpgradeRequest
 }
 
-// Name for the shipping upgrade shown to shoppers at checkout, e.g. USPS Priority.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest) UpgradeName(upgradeName string) ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest {
-	r.upgradeName = &upgradeName
-	return r
-}
-
-func (r ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest) Type_(type_ CreateShopShippingProfileUpgradeRequestType) ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest {
-	r.type_ = &type_
-	return r
-}
-
-// Additional cost of adding the shipping upgrade.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest) Price(price float32) ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest {
-	r.price = &price
-	return r
-}
-
-// Additional cost of adding the shipping upgrade for each additional item.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest) SecondaryPrice(secondaryPrice float32) ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest {
-	r.secondaryPrice = &secondaryPrice
-	return r
-}
-
-// The unique ID of a supported shipping carrier, which is used to calculate an Estimated Delivery Date. **Required with &#x60;mail_class&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest) ShippingCarrierId(shippingCarrierId int64) ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest {
-	r.shippingCarrierId = &shippingCarrierId
-	return r
-}
-
-// The unique ID string of a shipping carrier&#39;s mail class, which is used to calculate an estimated delivery date. **Required with &#x60;shipping_carrier_id&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest) MailClass(mailClass string) ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest {
-	r.mailClass = &mailClass
-	return r
-}
-
-// The minimum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;max_delivery_days&#x60;** if &#x60;mail_class&#x60; is null.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest) MinDeliveryDays(minDeliveryDays int64) ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest {
-	r.minDeliveryDays = &minDeliveryDays
-	return r
-}
-
-// The maximum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;min_delivery_days&#x60;** if &#x60;mail_class&#x60; is null.
-func (r ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest) MaxDeliveryDays(maxDeliveryDays int64) ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest {
-	r.maxDeliveryDays = &maxDeliveryDays
+func (r ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest) UpdateShopShippingProfileUpgradeRequest(updateShopShippingProfileUpgradeRequest UpdateShopShippingProfileUpgradeRequest) ShopShippingProfileAPIUpdateShopShippingProfileUpgradeRequest {
+	r.updateShopShippingProfileUpgradeRequest = &updateShopShippingProfileUpgradeRequest
 	return r
 }
 
@@ -3207,7 +2722,7 @@ func (a *ShopShippingProfileAPIService) UpdateShopShippingProfileUpgradeExecute(
 	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -3223,30 +2738,8 @@ func (a *ShopShippingProfileAPIService) UpdateShopShippingProfileUpgradeExecute(
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.upgradeName != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "upgrade_name", r.upgradeName, "", "")
-	}
-	if r.type_ != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "type", r.type_, "", "")
-	}
-	if r.price != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "price", r.price, "", "")
-	}
-	if r.secondaryPrice != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "secondary_price", r.secondaryPrice, "", "")
-	}
-	if r.shippingCarrierId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "shipping_carrier_id", r.shippingCarrierId, "", "")
-	}
-	if r.mailClass != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "mail_class", r.mailClass, "", "")
-	}
-	if r.minDeliveryDays != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "min_delivery_days", r.minDeliveryDays, "", "")
-	}
-	if r.maxDeliveryDays != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "max_delivery_days", r.maxDeliveryDays, "", "")
-	}
+	// body params
+	localVarPostBody = r.updateShopShippingProfileUpgradeRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

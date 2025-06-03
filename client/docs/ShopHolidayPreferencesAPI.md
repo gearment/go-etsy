@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## UpdateHolidayPreferences
 
-> ShopHolidayPreference UpdateHolidayPreferences(ctx, shopId, holidayId).IsWorking(isWorking).Execute()
+> ShopHolidayPreference UpdateHolidayPreferences(ctx, shopId, holidayId).UpdateHolidayPreferencesRequest(updateHolidayPreferencesRequest).Execute()
 
 
 
@@ -102,11 +102,11 @@ import (
 func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	holidayId := openapiclient.updateHolidayPreferences_holiday_id_parameter("1") // UpdateHolidayPreferencesHolidayIdParameter | The unique id that maps to the holiday a country observes. See the [Fulfillment Tutorial docs](https://developer.etsy.com/documentation/tutorials/fulfillment/#country-holidays) for more info
-	isWorking := true // bool | A boolean value for whether the shop will process orders on a particular holiday.
+	updateHolidayPreferencesRequest := *openapiclient.NewUpdateHolidayPreferencesRequest(false) // UpdateHolidayPreferencesRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopHolidayPreferencesAPI.UpdateHolidayPreferences(context.Background(), shopId, holidayId).IsWorking(isWorking).Execute()
+	resp, r, err := apiClient.ShopHolidayPreferencesAPI.UpdateHolidayPreferences(context.Background(), shopId, holidayId).UpdateHolidayPreferencesRequest(updateHolidayPreferencesRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopHolidayPreferencesAPI.UpdateHolidayPreferences``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **isWorking** | **bool** | A boolean value for whether the shop will process orders on a particular holiday. | 
+ **updateHolidayPreferencesRequest** | [**UpdateHolidayPreferencesRequest**](UpdateHolidayPreferencesRequest.md) |  | 
 
 ### Return type
 
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

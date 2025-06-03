@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 ## CreateShopShippingProfile
 
-> ShopShippingProfile CreateShopShippingProfile(ctx, shopId).Title(title).OriginCountryIso(originCountryIso).PrimaryCost(primaryCost).SecondaryCost(secondaryCost).MinProcessingTime(minProcessingTime).MaxProcessingTime(maxProcessingTime).ProcessingTimeUnit(processingTimeUnit).DestinationCountryIso(destinationCountryIso).DestinationRegion(destinationRegion).OriginPostalCode(originPostalCode).ShippingCarrierId(shippingCarrierId).MailClass(mailClass).MinDeliveryDays(minDeliveryDays).MaxDeliveryDays(maxDeliveryDays).Execute()
+> ShopShippingProfile CreateShopShippingProfile(ctx, shopId).CreateShopShippingProfileRequest(createShopShippingProfileRequest).Execute()
 
 
 
@@ -43,24 +43,11 @@ import (
 
 func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	title := "title_example" // string | The name string of this shipping profile.
-	originCountryIso := "originCountryIso_example" // string | The ISO code of the country from which the listing ships.
-	primaryCost := float32(3.4) // float32 | The cost of shipping to this country/region alone, measured in the store's default currency.
-	secondaryCost := float32(3.4) // float32 | The cost of shipping to this country/region with another item, measured in the store's default currency.
-	minProcessingTime := int64(56) // int64 | The minimum time required to process to ship listings with this shipping profile.
-	maxProcessingTime := int64(56) // int64 | The maximum processing time the listing needs to ship.
-	processingTimeUnit := openapiclient.createShopShippingProfile_request_processing_time_unit("business_days") // CreateShopShippingProfileRequestProcessingTimeUnit |  (optional) (default to "business_days")
-	destinationCountryIso := "destinationCountryIso_example" // string | The ISO code of the country to which the listing ships. If null, request sets destination to destination_region. Required if destination_region is null or not provided. (optional)
-	destinationRegion := openapiclient.createShopShippingProfile_request_destination_region("eu") // CreateShopShippingProfileRequestDestinationRegion |  (optional) (default to "none")
-	originPostalCode := "originPostalCode_example" // string | The postal code string (not necessarily a number) for the location from which the listing ships. Required if the `origin_country_iso` supports postal codes. See the [Fulfillment Tutorial docs](https://developer.etsy.com/documentation/tutorials/fulfillment/#countries-requiring-postal-codes) for more info (optional) (default to "")
-	shippingCarrierId := int64(56) // int64 | The unique ID of a supported shipping carrier, which is used to calculate an Estimated Delivery Date. **Required with `mail_class`** if `min_delivery_days` and `max_delivery_days` are null. (optional) (default to 0)
-	mailClass := "mailClass_example" // string | The unique ID string of a shipping carrier's mail class, which is used to calculate an estimated delivery date. **Required with `shipping_carrier_id`** if `min_delivery_days` and `max_delivery_days` are null. (optional)
-	minDeliveryDays := int64(56) // int64 | The minimum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with `max_delivery_days`** if `mail_class` is null. (optional)
-	maxDeliveryDays := int64(56) // int64 | The maximum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with `min_delivery_days`** if `mail_class` is null. (optional)
+	createShopShippingProfileRequest := *openapiclient.NewCreateShopShippingProfileRequest("Title_example", "OriginCountryIso_example", float32(123), float32(123), int64(123), int64(123)) // CreateShopShippingProfileRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopShippingProfileAPI.CreateShopShippingProfile(context.Background(), shopId).Title(title).OriginCountryIso(originCountryIso).PrimaryCost(primaryCost).SecondaryCost(secondaryCost).MinProcessingTime(minProcessingTime).MaxProcessingTime(maxProcessingTime).ProcessingTimeUnit(processingTimeUnit).DestinationCountryIso(destinationCountryIso).DestinationRegion(destinationRegion).OriginPostalCode(originPostalCode).ShippingCarrierId(shippingCarrierId).MailClass(mailClass).MinDeliveryDays(minDeliveryDays).MaxDeliveryDays(maxDeliveryDays).Execute()
+	resp, r, err := apiClient.ShopShippingProfileAPI.CreateShopShippingProfile(context.Background(), shopId).CreateShopShippingProfileRequest(createShopShippingProfileRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopShippingProfileAPI.CreateShopShippingProfile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -86,20 +73,7 @@ Other parameters are passed through a pointer to a apiCreateShopShippingProfileR
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **title** | **string** | The name string of this shipping profile. | 
- **originCountryIso** | **string** | The ISO code of the country from which the listing ships. | 
- **primaryCost** | **float32** | The cost of shipping to this country/region alone, measured in the store&#39;s default currency. | 
- **secondaryCost** | **float32** | The cost of shipping to this country/region with another item, measured in the store&#39;s default currency. | 
- **minProcessingTime** | **int64** | The minimum time required to process to ship listings with this shipping profile. | 
- **maxProcessingTime** | **int64** | The maximum processing time the listing needs to ship. | 
- **processingTimeUnit** | [**CreateShopShippingProfileRequestProcessingTimeUnit**](CreateShopShippingProfileRequestProcessingTimeUnit.md) |  | [default to &quot;business_days&quot;]
- **destinationCountryIso** | **string** | The ISO code of the country to which the listing ships. If null, request sets destination to destination_region. Required if destination_region is null or not provided. | 
- **destinationRegion** | [**CreateShopShippingProfileRequestDestinationRegion**](CreateShopShippingProfileRequestDestinationRegion.md) |  | [default to &quot;none&quot;]
- **originPostalCode** | **string** | The postal code string (not necessarily a number) for the location from which the listing ships. Required if the &#x60;origin_country_iso&#x60; supports postal codes. See the [Fulfillment Tutorial docs](https://developer.etsy.com/documentation/tutorials/fulfillment/#countries-requiring-postal-codes) for more info | [default to &quot;&quot;]
- **shippingCarrierId** | **int64** | The unique ID of a supported shipping carrier, which is used to calculate an Estimated Delivery Date. **Required with &#x60;mail_class&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null. | [default to 0]
- **mailClass** | **string** | The unique ID string of a shipping carrier&#39;s mail class, which is used to calculate an estimated delivery date. **Required with &#x60;shipping_carrier_id&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null. | 
- **minDeliveryDays** | **int64** | The minimum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;max_delivery_days&#x60;** if &#x60;mail_class&#x60; is null. | 
- **maxDeliveryDays** | **int64** | The maximum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;min_delivery_days&#x60;** if &#x60;mail_class&#x60; is null. | 
+ **createShopShippingProfileRequest** | [**CreateShopShippingProfileRequest**](CreateShopShippingProfileRequest.md) |  | 
 
 ### Return type
 
@@ -111,7 +85,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -121,7 +95,7 @@ Name | Type | Description  | Notes
 
 ## CreateShopShippingProfileDestination
 
-> ShopShippingProfileDestination CreateShopShippingProfileDestination(ctx, shopId, shippingProfileId).PrimaryCost(primaryCost).SecondaryCost(secondaryCost).DestinationCountryIso(destinationCountryIso).DestinationRegion(destinationRegion).ShippingCarrierId(shippingCarrierId).MailClass(mailClass).MinDeliveryDays(minDeliveryDays).MaxDeliveryDays(maxDeliveryDays).Execute()
+> ShopShippingProfileDestination CreateShopShippingProfileDestination(ctx, shopId, shippingProfileId).CreateShopShippingProfileDestinationRequest(createShopShippingProfileDestinationRequest).Execute()
 
 
 
@@ -142,18 +116,11 @@ import (
 func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
-	primaryCost := float32(3.4) // float32 | The cost of shipping to this country/region alone, measured in the store's default currency.
-	secondaryCost := float32(3.4) // float32 | The cost of shipping to this country/region with another item, measured in the store's default currency.
-	destinationCountryIso := "destinationCountryIso_example" // string | The ISO code of the country to which the listing ships. If null, request sets destination to destination_region. Required if destination_region is null or not provided. (optional)
-	destinationRegion := openapiclient.createShopShippingProfile_request_destination_region("eu") // CreateShopShippingProfileRequestDestinationRegion |  (optional) (default to "none")
-	shippingCarrierId := int64(56) // int64 | The unique ID of a supported shipping carrier, which is used to calculate an Estimated Delivery Date. **Required with `mail_class`** if `min_delivery_days` and `max_delivery_days` are null. (optional) (default to 0)
-	mailClass := "mailClass_example" // string | The unique ID string of a shipping carrier's mail class, which is used to calculate an estimated delivery date. **Required with `shipping_carrier_id`** if `min_delivery_days` and `max_delivery_days` are null. (optional)
-	minDeliveryDays := int64(56) // int64 | The minimum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with `max_delivery_days`** if `mail_class` is null. (optional)
-	maxDeliveryDays := int64(56) // int64 | The maximum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with `min_delivery_days`** if `mail_class` is null. (optional)
+	createShopShippingProfileDestinationRequest := *openapiclient.NewCreateShopShippingProfileDestinationRequest(float32(123), float32(123)) // CreateShopShippingProfileDestinationRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopShippingProfileAPI.CreateShopShippingProfileDestination(context.Background(), shopId, shippingProfileId).PrimaryCost(primaryCost).SecondaryCost(secondaryCost).DestinationCountryIso(destinationCountryIso).DestinationRegion(destinationRegion).ShippingCarrierId(shippingCarrierId).MailClass(mailClass).MinDeliveryDays(minDeliveryDays).MaxDeliveryDays(maxDeliveryDays).Execute()
+	resp, r, err := apiClient.ShopShippingProfileAPI.CreateShopShippingProfileDestination(context.Background(), shopId, shippingProfileId).CreateShopShippingProfileDestinationRequest(createShopShippingProfileDestinationRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopShippingProfileAPI.CreateShopShippingProfileDestination``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -181,14 +148,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **primaryCost** | **float32** | The cost of shipping to this country/region alone, measured in the store&#39;s default currency. | 
- **secondaryCost** | **float32** | The cost of shipping to this country/region with another item, measured in the store&#39;s default currency. | 
- **destinationCountryIso** | **string** | The ISO code of the country to which the listing ships. If null, request sets destination to destination_region. Required if destination_region is null or not provided. | 
- **destinationRegion** | [**CreateShopShippingProfileRequestDestinationRegion**](CreateShopShippingProfileRequestDestinationRegion.md) |  | [default to &quot;none&quot;]
- **shippingCarrierId** | **int64** | The unique ID of a supported shipping carrier, which is used to calculate an Estimated Delivery Date. **Required with &#x60;mail_class&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null. | [default to 0]
- **mailClass** | **string** | The unique ID string of a shipping carrier&#39;s mail class, which is used to calculate an estimated delivery date. **Required with &#x60;shipping_carrier_id&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null. | 
- **minDeliveryDays** | **int64** | The minimum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;max_delivery_days&#x60;** if &#x60;mail_class&#x60; is null. | 
- **maxDeliveryDays** | **int64** | The maximum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;min_delivery_days&#x60;** if &#x60;mail_class&#x60; is null. | 
+ **createShopShippingProfileDestinationRequest** | [**CreateShopShippingProfileDestinationRequest**](CreateShopShippingProfileDestinationRequest.md) |  | 
 
 ### Return type
 
@@ -200,7 +160,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -210,7 +170,7 @@ Name | Type | Description  | Notes
 
 ## CreateShopShippingProfileUpgrade
 
-> ShopShippingProfileUpgrade CreateShopShippingProfileUpgrade(ctx, shopId, shippingProfileId).Type_(type_).UpgradeName(upgradeName).Price(price).SecondaryPrice(secondaryPrice).ShippingCarrierId(shippingCarrierId).MailClass(mailClass).MinDeliveryDays(minDeliveryDays).MaxDeliveryDays(maxDeliveryDays).Execute()
+> ShopShippingProfileUpgrade CreateShopShippingProfileUpgrade(ctx, shopId, shippingProfileId).CreateShopShippingProfileUpgradeRequest(createShopShippingProfileUpgradeRequest).Execute()
 
 
 
@@ -231,18 +191,11 @@ import (
 func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
-	type_ := openapiclient.createShopShippingProfileUpgrade_request_type("0") // CreateShopShippingProfileUpgradeRequestType | 
-	upgradeName := "upgradeName_example" // string | Name for the shipping upgrade shown to shoppers at checkout, e.g. USPS Priority.
-	price := float32(3.4) // float32 | Additional cost of adding the shipping upgrade.
-	secondaryPrice := float32(3.4) // float32 | Additional cost of adding the shipping upgrade for each additional item.
-	shippingCarrierId := int64(56) // int64 | The unique ID of a supported shipping carrier, which is used to calculate an Estimated Delivery Date. **Required with `mail_class`** if `min_delivery_days` and `max_delivery_days` are null. (optional) (default to 0)
-	mailClass := "mailClass_example" // string | The unique ID string of a shipping carrier's mail class, which is used to calculate an estimated delivery date. **Required with `shipping_carrier_id`** if `min_delivery_days` and `max_delivery_days` are null. (optional)
-	minDeliveryDays := int64(56) // int64 | The minimum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with `max_delivery_days`** if `mail_class` is null. (optional)
-	maxDeliveryDays := int64(56) // int64 | The maximum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with `min_delivery_days`** if `mail_class` is null. (optional)
+	createShopShippingProfileUpgradeRequest := *openapiclient.NewCreateShopShippingProfileUpgradeRequest(openapiclient.createShopShippingProfileUpgrade_request_type("0"), "UpgradeName_example", float32(123), float32(123)) // CreateShopShippingProfileUpgradeRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopShippingProfileAPI.CreateShopShippingProfileUpgrade(context.Background(), shopId, shippingProfileId).Type_(type_).UpgradeName(upgradeName).Price(price).SecondaryPrice(secondaryPrice).ShippingCarrierId(shippingCarrierId).MailClass(mailClass).MinDeliveryDays(minDeliveryDays).MaxDeliveryDays(maxDeliveryDays).Execute()
+	resp, r, err := apiClient.ShopShippingProfileAPI.CreateShopShippingProfileUpgrade(context.Background(), shopId, shippingProfileId).CreateShopShippingProfileUpgradeRequest(createShopShippingProfileUpgradeRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopShippingProfileAPI.CreateShopShippingProfileUpgrade``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -270,14 +223,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **type_** | [**CreateShopShippingProfileUpgradeRequestType**](CreateShopShippingProfileUpgradeRequestType.md) |  | 
- **upgradeName** | **string** | Name for the shipping upgrade shown to shoppers at checkout, e.g. USPS Priority. | 
- **price** | **float32** | Additional cost of adding the shipping upgrade. | 
- **secondaryPrice** | **float32** | Additional cost of adding the shipping upgrade for each additional item. | 
- **shippingCarrierId** | **int64** | The unique ID of a supported shipping carrier, which is used to calculate an Estimated Delivery Date. **Required with &#x60;mail_class&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null. | [default to 0]
- **mailClass** | **string** | The unique ID string of a shipping carrier&#39;s mail class, which is used to calculate an estimated delivery date. **Required with &#x60;shipping_carrier_id&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null. | 
- **minDeliveryDays** | **int64** | The minimum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;max_delivery_days&#x60;** if &#x60;mail_class&#x60; is null. | 
- **maxDeliveryDays** | **int64** | The maximum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;min_delivery_days&#x60;** if &#x60;mail_class&#x60; is null. | 
+ **createShopShippingProfileUpgradeRequest** | [**CreateShopShippingProfileUpgradeRequest**](CreateShopShippingProfileUpgradeRequest.md) |  | 
 
 ### Return type
 
@@ -289,7 +235,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -877,7 +823,7 @@ Name | Type | Description  | Notes
 
 ## UpdateShopShippingProfile
 
-> ShopShippingProfile UpdateShopShippingProfile(ctx, shopId, shippingProfileId).Title(title).OriginCountryIso(originCountryIso).MinProcessingTime(minProcessingTime).MaxProcessingTime(maxProcessingTime).ProcessingTimeUnit(processingTimeUnit).OriginPostalCode(originPostalCode).Execute()
+> ShopShippingProfile UpdateShopShippingProfile(ctx, shopId, shippingProfileId).UpdateShopShippingProfileRequest(updateShopShippingProfileRequest).Execute()
 
 
 
@@ -898,16 +844,11 @@ import (
 func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
-	title := "title_example" // string | The name string of this shipping profile. (optional)
-	originCountryIso := "originCountryIso_example" // string | The ISO code of the country from which the listing ships. (optional)
-	minProcessingTime := int64(56) // int64 | The minimum time required to process to ship listings with this shipping profile. (optional)
-	maxProcessingTime := int64(56) // int64 | The maximum processing time the listing needs to ship. (optional)
-	processingTimeUnit := openapiclient.createShopShippingProfile_request_processing_time_unit("business_days") // CreateShopShippingProfileRequestProcessingTimeUnit |  (optional) (default to "business_days")
-	originPostalCode := "originPostalCode_example" // string | The postal code string (not necessarily a number) for the location from which the listing ships. Required if the `origin_country_iso` supports postal codes. See the [Fulfillment Tutorial docs](https://developer.etsy.com/documentation/tutorials/fulfillment/#countries-requiring-postal-codes) for more info (optional)
+	updateShopShippingProfileRequest := *openapiclient.NewUpdateShopShippingProfileRequest() // UpdateShopShippingProfileRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopShippingProfileAPI.UpdateShopShippingProfile(context.Background(), shopId, shippingProfileId).Title(title).OriginCountryIso(originCountryIso).MinProcessingTime(minProcessingTime).MaxProcessingTime(maxProcessingTime).ProcessingTimeUnit(processingTimeUnit).OriginPostalCode(originPostalCode).Execute()
+	resp, r, err := apiClient.ShopShippingProfileAPI.UpdateShopShippingProfile(context.Background(), shopId, shippingProfileId).UpdateShopShippingProfileRequest(updateShopShippingProfileRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopShippingProfileAPI.UpdateShopShippingProfile``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -935,12 +876,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **title** | **string** | The name string of this shipping profile. | 
- **originCountryIso** | **string** | The ISO code of the country from which the listing ships. | 
- **minProcessingTime** | **int64** | The minimum time required to process to ship listings with this shipping profile. | 
- **maxProcessingTime** | **int64** | The maximum processing time the listing needs to ship. | 
- **processingTimeUnit** | [**CreateShopShippingProfileRequestProcessingTimeUnit**](CreateShopShippingProfileRequestProcessingTimeUnit.md) |  | [default to &quot;business_days&quot;]
- **originPostalCode** | **string** | The postal code string (not necessarily a number) for the location from which the listing ships. Required if the &#x60;origin_country_iso&#x60; supports postal codes. See the [Fulfillment Tutorial docs](https://developer.etsy.com/documentation/tutorials/fulfillment/#countries-requiring-postal-codes) for more info | 
+ **updateShopShippingProfileRequest** | [**UpdateShopShippingProfileRequest**](UpdateShopShippingProfileRequest.md) |  | 
 
 ### Return type
 
@@ -952,7 +888,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -962,7 +898,7 @@ Name | Type | Description  | Notes
 
 ## UpdateShopShippingProfileDestination
 
-> ShopShippingProfileDestination UpdateShopShippingProfileDestination(ctx, shopId, shippingProfileId, shippingProfileDestinationId).PrimaryCost(primaryCost).SecondaryCost(secondaryCost).DestinationCountryIso(destinationCountryIso).DestinationRegion(destinationRegion).ShippingCarrierId(shippingCarrierId).MailClass(mailClass).MinDeliveryDays(minDeliveryDays).MaxDeliveryDays(maxDeliveryDays).Execute()
+> ShopShippingProfileDestination UpdateShopShippingProfileDestination(ctx, shopId, shippingProfileId, shippingProfileDestinationId).UpdateShopShippingProfileDestinationRequest(updateShopShippingProfileDestinationRequest).Execute()
 
 
 
@@ -984,18 +920,11 @@ func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
 	shippingProfileDestinationId := int64(56) // int64 | The numeric ID of the shipping profile destination in the [shipping profile](/documentation/reference#tag/Shop-ShippingProfile) associated with the listing.
-	primaryCost := float32(3.4) // float32 | The cost of shipping to this country/region alone, measured in the store's default currency. (optional)
-	secondaryCost := float32(3.4) // float32 | The cost of shipping to this country/region with another item, measured in the store's default currency. (optional)
-	destinationCountryIso := "destinationCountryIso_example" // string | The ISO code of the country to which the listing ships. If null, request sets destination to destination_region. Required if destination_region is null or not provided. (optional)
-	destinationRegion := openapiclient.createShopShippingProfile_request_destination_region("eu") // CreateShopShippingProfileRequestDestinationRegion |  (optional) (default to "none")
-	shippingCarrierId := int64(56) // int64 | The unique ID of a supported shipping carrier, which is used to calculate an Estimated Delivery Date. **Required with `mail_class`** if `min_delivery_days` and `max_delivery_days` are null. (optional)
-	mailClass := "mailClass_example" // string | The unique ID string of a shipping carrier's mail class, which is used to calculate an estimated delivery date. **Required with `shipping_carrier_id`** if `min_delivery_days` and `max_delivery_days` are null. (optional)
-	minDeliveryDays := int64(56) // int64 | The minimum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with `max_delivery_days`** if `mail_class` is null. (optional)
-	maxDeliveryDays := int64(56) // int64 | The maximum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with `min_delivery_days`** if `mail_class` is null. (optional)
+	updateShopShippingProfileDestinationRequest := *openapiclient.NewUpdateShopShippingProfileDestinationRequest() // UpdateShopShippingProfileDestinationRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopShippingProfileAPI.UpdateShopShippingProfileDestination(context.Background(), shopId, shippingProfileId, shippingProfileDestinationId).PrimaryCost(primaryCost).SecondaryCost(secondaryCost).DestinationCountryIso(destinationCountryIso).DestinationRegion(destinationRegion).ShippingCarrierId(shippingCarrierId).MailClass(mailClass).MinDeliveryDays(minDeliveryDays).MaxDeliveryDays(maxDeliveryDays).Execute()
+	resp, r, err := apiClient.ShopShippingProfileAPI.UpdateShopShippingProfileDestination(context.Background(), shopId, shippingProfileId, shippingProfileDestinationId).UpdateShopShippingProfileDestinationRequest(updateShopShippingProfileDestinationRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopShippingProfileAPI.UpdateShopShippingProfileDestination``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1025,14 +954,7 @@ Name | Type | Description  | Notes
 
 
 
- **primaryCost** | **float32** | The cost of shipping to this country/region alone, measured in the store&#39;s default currency. | 
- **secondaryCost** | **float32** | The cost of shipping to this country/region with another item, measured in the store&#39;s default currency. | 
- **destinationCountryIso** | **string** | The ISO code of the country to which the listing ships. If null, request sets destination to destination_region. Required if destination_region is null or not provided. | 
- **destinationRegion** | [**CreateShopShippingProfileRequestDestinationRegion**](CreateShopShippingProfileRequestDestinationRegion.md) |  | [default to &quot;none&quot;]
- **shippingCarrierId** | **int64** | The unique ID of a supported shipping carrier, which is used to calculate an Estimated Delivery Date. **Required with &#x60;mail_class&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null. | 
- **mailClass** | **string** | The unique ID string of a shipping carrier&#39;s mail class, which is used to calculate an estimated delivery date. **Required with &#x60;shipping_carrier_id&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null. | 
- **minDeliveryDays** | **int64** | The minimum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;max_delivery_days&#x60;** if &#x60;mail_class&#x60; is null. | 
- **maxDeliveryDays** | **int64** | The maximum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;min_delivery_days&#x60;** if &#x60;mail_class&#x60; is null. | 
+ **updateShopShippingProfileDestinationRequest** | [**UpdateShopShippingProfileDestinationRequest**](UpdateShopShippingProfileDestinationRequest.md) |  | 
 
 ### Return type
 
@@ -1044,7 +966,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -1054,7 +976,7 @@ Name | Type | Description  | Notes
 
 ## UpdateShopShippingProfileUpgrade
 
-> ShopShippingProfileUpgrade UpdateShopShippingProfileUpgrade(ctx, shopId, shippingProfileId, upgradeId).UpgradeName(upgradeName).Type_(type_).Price(price).SecondaryPrice(secondaryPrice).ShippingCarrierId(shippingCarrierId).MailClass(mailClass).MinDeliveryDays(minDeliveryDays).MaxDeliveryDays(maxDeliveryDays).Execute()
+> ShopShippingProfileUpgrade UpdateShopShippingProfileUpgrade(ctx, shopId, shippingProfileId, upgradeId).UpdateShopShippingProfileUpgradeRequest(updateShopShippingProfileUpgradeRequest).Execute()
 
 
 
@@ -1076,18 +998,11 @@ func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
 	upgradeId := int64(56) // int64 | The numeric ID that is associated with a shipping upgrade
-	upgradeName := "upgradeName_example" // string | Name for the shipping upgrade shown to shoppers at checkout, e.g. USPS Priority. (optional)
-	type_ := openapiclient.createShopShippingProfileUpgrade_request_type("0") // CreateShopShippingProfileUpgradeRequestType |  (optional)
-	price := float32(3.4) // float32 | Additional cost of adding the shipping upgrade. (optional)
-	secondaryPrice := float32(3.4) // float32 | Additional cost of adding the shipping upgrade for each additional item. (optional)
-	shippingCarrierId := int64(56) // int64 | The unique ID of a supported shipping carrier, which is used to calculate an Estimated Delivery Date. **Required with `mail_class`** if `min_delivery_days` and `max_delivery_days` are null. (optional)
-	mailClass := "mailClass_example" // string | The unique ID string of a shipping carrier's mail class, which is used to calculate an estimated delivery date. **Required with `shipping_carrier_id`** if `min_delivery_days` and `max_delivery_days` are null. (optional)
-	minDeliveryDays := int64(56) // int64 | The minimum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with `max_delivery_days`** if `mail_class` is null. (optional)
-	maxDeliveryDays := int64(56) // int64 | The maximum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with `min_delivery_days`** if `mail_class` is null. (optional)
+	updateShopShippingProfileUpgradeRequest := *openapiclient.NewUpdateShopShippingProfileUpgradeRequest() // UpdateShopShippingProfileUpgradeRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopShippingProfileAPI.UpdateShopShippingProfileUpgrade(context.Background(), shopId, shippingProfileId, upgradeId).UpgradeName(upgradeName).Type_(type_).Price(price).SecondaryPrice(secondaryPrice).ShippingCarrierId(shippingCarrierId).MailClass(mailClass).MinDeliveryDays(minDeliveryDays).MaxDeliveryDays(maxDeliveryDays).Execute()
+	resp, r, err := apiClient.ShopShippingProfileAPI.UpdateShopShippingProfileUpgrade(context.Background(), shopId, shippingProfileId, upgradeId).UpdateShopShippingProfileUpgradeRequest(updateShopShippingProfileUpgradeRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopShippingProfileAPI.UpdateShopShippingProfileUpgrade``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1117,14 +1032,7 @@ Name | Type | Description  | Notes
 
 
 
- **upgradeName** | **string** | Name for the shipping upgrade shown to shoppers at checkout, e.g. USPS Priority. | 
- **type_** | [**CreateShopShippingProfileUpgradeRequestType**](CreateShopShippingProfileUpgradeRequestType.md) |  | 
- **price** | **float32** | Additional cost of adding the shipping upgrade. | 
- **secondaryPrice** | **float32** | Additional cost of adding the shipping upgrade for each additional item. | 
- **shippingCarrierId** | **int64** | The unique ID of a supported shipping carrier, which is used to calculate an Estimated Delivery Date. **Required with &#x60;mail_class&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null. | 
- **mailClass** | **string** | The unique ID string of a shipping carrier&#39;s mail class, which is used to calculate an estimated delivery date. **Required with &#x60;shipping_carrier_id&#x60;** if &#x60;min_delivery_days&#x60; and &#x60;max_delivery_days&#x60; are null. | 
- **minDeliveryDays** | **int64** | The minimum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;max_delivery_days&#x60;** if &#x60;mail_class&#x60; is null. | 
- **maxDeliveryDays** | **int64** | The maximum number of business days a buyer can expect to wait to receive their purchased item once it has shipped. **Required with &#x60;min_delivery_days&#x60;** if &#x60;mail_class&#x60; is null. | 
+ **updateShopShippingProfileUpgradeRequest** | [**UpdateShopShippingProfileUpgradeRequest**](UpdateShopShippingProfileUpgradeRequest.md) |  | 
 
 ### Return type
 
@@ -1136,7 +1044,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

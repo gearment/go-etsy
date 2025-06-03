@@ -26,7 +26,7 @@ Method | HTTP request | Description
 
 ## CreateDraftListing
 
-> ShopListing CreateDraftListing(ctx, shopId).Quantity(quantity).Title(title).Description(description).Price(price).WhoMade(whoMade).WhenMade(whenMade).TaxonomyId(taxonomyId).ShippingProfileId(shippingProfileId).ReturnPolicyId(returnPolicyId).Materials(materials).ShopSectionId(shopSectionId).ProcessingMin(processingMin).ProcessingMax(processingMax).Tags(tags).Styles(styles).ItemWeight(itemWeight).ItemLength(itemLength).ItemWidth(itemWidth).ItemHeight(itemHeight).ItemWeightUnit(itemWeightUnit).ItemDimensionsUnit(itemDimensionsUnit).IsPersonalizable(isPersonalizable).PersonalizationIsRequired(personalizationIsRequired).PersonalizationCharCountMax(personalizationCharCountMax).PersonalizationInstructions(personalizationInstructions).ProductionPartnerIds(productionPartnerIds).ImageIds(imageIds).IsSupply(isSupply).IsCustomizable(isCustomizable).ShouldAutoRenew(shouldAutoRenew).IsTaxable(isTaxable).Type_(type_).Execute()
+> ShopListing CreateDraftListing(ctx, shopId).CreateDraftListingRequest(createDraftListingRequest).Execute()
 
 
 
@@ -46,42 +46,11 @@ import (
 
 func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	quantity := int64(56) // int64 | The positive non-zero number of products available for purchase in the listing. Note: The listing quantity is the sum of available offering quantities. You can request the quantities for individual offerings from the ListingInventory resource using the [getListingInventory](/documentation/reference#operation/getListingInventory) endpoint.
-	title := "title_example" // string | The listing's title string. When creating or updating a listing, valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{P}\\\\p{Sm}\\\\p{Zs}™©®]/u) You can only use the %, :, & and + characters once each.
-	description := "description_example" // string | A description string of the product for sale in the listing.
-	price := float32(3.4) // float32 | The positive non-zero price of the product. (Sold product listings are private) Note: The price is the minimum possible price. The [`getListingInventory`](/documentation/reference/#operation/getListingInventory) method requests exact prices for available offerings.
-	whoMade := openapiclient.createDraftListing_request_who_made("i_did") // CreateDraftListingRequestWhoMade | 
-	whenMade := openapiclient.createDraftListing_request_when_made("made_to_order") // CreateDraftListingRequestWhenMade | 
-	taxonomyId := int64(56) // int64 | The numerical taxonomy ID of the listing. See [SellerTaxonomy](/documentation/reference#tag/SellerTaxonomy) and [BuyerTaxonomy](/documentation/reference#tag/BuyerTaxonomy) for more information.
-	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`. (optional)
-	returnPolicyId := int64(56) // int64 | The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies). (optional)
-	materials := []string{"Inner_example"} // []string | A list of material strings for materials used in the product. Valid materials strings contain only letters, numbers, and whitespace characters. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}]/u) Default value is null. (optional)
-	shopSectionId := int64(56) // int64 | The numeric ID of the [shop section](/documentation/reference#tag/Shop-Section) for this listing. Default value is null. (optional)
-	processingMin := int64(56) // int64 | The minimum number of days required to process this listing. Default value is null. (optional)
-	processingMax := int64(56) // int64 | The maximum number of days required to process this listing. Default value is null. (optional)
-	tags := []string{"Inner_example"} // []string | A comma-separated list of tag strings for the listing. When creating or updating a listing, valid tag strings contain only letters, numbers, whitespace characters, -, ', ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}\\\\-'™©®]/u) Default value is null. (optional)
-	styles := []string{"Inner_example"} // []string | An array of style strings for this listing, each of which is free-form text string such as \\\"Formal\\\", or \\\"Steampunk\\\". When creating or updating a listing, the listing may have up to two styles. Valid style strings contain only letters, numbers, and whitespace characters. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}]/u) Default value is null. (optional)
-	itemWeight := float32(3.4) // float32 | The numeric weight of the product measured in units set in 'item_weight_unit'. Default value is null. If set, the value must be greater than 0. (optional)
-	itemLength := float32(3.4) // float32 | The numeric length of the product measured in units set in 'item_dimensions_unit'. Default value is null. If set, the value must be greater than 0. (optional)
-	itemWidth := float32(3.4) // float32 | The numeric width of the product measured in units set in 'item_dimensions_unit'. Default value is null. If set, the value must be greater than 0. (optional)
-	itemHeight := float32(3.4) // float32 | The numeric height of the product measured in units set in 'item_dimensions_unit'. Default value is null. If set, the value must be greater than 0. (optional)
-	itemWeightUnit := openapiclient.createDraftListing_request_item_weight_unit("oz") // CreateDraftListingRequestItemWeightUnit |  (optional)
-	itemDimensionsUnit := openapiclient.createDraftListing_request_item_dimensions_unit("in") // CreateDraftListingRequestItemDimensionsUnit |  (optional)
-	isPersonalizable := true // bool | When true, this listing is personalizable. The default value is null. (optional)
-	personalizationIsRequired := true // bool | When true, this listing requires personalization. The default value is null. Will only change if is_personalizable is 'true'. (optional)
-	personalizationCharCountMax := int64(56) // int64 | This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is 'true'. (optional)
-	personalizationInstructions := "personalizationInstructions_example" // string | A string representing instructions for the buyer to enter the personalization. Will only change if is_personalizable is 'true'. (optional)
-	productionPartnerIds := []int64{int64(123)} // []int64 | An array of unique IDs of production partner ids. (optional)
-	imageIds := []int64{int64(123)} // []int64 | An array of numeric image IDs of the images in a listing, which can include up to 10 images. (optional)
-	isSupply := true // bool | When true, tags the listing as a supply product, else indicates that it's a finished product. Helps buyers locate the listing under the Supplies heading. Requires 'who_made' and 'when_made'. (optional)
-	isCustomizable := true // bool | When true, a buyer may contact the seller for a customized order. The default value is true when a shop accepts custom orders. Does not apply to shops that do not accept custom orders. (optional)
-	shouldAutoRenew := true // bool | When true, renews a listing for four months upon expiration. (optional)
-	isTaxable := true // bool | When true, applicable [shop](/documentation/reference#tag/Shop) tax rates apply to this listing at checkout. (optional)
-	type_ := openapiclient.createDraftListing_request_type("physical") // CreateDraftListingRequestType |  (optional)
+	createDraftListingRequest := *openapiclient.NewCreateDraftListingRequest(int64(123), "Title_example", "Description_example", float32(123), openapiclient.createDraftListing_request_who_made("i_did"), openapiclient.createDraftListing_request_when_made("made_to_order"), int64(123)) // CreateDraftListingRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopListingAPI.CreateDraftListing(context.Background(), shopId).Quantity(quantity).Title(title).Description(description).Price(price).WhoMade(whoMade).WhenMade(whenMade).TaxonomyId(taxonomyId).ShippingProfileId(shippingProfileId).ReturnPolicyId(returnPolicyId).Materials(materials).ShopSectionId(shopSectionId).ProcessingMin(processingMin).ProcessingMax(processingMax).Tags(tags).Styles(styles).ItemWeight(itemWeight).ItemLength(itemLength).ItemWidth(itemWidth).ItemHeight(itemHeight).ItemWeightUnit(itemWeightUnit).ItemDimensionsUnit(itemDimensionsUnit).IsPersonalizable(isPersonalizable).PersonalizationIsRequired(personalizationIsRequired).PersonalizationCharCountMax(personalizationCharCountMax).PersonalizationInstructions(personalizationInstructions).ProductionPartnerIds(productionPartnerIds).ImageIds(imageIds).IsSupply(isSupply).IsCustomizable(isCustomizable).ShouldAutoRenew(shouldAutoRenew).IsTaxable(isTaxable).Type_(type_).Execute()
+	resp, r, err := apiClient.ShopListingAPI.CreateDraftListing(context.Background(), shopId).CreateDraftListingRequest(createDraftListingRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopListingAPI.CreateDraftListing``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -107,38 +76,7 @@ Other parameters are passed through a pointer to a apiCreateDraftListingRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **quantity** | **int64** | The positive non-zero number of products available for purchase in the listing. Note: The listing quantity is the sum of available offering quantities. You can request the quantities for individual offerings from the ListingInventory resource using the [getListingInventory](/documentation/reference#operation/getListingInventory) endpoint. | 
- **title** | **string** | The listing&#39;s title string. When creating or updating a listing, valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{P}\\\\p{Sm}\\\\p{Zs}™©®]/u) You can only use the %, :, &amp; and + characters once each. | 
- **description** | **string** | A description string of the product for sale in the listing. | 
- **price** | **float32** | The positive non-zero price of the product. (Sold product listings are private) Note: The price is the minimum possible price. The [&#x60;getListingInventory&#x60;](/documentation/reference/#operation/getListingInventory) method requests exact prices for available offerings. | 
- **whoMade** | [**CreateDraftListingRequestWhoMade**](CreateDraftListingRequestWhoMade.md) |  | 
- **whenMade** | [**CreateDraftListingRequestWhenMade**](CreateDraftListingRequestWhenMade.md) |  | 
- **taxonomyId** | **int64** | The numerical taxonomy ID of the listing. See [SellerTaxonomy](/documentation/reference#tag/SellerTaxonomy) and [BuyerTaxonomy](/documentation/reference#tag/BuyerTaxonomy) for more information. | 
- **shippingProfileId** | **int64** | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is &#x60;physical&#x60;. | 
- **returnPolicyId** | **int64** | The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies). | 
- **materials** | **[]string** | A list of material strings for materials used in the product. Valid materials strings contain only letters, numbers, and whitespace characters. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}]/u) Default value is null. | 
- **shopSectionId** | **int64** | The numeric ID of the [shop section](/documentation/reference#tag/Shop-Section) for this listing. Default value is null. | 
- **processingMin** | **int64** | The minimum number of days required to process this listing. Default value is null. | 
- **processingMax** | **int64** | The maximum number of days required to process this listing. Default value is null. | 
- **tags** | **[]string** | A comma-separated list of tag strings for the listing. When creating or updating a listing, valid tag strings contain only letters, numbers, whitespace characters, -, &#39;, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}\\\\-&#39;™©®]/u) Default value is null. | 
- **styles** | **[]string** | An array of style strings for this listing, each of which is free-form text string such as \\\&quot;Formal\\\&quot;, or \\\&quot;Steampunk\\\&quot;. When creating or updating a listing, the listing may have up to two styles. Valid style strings contain only letters, numbers, and whitespace characters. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}]/u) Default value is null. | 
- **itemWeight** | **float32** | The numeric weight of the product measured in units set in &#39;item_weight_unit&#39;. Default value is null. If set, the value must be greater than 0. | 
- **itemLength** | **float32** | The numeric length of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0. | 
- **itemWidth** | **float32** | The numeric width of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0. | 
- **itemHeight** | **float32** | The numeric height of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0. | 
- **itemWeightUnit** | [**CreateDraftListingRequestItemWeightUnit**](CreateDraftListingRequestItemWeightUnit.md) |  | 
- **itemDimensionsUnit** | [**CreateDraftListingRequestItemDimensionsUnit**](CreateDraftListingRequestItemDimensionsUnit.md) |  | 
- **isPersonalizable** | **bool** | When true, this listing is personalizable. The default value is null. | 
- **personalizationIsRequired** | **bool** | When true, this listing requires personalization. The default value is null. Will only change if is_personalizable is &#39;true&#39;. | 
- **personalizationCharCountMax** | **int64** | This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is &#39;true&#39;. | 
- **personalizationInstructions** | **string** | A string representing instructions for the buyer to enter the personalization. Will only change if is_personalizable is &#39;true&#39;. | 
- **productionPartnerIds** | **[]int64** | An array of unique IDs of production partner ids. | 
- **imageIds** | **[]int64** | An array of numeric image IDs of the images in a listing, which can include up to 10 images. | 
- **isSupply** | **bool** | When true, tags the listing as a supply product, else indicates that it&#39;s a finished product. Helps buyers locate the listing under the Supplies heading. Requires &#39;who_made&#39; and &#39;when_made&#39;. | 
- **isCustomizable** | **bool** | When true, a buyer may contact the seller for a customized order. The default value is true when a shop accepts custom orders. Does not apply to shops that do not accept custom orders. | 
- **shouldAutoRenew** | **bool** | When true, renews a listing for four months upon expiration. | 
- **isTaxable** | **bool** | When true, applicable [shop](/documentation/reference#tag/Shop) tax rates apply to this listing at checkout. | 
- **type_** | [**CreateDraftListingRequestType**](CreateDraftListingRequestType.md) |  | 
+ **createDraftListingRequest** | [**CreateDraftListingRequest**](CreateDraftListingRequest.md) |  | 
 
 ### Return type
 
@@ -150,7 +88,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -1138,7 +1076,7 @@ Name | Type | Description  | Notes
 
 ## UpdateListing
 
-> ShopListing UpdateListing(ctx, shopId, listingId).ImageIds(imageIds).Title(title).Description(description).Materials(materials).ShouldAutoRenew(shouldAutoRenew).ShippingProfileId(shippingProfileId).ReturnPolicyId(returnPolicyId).ShopSectionId(shopSectionId).ItemWeight(itemWeight).ItemLength(itemLength).ItemWidth(itemWidth).ItemHeight(itemHeight).ItemWeightUnit(itemWeightUnit).ItemDimensionsUnit(itemDimensionsUnit).IsTaxable(isTaxable).TaxonomyId(taxonomyId).Tags(tags).WhoMade(whoMade).WhenMade(whenMade).FeaturedRank(featuredRank).IsPersonalizable(isPersonalizable).PersonalizationIsRequired(personalizationIsRequired).PersonalizationCharCountMax(personalizationCharCountMax).PersonalizationInstructions(personalizationInstructions).State(state).IsSupply(isSupply).ProductionPartnerIds(productionPartnerIds).Type_(type_).Execute()
+> ShopListing UpdateListing(ctx, shopId, listingId).UpdateListingRequest(updateListingRequest).Execute()
 
 
 
@@ -1159,38 +1097,11 @@ import (
 func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
-	imageIds := []int64{int64(123)} // []int64 | An array of numeric image IDs of the images in a listing, which can include up to 10 images. (optional)
-	title := "title_example" // string | The listing's title string. When creating or updating a listing, valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{P}\\\\p{Sm}\\\\p{Zs}™©®]/u) You can only use the %, :, & and + characters once each. (optional)
-	description := "description_example" // string | A description string of the product for sale in the listing. (optional)
-	materials := []string{"Inner_example"} // []string | A list of material strings for materials used in the product. Valid materials strings contain only letters, numbers, and whitespace characters. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}]/u) Default value is null. (optional)
-	shouldAutoRenew := true // bool | When true, renews a listing for four months upon expiration. (optional)
-	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`. (optional)
-	returnPolicyId := int64(56) // int64 | The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies). Required for active physical listings. This requirement does not apply to listings of EU-based shops. (optional)
-	shopSectionId := int64(56) // int64 | The numeric ID of the [shop section](/documentation/reference#tag/Shop-Section) for this listing. Default value is null. (optional)
-	itemWeight := float32(3.4) // float32 | The numeric weight of the product measured in units set in 'item_weight_unit'. Default value is null. If set, the value must be greater than 0. (optional)
-	itemLength := float32(3.4) // float32 | The numeric length of the product measured in units set in 'item_dimensions_unit'. Default value is null. If set, the value must be greater than 0. (optional)
-	itemWidth := float32(3.4) // float32 | The numeric width of the product measured in units set in 'item_dimensions_unit'. Default value is null. If set, the value must be greater than 0. (optional)
-	itemHeight := float32(3.4) // float32 | The numeric height of the product measured in units set in 'item_dimensions_unit'. Default value is null. If set, the value must be greater than 0. (optional)
-	itemWeightUnit := openapiclient.updateListing_request_item_weight_unit("") // UpdateListingRequestItemWeightUnit |  (optional)
-	itemDimensionsUnit := openapiclient.updateListing_request_item_dimensions_unit("") // UpdateListingRequestItemDimensionsUnit |  (optional)
-	isTaxable := true // bool | When true, applicable [shop](/documentation/reference#tag/Shop) tax rates apply to this listing at checkout. (optional)
-	taxonomyId := int64(56) // int64 | The numerical taxonomy ID of the listing. See [SellerTaxonomy](/documentation/reference#tag/SellerTaxonomy) and [BuyerTaxonomy](/documentation/reference#tag/BuyerTaxonomy) for more information. (optional)
-	tags := []string{"Inner_example"} // []string | A comma-separated list of tag strings for the listing. When creating or updating a listing, valid tag strings contain only letters, numbers, whitespace characters, -, ', ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}\\\\-'™©®]/u) Default value is null. (optional)
-	whoMade := openapiclient.createDraftListing_request_who_made("i_did") // CreateDraftListingRequestWhoMade |  (optional)
-	whenMade := openapiclient.createDraftListing_request_when_made("made_to_order") // CreateDraftListingRequestWhenMade |  (optional)
-	featuredRank := int64(56) // int64 | The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop’s home page. (optional)
-	isPersonalizable := true // bool | When true, this listing is personalizable. The default value is null. (optional)
-	personalizationIsRequired := true // bool | When true, this listing requires personalization. The default value is null. Will only change if is_personalizable is 'true'. (optional)
-	personalizationCharCountMax := int64(56) // int64 | This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is 'true'. (optional)
-	personalizationInstructions := "personalizationInstructions_example" // string | A string representing instructions for the buyer to enter the personalization. Will only change if is_personalizable is 'true'. (optional)
-	state := openapiclient.updateListingDeprecated_request_state("active") // UpdateListingDeprecatedRequestState |  (optional)
-	isSupply := true // bool | When true, tags the listing as a supply product, else indicates that it's a finished product. Helps buyers locate the listing under the Supplies heading. Requires 'who_made' and 'when_made'. (optional)
-	productionPartnerIds := []int64{int64(123)} // []int64 | An array of unique IDs of production partner ids. (optional)
-	type_ := openapiclient.updateListingDeprecated_request_type("physical") // UpdateListingDeprecatedRequestType |  (optional)
+	updateListingRequest := *openapiclient.NewUpdateListingRequest() // UpdateListingRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopListingAPI.UpdateListing(context.Background(), shopId, listingId).ImageIds(imageIds).Title(title).Description(description).Materials(materials).ShouldAutoRenew(shouldAutoRenew).ShippingProfileId(shippingProfileId).ReturnPolicyId(returnPolicyId).ShopSectionId(shopSectionId).ItemWeight(itemWeight).ItemLength(itemLength).ItemWidth(itemWidth).ItemHeight(itemHeight).ItemWeightUnit(itemWeightUnit).ItemDimensionsUnit(itemDimensionsUnit).IsTaxable(isTaxable).TaxonomyId(taxonomyId).Tags(tags).WhoMade(whoMade).WhenMade(whenMade).FeaturedRank(featuredRank).IsPersonalizable(isPersonalizable).PersonalizationIsRequired(personalizationIsRequired).PersonalizationCharCountMax(personalizationCharCountMax).PersonalizationInstructions(personalizationInstructions).State(state).IsSupply(isSupply).ProductionPartnerIds(productionPartnerIds).Type_(type_).Execute()
+	resp, r, err := apiClient.ShopListingAPI.UpdateListing(context.Background(), shopId, listingId).UpdateListingRequest(updateListingRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopListingAPI.UpdateListing``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1218,34 +1129,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **imageIds** | **[]int64** | An array of numeric image IDs of the images in a listing, which can include up to 10 images. | 
- **title** | **string** | The listing&#39;s title string. When creating or updating a listing, valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{P}\\\\p{Sm}\\\\p{Zs}™©®]/u) You can only use the %, :, &amp; and + characters once each. | 
- **description** | **string** | A description string of the product for sale in the listing. | 
- **materials** | **[]string** | A list of material strings for materials used in the product. Valid materials strings contain only letters, numbers, and whitespace characters. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}]/u) Default value is null. | 
- **shouldAutoRenew** | **bool** | When true, renews a listing for four months upon expiration. | 
- **shippingProfileId** | **int64** | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is &#x60;physical&#x60;. | 
- **returnPolicyId** | **int64** | The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies). Required for active physical listings. This requirement does not apply to listings of EU-based shops. | 
- **shopSectionId** | **int64** | The numeric ID of the [shop section](/documentation/reference#tag/Shop-Section) for this listing. Default value is null. | 
- **itemWeight** | **float32** | The numeric weight of the product measured in units set in &#39;item_weight_unit&#39;. Default value is null. If set, the value must be greater than 0. | 
- **itemLength** | **float32** | The numeric length of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0. | 
- **itemWidth** | **float32** | The numeric width of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0. | 
- **itemHeight** | **float32** | The numeric height of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0. | 
- **itemWeightUnit** | [**UpdateListingRequestItemWeightUnit**](UpdateListingRequestItemWeightUnit.md) |  | 
- **itemDimensionsUnit** | [**UpdateListingRequestItemDimensionsUnit**](UpdateListingRequestItemDimensionsUnit.md) |  | 
- **isTaxable** | **bool** | When true, applicable [shop](/documentation/reference#tag/Shop) tax rates apply to this listing at checkout. | 
- **taxonomyId** | **int64** | The numerical taxonomy ID of the listing. See [SellerTaxonomy](/documentation/reference#tag/SellerTaxonomy) and [BuyerTaxonomy](/documentation/reference#tag/BuyerTaxonomy) for more information. | 
- **tags** | **[]string** | A comma-separated list of tag strings for the listing. When creating or updating a listing, valid tag strings contain only letters, numbers, whitespace characters, -, &#39;, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}\\\\-&#39;™©®]/u) Default value is null. | 
- **whoMade** | [**CreateDraftListingRequestWhoMade**](CreateDraftListingRequestWhoMade.md) |  | 
- **whenMade** | [**CreateDraftListingRequestWhenMade**](CreateDraftListingRequestWhenMade.md) |  | 
- **featuredRank** | **int64** | The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop’s home page. | 
- **isPersonalizable** | **bool** | When true, this listing is personalizable. The default value is null. | 
- **personalizationIsRequired** | **bool** | When true, this listing requires personalization. The default value is null. Will only change if is_personalizable is &#39;true&#39;. | 
- **personalizationCharCountMax** | **int64** | This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is &#39;true&#39;. | 
- **personalizationInstructions** | **string** | A string representing instructions for the buyer to enter the personalization. Will only change if is_personalizable is &#39;true&#39;. | 
- **state** | [**UpdateListingDeprecatedRequestState**](UpdateListingDeprecatedRequestState.md) |  | 
- **isSupply** | **bool** | When true, tags the listing as a supply product, else indicates that it&#39;s a finished product. Helps buyers locate the listing under the Supplies heading. Requires &#39;who_made&#39; and &#39;when_made&#39;. | 
- **productionPartnerIds** | **[]int64** | An array of unique IDs of production partner ids. | 
- **type_** | [**UpdateListingDeprecatedRequestType**](UpdateListingDeprecatedRequestType.md) |  | 
+ **updateListingRequest** | [**UpdateListingRequest**](UpdateListingRequest.md) |  | 
 
 ### Return type
 
@@ -1257,7 +1141,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -1267,7 +1151,7 @@ Name | Type | Description  | Notes
 
 ## UpdateListingDeprecated
 
-> ShopListing UpdateListingDeprecated(ctx, shopId, listingId).ImageIds(imageIds).Title(title).Description(description).Materials(materials).ShouldAutoRenew(shouldAutoRenew).ShippingProfileId(shippingProfileId).ShopSectionId(shopSectionId).ItemWeight(itemWeight).ItemLength(itemLength).ItemWidth(itemWidth).ItemHeight(itemHeight).ItemWeightUnit(itemWeightUnit).ItemDimensionsUnit(itemDimensionsUnit).IsTaxable(isTaxable).TaxonomyId(taxonomyId).Tags(tags).WhoMade(whoMade).WhenMade(whenMade).FeaturedRank(featuredRank).IsPersonalizable(isPersonalizable).PersonalizationIsRequired(personalizationIsRequired).PersonalizationCharCountMax(personalizationCharCountMax).PersonalizationInstructions(personalizationInstructions).State(state).IsSupply(isSupply).ProductionPartnerIds(productionPartnerIds).Type_(type_).Execute()
+> ShopListing UpdateListingDeprecated(ctx, shopId, listingId).UpdateListingDeprecatedRequest(updateListingDeprecatedRequest).Execute()
 
 
 
@@ -1288,37 +1172,11 @@ import (
 func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
-	imageIds := []int64{int64(123)} // []int64 | An array of numeric image IDs of the images in a listing, which can include up to 10 images. (optional)
-	title := "title_example" // string | The listing's title string. When creating or updating a listing, valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{P}\\\\p{Sm}\\\\p{Zs}™©®]/u) You can only use the %, :, & and + characters once each. (optional)
-	description := "description_example" // string | A description string of the product for sale in the listing. (optional)
-	materials := []string{"Inner_example"} // []string | A list of material strings for materials used in the product. Valid materials strings contain only letters, numbers, and whitespace characters. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}]/u) Default value is null. (optional)
-	shouldAutoRenew := true // bool | When true, renews a listing for four months upon expiration. (optional)
-	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`. (optional)
-	shopSectionId := int64(56) // int64 | The numeric ID of the [shop section](/documentation/reference#tag/Shop-Section) for this listing. Default value is null. (optional)
-	itemWeight := float32(3.4) // float32 | The numeric weight of the product measured in units set in 'item_weight_unit'. Default value is null. If set, the value must be greater than 0. (optional)
-	itemLength := float32(3.4) // float32 | The numeric length of the product measured in units set in 'item_dimensions_unit'. Default value is null. If set, the value must be greater than 0. (optional)
-	itemWidth := float32(3.4) // float32 | The numeric width of the product measured in units set in 'item_dimensions_unit'. Default value is null. If set, the value must be greater than 0. (optional)
-	itemHeight := float32(3.4) // float32 | The numeric height of the product measured in units set in 'item_dimensions_unit'. Default value is null. If set, the value must be greater than 0. (optional)
-	itemWeightUnit := openapiclient.createDraftListing_request_item_weight_unit("oz") // CreateDraftListingRequestItemWeightUnit |  (optional)
-	itemDimensionsUnit := openapiclient.createDraftListing_request_item_dimensions_unit("in") // CreateDraftListingRequestItemDimensionsUnit |  (optional)
-	isTaxable := true // bool | When true, applicable [shop](/documentation/reference#tag/Shop) tax rates apply to this listing at checkout. (optional)
-	taxonomyId := int64(56) // int64 | The numerical taxonomy ID of the listing. See [SellerTaxonomy](/documentation/reference#tag/SellerTaxonomy) and [BuyerTaxonomy](/documentation/reference#tag/BuyerTaxonomy) for more information. (optional)
-	tags := []string{"Inner_example"} // []string | A comma-separated list of tag strings for the listing. When creating or updating a listing, valid tag strings contain only letters, numbers, whitespace characters, -, ', ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}\\\\-'™©®]/u) Default value is null. (optional)
-	whoMade := openapiclient.createDraftListing_request_who_made("i_did") // CreateDraftListingRequestWhoMade |  (optional)
-	whenMade := openapiclient.createDraftListing_request_when_made("made_to_order") // CreateDraftListingRequestWhenMade |  (optional)
-	featuredRank := int64(56) // int64 | The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop’s home page. (optional)
-	isPersonalizable := true // bool | When true, this listing is personalizable. The default value is null. (optional)
-	personalizationIsRequired := true // bool | When true, this listing requires personalization. The default value is null. Will only change if is_personalizable is 'true'. (optional)
-	personalizationCharCountMax := int64(56) // int64 | This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is 'true'. (optional)
-	personalizationInstructions := "personalizationInstructions_example" // string | A string representing instructions for the buyer to enter the personalization. Will only change if is_personalizable is 'true'. (optional)
-	state := openapiclient.updateListingDeprecated_request_state("active") // UpdateListingDeprecatedRequestState |  (optional)
-	isSupply := true // bool | When true, tags the listing as a supply product, else indicates that it's a finished product. Helps buyers locate the listing under the Supplies heading. Requires 'who_made' and 'when_made'. (optional)
-	productionPartnerIds := []int64{int64(123)} // []int64 | An array of unique IDs of production partner ids. (optional)
-	type_ := openapiclient.updateListingDeprecated_request_type("physical") // UpdateListingDeprecatedRequestType |  (optional)
+	updateListingDeprecatedRequest := *openapiclient.NewUpdateListingDeprecatedRequest() // UpdateListingDeprecatedRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopListingAPI.UpdateListingDeprecated(context.Background(), shopId, listingId).ImageIds(imageIds).Title(title).Description(description).Materials(materials).ShouldAutoRenew(shouldAutoRenew).ShippingProfileId(shippingProfileId).ShopSectionId(shopSectionId).ItemWeight(itemWeight).ItemLength(itemLength).ItemWidth(itemWidth).ItemHeight(itemHeight).ItemWeightUnit(itemWeightUnit).ItemDimensionsUnit(itemDimensionsUnit).IsTaxable(isTaxable).TaxonomyId(taxonomyId).Tags(tags).WhoMade(whoMade).WhenMade(whenMade).FeaturedRank(featuredRank).IsPersonalizable(isPersonalizable).PersonalizationIsRequired(personalizationIsRequired).PersonalizationCharCountMax(personalizationCharCountMax).PersonalizationInstructions(personalizationInstructions).State(state).IsSupply(isSupply).ProductionPartnerIds(productionPartnerIds).Type_(type_).Execute()
+	resp, r, err := apiClient.ShopListingAPI.UpdateListingDeprecated(context.Background(), shopId, listingId).UpdateListingDeprecatedRequest(updateListingDeprecatedRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopListingAPI.UpdateListingDeprecated``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1346,33 +1204,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **imageIds** | **[]int64** | An array of numeric image IDs of the images in a listing, which can include up to 10 images. | 
- **title** | **string** | The listing&#39;s title string. When creating or updating a listing, valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{P}\\\\p{Sm}\\\\p{Zs}™©®]/u) You can only use the %, :, &amp; and + characters once each. | 
- **description** | **string** | A description string of the product for sale in the listing. | 
- **materials** | **[]string** | A list of material strings for materials used in the product. Valid materials strings contain only letters, numbers, and whitespace characters. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}]/u) Default value is null. | 
- **shouldAutoRenew** | **bool** | When true, renews a listing for four months upon expiration. | 
- **shippingProfileId** | **int64** | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is &#x60;physical&#x60;. | 
- **shopSectionId** | **int64** | The numeric ID of the [shop section](/documentation/reference#tag/Shop-Section) for this listing. Default value is null. | 
- **itemWeight** | **float32** | The numeric weight of the product measured in units set in &#39;item_weight_unit&#39;. Default value is null. If set, the value must be greater than 0. | 
- **itemLength** | **float32** | The numeric length of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0. | 
- **itemWidth** | **float32** | The numeric width of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0. | 
- **itemHeight** | **float32** | The numeric height of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0. | 
- **itemWeightUnit** | [**CreateDraftListingRequestItemWeightUnit**](CreateDraftListingRequestItemWeightUnit.md) |  | 
- **itemDimensionsUnit** | [**CreateDraftListingRequestItemDimensionsUnit**](CreateDraftListingRequestItemDimensionsUnit.md) |  | 
- **isTaxable** | **bool** | When true, applicable [shop](/documentation/reference#tag/Shop) tax rates apply to this listing at checkout. | 
- **taxonomyId** | **int64** | The numerical taxonomy ID of the listing. See [SellerTaxonomy](/documentation/reference#tag/SellerTaxonomy) and [BuyerTaxonomy](/documentation/reference#tag/BuyerTaxonomy) for more information. | 
- **tags** | **[]string** | A comma-separated list of tag strings for the listing. When creating or updating a listing, valid tag strings contain only letters, numbers, whitespace characters, -, &#39;, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}\\\\-&#39;™©®]/u) Default value is null. | 
- **whoMade** | [**CreateDraftListingRequestWhoMade**](CreateDraftListingRequestWhoMade.md) |  | 
- **whenMade** | [**CreateDraftListingRequestWhenMade**](CreateDraftListingRequestWhenMade.md) |  | 
- **featuredRank** | **int64** | The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop’s home page. | 
- **isPersonalizable** | **bool** | When true, this listing is personalizable. The default value is null. | 
- **personalizationIsRequired** | **bool** | When true, this listing requires personalization. The default value is null. Will only change if is_personalizable is &#39;true&#39;. | 
- **personalizationCharCountMax** | **int64** | This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is &#39;true&#39;. | 
- **personalizationInstructions** | **string** | A string representing instructions for the buyer to enter the personalization. Will only change if is_personalizable is &#39;true&#39;. | 
- **state** | [**UpdateListingDeprecatedRequestState**](UpdateListingDeprecatedRequestState.md) |  | 
- **isSupply** | **bool** | When true, tags the listing as a supply product, else indicates that it&#39;s a finished product. Helps buyers locate the listing under the Supplies heading. Requires &#39;who_made&#39; and &#39;when_made&#39;. | 
- **productionPartnerIds** | **[]int64** | An array of unique IDs of production partner ids. | 
- **type_** | [**UpdateListingDeprecatedRequestType**](UpdateListingDeprecatedRequestType.md) |  | 
+ **updateListingDeprecatedRequest** | [**UpdateListingDeprecatedRequest**](UpdateListingDeprecatedRequest.md) |  | 
 
 ### Return type
 
@@ -1384,7 +1216,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -1394,7 +1226,7 @@ Name | Type | Description  | Notes
 
 ## UpdateListingProperty
 
-> ListingPropertyValue UpdateListingProperty(ctx, shopId, listingId, propertyId).ValueIds(valueIds).Values(values).ScaleId(scaleId).Execute()
+> ListingPropertyValue UpdateListingProperty(ctx, shopId, listingId, propertyId).UpdateListingPropertyRequest(updateListingPropertyRequest).Execute()
 
 
 
@@ -1416,13 +1248,11 @@ func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
 	propertyId := int64(56) // int64 | The unique ID of an Etsy [listing property](/documentation/reference#operation/getListingProperties).
-	valueIds := []int64{int64(123)} // []int64 | An array of unique IDs of multiple Etsy [listing property](/documentation/reference#operation/getListingProperties) values. For example, if your listing offers different sizes of a product, then the value ID list contains value IDs for each size.
-	values := []string{"Inner_example"} // []string | An array of value strings for multiple Etsy [listing property](/documentation/reference#operation/getListingProperties) values. For example, if your listing offers different colored products, then the values array contains the color strings for each color. Note: parenthesis characters (`(` and `)`) are not allowed.
-	scaleId := int64(56) // int64 | The numeric ID of a single Etsy.com measurement scale. For example, for shoe size, there are three `scale_id`s available - `UK`, `US/Canada`, and `EU`, where `US/Canada` has `scale_id` 19. (optional)
+	updateListingPropertyRequest := *openapiclient.NewUpdateListingPropertyRequest([]int64{int64(123)}, []string{"Values_example"}) // UpdateListingPropertyRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopListingAPI.UpdateListingProperty(context.Background(), shopId, listingId, propertyId).ValueIds(valueIds).Values(values).ScaleId(scaleId).Execute()
+	resp, r, err := apiClient.ShopListingAPI.UpdateListingProperty(context.Background(), shopId, listingId, propertyId).UpdateListingPropertyRequest(updateListingPropertyRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopListingAPI.UpdateListingProperty``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1452,9 +1282,7 @@ Name | Type | Description  | Notes
 
 
 
- **valueIds** | **[]int64** | An array of unique IDs of multiple Etsy [listing property](/documentation/reference#operation/getListingProperties) values. For example, if your listing offers different sizes of a product, then the value ID list contains value IDs for each size. | 
- **values** | **[]string** | An array of value strings for multiple Etsy [listing property](/documentation/reference#operation/getListingProperties) values. For example, if your listing offers different colored products, then the values array contains the color strings for each color. Note: parenthesis characters (&#x60;(&#x60; and &#x60;)&#x60;) are not allowed. | 
- **scaleId** | **int64** | The numeric ID of a single Etsy.com measurement scale. For example, for shoe size, there are three &#x60;scale_id&#x60;s available - &#x60;UK&#x60;, &#x60;US/Canada&#x60;, and &#x60;EU&#x60;, where &#x60;US/Canada&#x60; has &#x60;scale_id&#x60; 19. | 
+ **updateListingPropertyRequest** | [**UpdateListingPropertyRequest**](UpdateListingPropertyRequest.md) |  | 
 
 ### Return type
 
@@ -1466,7 +1294,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

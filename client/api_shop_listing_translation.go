@@ -84,31 +84,16 @@ type ShopListingTranslationAPI interface {
 type ShopListingTranslationAPIService service
 
 type ShopListingTranslationAPICreateListingTranslationRequest struct {
-	ctx         context.Context
-	ApiService  ShopListingTranslationAPI
-	shopId      int64
-	listingId   int64
-	language    string
-	title       *string
-	description *string
-	tags        *[]string
+	ctx                             context.Context
+	ApiService                      ShopListingTranslationAPI
+	shopId                          int64
+	listingId                       int64
+	language                        string
+	updateListingTranslationRequest *UpdateListingTranslationRequest
 }
 
-// The title of the Listing of this Translation.
-func (r ShopListingTranslationAPICreateListingTranslationRequest) Title(title string) ShopListingTranslationAPICreateListingTranslationRequest {
-	r.title = &title
-	return r
-}
-
-// The description of the Listing of this Translation.
-func (r ShopListingTranslationAPICreateListingTranslationRequest) Description(description string) ShopListingTranslationAPICreateListingTranslationRequest {
-	r.description = &description
-	return r
-}
-
-// The tags of the Listing of this Translation.
-func (r ShopListingTranslationAPICreateListingTranslationRequest) Tags(tags []string) ShopListingTranslationAPICreateListingTranslationRequest {
-	r.tags = &tags
+func (r ShopListingTranslationAPICreateListingTranslationRequest) UpdateListingTranslationRequest(updateListingTranslationRequest UpdateListingTranslationRequest) ShopListingTranslationAPICreateListingTranslationRequest {
+	r.updateListingTranslationRequest = &updateListingTranslationRequest
 	return r
 }
 
@@ -169,15 +154,9 @@ func (a *ShopListingTranslationAPIService) CreateListingTranslationExecute(r Sho
 	if r.listingId < 1 {
 		return localVarReturnValue, nil, reportError("listingId must be greater than 1")
 	}
-	if r.title == nil {
-		return localVarReturnValue, nil, reportError("title is required and must be specified")
-	}
-	if r.description == nil {
-		return localVarReturnValue, nil, reportError("description is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -193,11 +172,8 @@ func (a *ShopListingTranslationAPIService) CreateListingTranslationExecute(r Sho
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "title", r.title, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "description", r.description, "", "")
-	if r.tags != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "tags", r.tags, "", "csv")
-	}
+	// body params
+	localVarPostBody = r.updateListingTranslationRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -470,31 +446,16 @@ func (a *ShopListingTranslationAPIService) GetListingTranslationExecute(r ShopLi
 }
 
 type ShopListingTranslationAPIUpdateListingTranslationRequest struct {
-	ctx         context.Context
-	ApiService  ShopListingTranslationAPI
-	shopId      int64
-	listingId   int64
-	language    string
-	title       *string
-	description *string
-	tags        *[]string
+	ctx                             context.Context
+	ApiService                      ShopListingTranslationAPI
+	shopId                          int64
+	listingId                       int64
+	language                        string
+	updateListingTranslationRequest *UpdateListingTranslationRequest
 }
 
-// The title of the Listing of this Translation.
-func (r ShopListingTranslationAPIUpdateListingTranslationRequest) Title(title string) ShopListingTranslationAPIUpdateListingTranslationRequest {
-	r.title = &title
-	return r
-}
-
-// The description of the Listing of this Translation.
-func (r ShopListingTranslationAPIUpdateListingTranslationRequest) Description(description string) ShopListingTranslationAPIUpdateListingTranslationRequest {
-	r.description = &description
-	return r
-}
-
-// The tags of the Listing of this Translation.
-func (r ShopListingTranslationAPIUpdateListingTranslationRequest) Tags(tags []string) ShopListingTranslationAPIUpdateListingTranslationRequest {
-	r.tags = &tags
+func (r ShopListingTranslationAPIUpdateListingTranslationRequest) UpdateListingTranslationRequest(updateListingTranslationRequest UpdateListingTranslationRequest) ShopListingTranslationAPIUpdateListingTranslationRequest {
+	r.updateListingTranslationRequest = &updateListingTranslationRequest
 	return r
 }
 
@@ -555,15 +516,9 @@ func (a *ShopListingTranslationAPIService) UpdateListingTranslationExecute(r Sho
 	if r.listingId < 1 {
 		return localVarReturnValue, nil, reportError("listingId must be greater than 1")
 	}
-	if r.title == nil {
-		return localVarReturnValue, nil, reportError("title is required and must be specified")
-	}
-	if r.description == nil {
-		return localVarReturnValue, nil, reportError("description is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -579,11 +534,8 @@ func (a *ShopListingTranslationAPIService) UpdateListingTranslationExecute(r Sho
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "title", r.title, "", "")
-	parameterAddToHeaderOrQuery(localVarFormParams, "description", r.description, "", "")
-	if r.tags != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "tags", r.tags, "", "csv")
-	}
+	// body params
+	localVarPostBody = r.updateListingTranslationRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 
 ## UpdateShop
 
-> Shop UpdateShop(ctx, shopId).Title(title).Announcement(announcement).SaleMessage(saleMessage).DigitalSaleMessage(digitalSaleMessage).PolicyAdditional(policyAdditional).Execute()
+> Shop UpdateShop(ctx, shopId).UpdateShopRequest(updateShopRequest).Execute()
 
 
 
@@ -243,15 +243,11 @@ import (
 
 func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	title := "title_example" // string | A brief heading string for the shop's main page. (optional)
-	announcement := "announcement_example" // string | An announcement string to buyers that displays on the shop's homepage. (optional)
-	saleMessage := "saleMessage_example" // string | A message string sent to users who complete a purchase from this shop. (optional)
-	digitalSaleMessage := "digitalSaleMessage_example" // string | A message string sent to users who purchase a digital item from this shop. (optional)
-	policyAdditional := "policyAdditional_example" // string | The shop's additional policies string (may be blank). (optional)
+	updateShopRequest := *openapiclient.NewUpdateShopRequest() // UpdateShopRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopAPI.UpdateShop(context.Background(), shopId).Title(title).Announcement(announcement).SaleMessage(saleMessage).DigitalSaleMessage(digitalSaleMessage).PolicyAdditional(policyAdditional).Execute()
+	resp, r, err := apiClient.ShopAPI.UpdateShop(context.Background(), shopId).UpdateShopRequest(updateShopRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopAPI.UpdateShop``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -277,11 +273,7 @@ Other parameters are passed through a pointer to a apiUpdateShopRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **title** | **string** | A brief heading string for the shop&#39;s main page. | 
- **announcement** | **string** | An announcement string to buyers that displays on the shop&#39;s homepage. | 
- **saleMessage** | **string** | A message string sent to users who complete a purchase from this shop. | 
- **digitalSaleMessage** | **string** | A message string sent to users who purchase a digital item from this shop. | 
- **policyAdditional** | **string** | The shop&#39;s additional policies string (may be blank). | 
+ **updateShopRequest** | [**UpdateShopRequest**](UpdateShopRequest.md) |  | 
 
 ### Return type
 
@@ -293,7 +285,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

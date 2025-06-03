@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateShopSection
 
-> ShopSection CreateShopSection(ctx, shopId).Title(title).Execute()
+> ShopSection CreateShopSection(ctx, shopId).CreateShopSectionRequest(createShopSectionRequest).Execute()
 
 
 
@@ -34,11 +34,11 @@ import (
 
 func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	title := "title_example" // string | The title string for a shop section.
+	createShopSectionRequest := *openapiclient.NewCreateShopSectionRequest("Title_example") // CreateShopSectionRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopSectionAPI.CreateShopSection(context.Background(), shopId).Title(title).Execute()
+	resp, r, err := apiClient.ShopSectionAPI.CreateShopSection(context.Background(), shopId).CreateShopSectionRequest(createShopSectionRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopSectionAPI.CreateShopSection``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -64,7 +64,7 @@ Other parameters are passed through a pointer to a apiCreateShopSectionRequest s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **title** | **string** | The title string for a shop section. | 
+ **createShopSectionRequest** | [**CreateShopSectionRequest**](CreateShopSectionRequest.md) |  | 
 
 ### Return type
 
@@ -76,7 +76,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -300,7 +300,7 @@ Name | Type | Description  | Notes
 
 ## UpdateShopSection
 
-> ShopSection UpdateShopSection(ctx, shopId, shopSectionId).Title(title).Execute()
+> ShopSection UpdateShopSection(ctx, shopId, shopSectionId).CreateShopSectionRequest(createShopSectionRequest).Execute()
 
 
 
@@ -321,11 +321,11 @@ import (
 func main() {
 	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	shopSectionId := int64(56) // int64 | The numeric ID of a section in a specific Etsy shop.
-	title := "title_example" // string | The title string for a shop section.
+	createShopSectionRequest := *openapiclient.NewCreateShopSectionRequest("Title_example") // CreateShopSectionRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopSectionAPI.UpdateShopSection(context.Background(), shopId, shopSectionId).Title(title).Execute()
+	resp, r, err := apiClient.ShopSectionAPI.UpdateShopSection(context.Background(), shopId, shopSectionId).CreateShopSectionRequest(createShopSectionRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopSectionAPI.UpdateShopSection``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -353,7 +353,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **title** | **string** | The title string for a shop section. | 
+ **createShopSectionRequest** | [**CreateShopSectionRequest**](CreateShopSectionRequest.md) |  | 
 
 ### Return type
 
@@ -365,7 +365,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/x-www-form-urlencoded
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
