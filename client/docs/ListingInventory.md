@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **PriceOnProperty** | Pointer to **[]int64** | An array of unique [listing property](/documentation/reference#operation/getListingProperties) ID integers for the properties that change product prices, if any. For example, if you charge specific prices for different sized products in the same listing, then this array contains the property ID for size. | [optional] 
 **QuantityOnProperty** | Pointer to **[]int64** | An array of unique [listing property](/documentation/reference#operation/getListingProperties) ID integers for the properties that change the quantity of the products, if any. For example, if you stock specific quantities of different colored products in the same listing, then this array contains the property ID for color. | [optional] 
 **SkuOnProperty** | Pointer to **[]int64** | An array of unique [listing property](/documentation/reference#operation/getListingProperties) ID integers for the properties that change the product SKU, if any. For example, if you use specific skus for different colored products in the same listing, then this array contains the property ID for color. | [optional] 
+**ReadinessStateOnProperty** | Pointer to **[]int64** | An array of unique [listing property](/documentation/reference#operation/getListingProperties) ID integers for the properties that change processing profile, if any. For example, if you need specific processing profiles for different colored products in the same listing, then this array contains the property ID for color. | [optional] 
 
 ## Methods
 
@@ -127,6 +128,31 @@ SetSkuOnProperty sets SkuOnProperty field to given value.
 `func (o *ListingInventory) HasSkuOnProperty() bool`
 
 HasSkuOnProperty returns a boolean if a field has been set.
+
+### GetReadinessStateOnProperty
+
+`func (o *ListingInventory) GetReadinessStateOnProperty() []int64`
+
+GetReadinessStateOnProperty returns the ReadinessStateOnProperty field if non-nil, zero value otherwise.
+
+### GetReadinessStateOnPropertyOk
+
+`func (o *ListingInventory) GetReadinessStateOnPropertyOk() (*[]int64, bool)`
+
+GetReadinessStateOnPropertyOk returns a tuple with the ReadinessStateOnProperty field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReadinessStateOnProperty
+
+`func (o *ListingInventory) SetReadinessStateOnProperty(v []int64)`
+
+SetReadinessStateOnProperty sets ReadinessStateOnProperty field to given value.
+
+### HasReadinessStateOnProperty
+
+`func (o *ListingInventory) HasReadinessStateOnProperty() bool`
+
+HasReadinessStateOnProperty returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

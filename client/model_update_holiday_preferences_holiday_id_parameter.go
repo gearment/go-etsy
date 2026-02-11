@@ -1,7 +1,7 @@
 /*
 Etsy Open API v3
 
-<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features. The API endpoints are meant to replace Etsy's Open API v2, which is scheduled to end service in 2022.</p><p class=\"wt-pb-xs-2\">All of the endpoints are callable and the majority of the API endpoints are now in a beta phase. This means we do not expect to make any breaking changes before our general release. A handful of endpoints are currently interface stubs (labeled “Feedback Only”) and returns a \"501 Not Implemented\" response code when called.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2024 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
+<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2026 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
 
 API version: 3.0.0
 Contact: developers@etsy.com
@@ -14,338 +14,335 @@ package goEtsy
 import (
 	"encoding/json"
 	"fmt"
-	"reflect"
-	"strings"
-	"unicode"
 )
 
 // UpdateHolidayPreferencesHolidayIdParameter The unique id that maps to the holiday a country observes. See the [Fulfillment Tutorial docs](https://developer.etsy.com/documentation/tutorials/fulfillment/#country-holidays) for more info
-type UpdateHolidayPreferencesHolidayIdParameter string
+type UpdateHolidayPreferencesHolidayIdParameter int64
 
 // List of updateHolidayPreferences_holiday_id_parameter
 const (
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__1   UpdateHolidayPreferencesHolidayIdParameter = "1"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__2   UpdateHolidayPreferencesHolidayIdParameter = "2"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__3   UpdateHolidayPreferencesHolidayIdParameter = "3"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__4   UpdateHolidayPreferencesHolidayIdParameter = "4"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__5   UpdateHolidayPreferencesHolidayIdParameter = "5"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__6   UpdateHolidayPreferencesHolidayIdParameter = "6"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__7   UpdateHolidayPreferencesHolidayIdParameter = "7"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__8   UpdateHolidayPreferencesHolidayIdParameter = "8"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__9   UpdateHolidayPreferencesHolidayIdParameter = "9"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__10  UpdateHolidayPreferencesHolidayIdParameter = "10"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__11  UpdateHolidayPreferencesHolidayIdParameter = "11"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__12  UpdateHolidayPreferencesHolidayIdParameter = "12"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__13  UpdateHolidayPreferencesHolidayIdParameter = "13"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__14  UpdateHolidayPreferencesHolidayIdParameter = "14"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__15  UpdateHolidayPreferencesHolidayIdParameter = "15"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__16  UpdateHolidayPreferencesHolidayIdParameter = "16"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__17  UpdateHolidayPreferencesHolidayIdParameter = "17"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__18  UpdateHolidayPreferencesHolidayIdParameter = "18"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__19  UpdateHolidayPreferencesHolidayIdParameter = "19"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__20  UpdateHolidayPreferencesHolidayIdParameter = "20"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__21  UpdateHolidayPreferencesHolidayIdParameter = "21"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__22  UpdateHolidayPreferencesHolidayIdParameter = "22"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__23  UpdateHolidayPreferencesHolidayIdParameter = "23"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__24  UpdateHolidayPreferencesHolidayIdParameter = "24"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__25  UpdateHolidayPreferencesHolidayIdParameter = "25"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__26  UpdateHolidayPreferencesHolidayIdParameter = "26"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__27  UpdateHolidayPreferencesHolidayIdParameter = "27"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__28  UpdateHolidayPreferencesHolidayIdParameter = "28"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__29  UpdateHolidayPreferencesHolidayIdParameter = "29"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__30  UpdateHolidayPreferencesHolidayIdParameter = "30"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__31  UpdateHolidayPreferencesHolidayIdParameter = "31"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__32  UpdateHolidayPreferencesHolidayIdParameter = "32"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__33  UpdateHolidayPreferencesHolidayIdParameter = "33"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__34  UpdateHolidayPreferencesHolidayIdParameter = "34"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__35  UpdateHolidayPreferencesHolidayIdParameter = "35"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__36  UpdateHolidayPreferencesHolidayIdParameter = "36"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__37  UpdateHolidayPreferencesHolidayIdParameter = "37"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__38  UpdateHolidayPreferencesHolidayIdParameter = "38"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__39  UpdateHolidayPreferencesHolidayIdParameter = "39"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__40  UpdateHolidayPreferencesHolidayIdParameter = "40"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__41  UpdateHolidayPreferencesHolidayIdParameter = "41"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__42  UpdateHolidayPreferencesHolidayIdParameter = "42"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__43  UpdateHolidayPreferencesHolidayIdParameter = "43"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__44  UpdateHolidayPreferencesHolidayIdParameter = "44"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__45  UpdateHolidayPreferencesHolidayIdParameter = "45"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__46  UpdateHolidayPreferencesHolidayIdParameter = "46"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__47  UpdateHolidayPreferencesHolidayIdParameter = "47"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__48  UpdateHolidayPreferencesHolidayIdParameter = "48"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__49  UpdateHolidayPreferencesHolidayIdParameter = "49"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__50  UpdateHolidayPreferencesHolidayIdParameter = "50"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__51  UpdateHolidayPreferencesHolidayIdParameter = "51"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__52  UpdateHolidayPreferencesHolidayIdParameter = "52"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__53  UpdateHolidayPreferencesHolidayIdParameter = "53"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__54  UpdateHolidayPreferencesHolidayIdParameter = "54"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__55  UpdateHolidayPreferencesHolidayIdParameter = "55"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__56  UpdateHolidayPreferencesHolidayIdParameter = "56"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__57  UpdateHolidayPreferencesHolidayIdParameter = "57"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__58  UpdateHolidayPreferencesHolidayIdParameter = "58"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__59  UpdateHolidayPreferencesHolidayIdParameter = "59"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__60  UpdateHolidayPreferencesHolidayIdParameter = "60"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__61  UpdateHolidayPreferencesHolidayIdParameter = "61"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__62  UpdateHolidayPreferencesHolidayIdParameter = "62"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__63  UpdateHolidayPreferencesHolidayIdParameter = "63"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__64  UpdateHolidayPreferencesHolidayIdParameter = "64"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__65  UpdateHolidayPreferencesHolidayIdParameter = "65"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__66  UpdateHolidayPreferencesHolidayIdParameter = "66"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__67  UpdateHolidayPreferencesHolidayIdParameter = "67"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__68  UpdateHolidayPreferencesHolidayIdParameter = "68"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__69  UpdateHolidayPreferencesHolidayIdParameter = "69"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__70  UpdateHolidayPreferencesHolidayIdParameter = "70"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__71  UpdateHolidayPreferencesHolidayIdParameter = "71"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__72  UpdateHolidayPreferencesHolidayIdParameter = "72"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__73  UpdateHolidayPreferencesHolidayIdParameter = "73"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__74  UpdateHolidayPreferencesHolidayIdParameter = "74"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__75  UpdateHolidayPreferencesHolidayIdParameter = "75"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__76  UpdateHolidayPreferencesHolidayIdParameter = "76"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__77  UpdateHolidayPreferencesHolidayIdParameter = "77"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__78  UpdateHolidayPreferencesHolidayIdParameter = "78"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__79  UpdateHolidayPreferencesHolidayIdParameter = "79"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__80  UpdateHolidayPreferencesHolidayIdParameter = "80"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__81  UpdateHolidayPreferencesHolidayIdParameter = "81"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__82  UpdateHolidayPreferencesHolidayIdParameter = "82"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__83  UpdateHolidayPreferencesHolidayIdParameter = "83"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__84  UpdateHolidayPreferencesHolidayIdParameter = "84"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__85  UpdateHolidayPreferencesHolidayIdParameter = "85"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__86  UpdateHolidayPreferencesHolidayIdParameter = "86"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__87  UpdateHolidayPreferencesHolidayIdParameter = "87"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__88  UpdateHolidayPreferencesHolidayIdParameter = "88"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__89  UpdateHolidayPreferencesHolidayIdParameter = "89"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__90  UpdateHolidayPreferencesHolidayIdParameter = "90"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__91  UpdateHolidayPreferencesHolidayIdParameter = "91"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__92  UpdateHolidayPreferencesHolidayIdParameter = "92"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__93  UpdateHolidayPreferencesHolidayIdParameter = "93"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__94  UpdateHolidayPreferencesHolidayIdParameter = "94"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__95  UpdateHolidayPreferencesHolidayIdParameter = "95"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__96  UpdateHolidayPreferencesHolidayIdParameter = "96"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__97  UpdateHolidayPreferencesHolidayIdParameter = "97"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__98  UpdateHolidayPreferencesHolidayIdParameter = "98"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__99  UpdateHolidayPreferencesHolidayIdParameter = "99"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__100 UpdateHolidayPreferencesHolidayIdParameter = "100"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__101 UpdateHolidayPreferencesHolidayIdParameter = "101"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__102 UpdateHolidayPreferencesHolidayIdParameter = "102"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__103 UpdateHolidayPreferencesHolidayIdParameter = "103"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__104 UpdateHolidayPreferencesHolidayIdParameter = "104"
-	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__105 UpdateHolidayPreferencesHolidayIdParameter = "105"
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__1   UpdateHolidayPreferencesHolidayIdParameter = 1
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__2   UpdateHolidayPreferencesHolidayIdParameter = 2
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__3   UpdateHolidayPreferencesHolidayIdParameter = 3
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__4   UpdateHolidayPreferencesHolidayIdParameter = 4
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__5   UpdateHolidayPreferencesHolidayIdParameter = 5
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__6   UpdateHolidayPreferencesHolidayIdParameter = 6
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__7   UpdateHolidayPreferencesHolidayIdParameter = 7
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__8   UpdateHolidayPreferencesHolidayIdParameter = 8
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__9   UpdateHolidayPreferencesHolidayIdParameter = 9
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__10  UpdateHolidayPreferencesHolidayIdParameter = 10
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__11  UpdateHolidayPreferencesHolidayIdParameter = 11
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__12  UpdateHolidayPreferencesHolidayIdParameter = 12
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__13  UpdateHolidayPreferencesHolidayIdParameter = 13
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__14  UpdateHolidayPreferencesHolidayIdParameter = 14
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__15  UpdateHolidayPreferencesHolidayIdParameter = 15
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__16  UpdateHolidayPreferencesHolidayIdParameter = 16
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__17  UpdateHolidayPreferencesHolidayIdParameter = 17
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__18  UpdateHolidayPreferencesHolidayIdParameter = 18
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__19  UpdateHolidayPreferencesHolidayIdParameter = 19
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__20  UpdateHolidayPreferencesHolidayIdParameter = 20
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__21  UpdateHolidayPreferencesHolidayIdParameter = 21
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__22  UpdateHolidayPreferencesHolidayIdParameter = 22
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__23  UpdateHolidayPreferencesHolidayIdParameter = 23
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__24  UpdateHolidayPreferencesHolidayIdParameter = 24
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__25  UpdateHolidayPreferencesHolidayIdParameter = 25
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__26  UpdateHolidayPreferencesHolidayIdParameter = 26
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__27  UpdateHolidayPreferencesHolidayIdParameter = 27
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__28  UpdateHolidayPreferencesHolidayIdParameter = 28
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__29  UpdateHolidayPreferencesHolidayIdParameter = 29
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__30  UpdateHolidayPreferencesHolidayIdParameter = 30
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__31  UpdateHolidayPreferencesHolidayIdParameter = 31
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__32  UpdateHolidayPreferencesHolidayIdParameter = 32
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__33  UpdateHolidayPreferencesHolidayIdParameter = 33
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__34  UpdateHolidayPreferencesHolidayIdParameter = 34
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__35  UpdateHolidayPreferencesHolidayIdParameter = 35
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__36  UpdateHolidayPreferencesHolidayIdParameter = 36
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__37  UpdateHolidayPreferencesHolidayIdParameter = 37
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__38  UpdateHolidayPreferencesHolidayIdParameter = 38
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__39  UpdateHolidayPreferencesHolidayIdParameter = 39
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__40  UpdateHolidayPreferencesHolidayIdParameter = 40
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__41  UpdateHolidayPreferencesHolidayIdParameter = 41
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__42  UpdateHolidayPreferencesHolidayIdParameter = 42
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__43  UpdateHolidayPreferencesHolidayIdParameter = 43
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__44  UpdateHolidayPreferencesHolidayIdParameter = 44
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__45  UpdateHolidayPreferencesHolidayIdParameter = 45
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__46  UpdateHolidayPreferencesHolidayIdParameter = 46
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__47  UpdateHolidayPreferencesHolidayIdParameter = 47
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__48  UpdateHolidayPreferencesHolidayIdParameter = 48
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__49  UpdateHolidayPreferencesHolidayIdParameter = 49
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__50  UpdateHolidayPreferencesHolidayIdParameter = 50
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__51  UpdateHolidayPreferencesHolidayIdParameter = 51
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__52  UpdateHolidayPreferencesHolidayIdParameter = 52
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__53  UpdateHolidayPreferencesHolidayIdParameter = 53
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__54  UpdateHolidayPreferencesHolidayIdParameter = 54
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__55  UpdateHolidayPreferencesHolidayIdParameter = 55
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__56  UpdateHolidayPreferencesHolidayIdParameter = 56
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__57  UpdateHolidayPreferencesHolidayIdParameter = 57
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__58  UpdateHolidayPreferencesHolidayIdParameter = 58
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__59  UpdateHolidayPreferencesHolidayIdParameter = 59
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__60  UpdateHolidayPreferencesHolidayIdParameter = 60
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__61  UpdateHolidayPreferencesHolidayIdParameter = 61
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__62  UpdateHolidayPreferencesHolidayIdParameter = 62
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__63  UpdateHolidayPreferencesHolidayIdParameter = 63
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__64  UpdateHolidayPreferencesHolidayIdParameter = 64
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__65  UpdateHolidayPreferencesHolidayIdParameter = 65
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__66  UpdateHolidayPreferencesHolidayIdParameter = 66
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__67  UpdateHolidayPreferencesHolidayIdParameter = 67
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__68  UpdateHolidayPreferencesHolidayIdParameter = 68
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__69  UpdateHolidayPreferencesHolidayIdParameter = 69
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__70  UpdateHolidayPreferencesHolidayIdParameter = 70
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__71  UpdateHolidayPreferencesHolidayIdParameter = 71
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__72  UpdateHolidayPreferencesHolidayIdParameter = 72
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__73  UpdateHolidayPreferencesHolidayIdParameter = 73
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__74  UpdateHolidayPreferencesHolidayIdParameter = 74
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__75  UpdateHolidayPreferencesHolidayIdParameter = 75
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__76  UpdateHolidayPreferencesHolidayIdParameter = 76
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__77  UpdateHolidayPreferencesHolidayIdParameter = 77
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__78  UpdateHolidayPreferencesHolidayIdParameter = 78
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__79  UpdateHolidayPreferencesHolidayIdParameter = 79
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__80  UpdateHolidayPreferencesHolidayIdParameter = 80
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__81  UpdateHolidayPreferencesHolidayIdParameter = 81
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__82  UpdateHolidayPreferencesHolidayIdParameter = 82
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__83  UpdateHolidayPreferencesHolidayIdParameter = 83
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__84  UpdateHolidayPreferencesHolidayIdParameter = 84
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__85  UpdateHolidayPreferencesHolidayIdParameter = 85
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__86  UpdateHolidayPreferencesHolidayIdParameter = 86
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__87  UpdateHolidayPreferencesHolidayIdParameter = 87
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__88  UpdateHolidayPreferencesHolidayIdParameter = 88
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__89  UpdateHolidayPreferencesHolidayIdParameter = 89
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__90  UpdateHolidayPreferencesHolidayIdParameter = 90
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__91  UpdateHolidayPreferencesHolidayIdParameter = 91
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__92  UpdateHolidayPreferencesHolidayIdParameter = 92
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__93  UpdateHolidayPreferencesHolidayIdParameter = 93
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__94  UpdateHolidayPreferencesHolidayIdParameter = 94
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__95  UpdateHolidayPreferencesHolidayIdParameter = 95
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__96  UpdateHolidayPreferencesHolidayIdParameter = 96
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__97  UpdateHolidayPreferencesHolidayIdParameter = 97
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__98  UpdateHolidayPreferencesHolidayIdParameter = 98
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__99  UpdateHolidayPreferencesHolidayIdParameter = 99
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__100 UpdateHolidayPreferencesHolidayIdParameter = 100
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__101 UpdateHolidayPreferencesHolidayIdParameter = 101
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__102 UpdateHolidayPreferencesHolidayIdParameter = 102
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__103 UpdateHolidayPreferencesHolidayIdParameter = 103
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__104 UpdateHolidayPreferencesHolidayIdParameter = 104
+	UPDATEHOLIDAYPREFERENCESHOLIDAYIDPARAMETER__105 UpdateHolidayPreferencesHolidayIdParameter = 105
 )
 
 // All allowed values of UpdateHolidayPreferencesHolidayIdParameter enum
 var AllowedUpdateHolidayPreferencesHolidayIdParameterEnumValues = []UpdateHolidayPreferencesHolidayIdParameter{
-	"1",
-	"2",
-	"3",
-	"4",
-	"5",
-	"6",
-	"7",
-	"8",
-	"9",
-	"10",
-	"11",
-	"12",
-	"13",
-	"14",
-	"15",
-	"16",
-	"17",
-	"18",
-	"19",
-	"20",
-	"21",
-	"22",
-	"23",
-	"24",
-	"25",
-	"26",
-	"27",
-	"28",
-	"29",
-	"30",
-	"31",
-	"32",
-	"33",
-	"34",
-	"35",
-	"36",
-	"37",
-	"38",
-	"39",
-	"40",
-	"41",
-	"42",
-	"43",
-	"44",
-	"45",
-	"46",
-	"47",
-	"48",
-	"49",
-	"50",
-	"51",
-	"52",
-	"53",
-	"54",
-	"55",
-	"56",
-	"57",
-	"58",
-	"59",
-	"60",
-	"61",
-	"62",
-	"63",
-	"64",
-	"65",
-	"66",
-	"67",
-	"68",
-	"69",
-	"70",
-	"71",
-	"72",
-	"73",
-	"74",
-	"75",
-	"76",
-	"77",
-	"78",
-	"79",
-	"80",
-	"81",
-	"82",
-	"83",
-	"84",
-	"85",
-	"86",
-	"87",
-	"88",
-	"89",
-	"90",
-	"91",
-	"92",
-	"93",
-	"94",
-	"95",
-	"96",
-	"97",
-	"98",
-	"99",
-	"100",
-	"101",
-	"102",
-	"103",
-	"104",
-	"105",
+	1,
+	2,
+	3,
+	4,
+	5,
+	6,
+	7,
+	8,
+	9,
+	10,
+	11,
+	12,
+	13,
+	14,
+	15,
+	16,
+	17,
+	18,
+	19,
+	20,
+	21,
+	22,
+	23,
+	24,
+	25,
+	26,
+	27,
+	28,
+	29,
+	30,
+	31,
+	32,
+	33,
+	34,
+	35,
+	36,
+	37,
+	38,
+	39,
+	40,
+	41,
+	42,
+	43,
+	44,
+	45,
+	46,
+	47,
+	48,
+	49,
+	50,
+	51,
+	52,
+	53,
+	54,
+	55,
+	56,
+	57,
+	58,
+	59,
+	60,
+	61,
+	62,
+	63,
+	64,
+	65,
+	66,
+	67,
+	68,
+	69,
+	70,
+	71,
+	72,
+	73,
+	74,
+	75,
+	76,
+	77,
+	78,
+	79,
+	80,
+	81,
+	82,
+	83,
+	84,
+	85,
+	86,
+	87,
+	88,
+	89,
+	90,
+	91,
+	92,
+	93,
+	94,
+	95,
+	96,
+	97,
+	98,
+	99,
+	100,
+	101,
+	102,
+	103,
+	104,
+	105,
 }
 
 var AllowedUpdateHolidayPreferencesHolidayIdParameterEnumValuesValidator = map[interface{}]struct{}{
-	UpdateHolidayPreferencesHolidayIdParameter("1").Ptr().generateNormalizedEnum():   struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("2").Ptr().generateNormalizedEnum():   struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("3").Ptr().generateNormalizedEnum():   struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("4").Ptr().generateNormalizedEnum():   struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("5").Ptr().generateNormalizedEnum():   struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("6").Ptr().generateNormalizedEnum():   struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("7").Ptr().generateNormalizedEnum():   struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("8").Ptr().generateNormalizedEnum():   struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("9").Ptr().generateNormalizedEnum():   struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("10").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("11").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("12").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("13").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("14").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("15").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("16").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("17").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("18").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("19").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("20").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("21").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("22").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("23").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("24").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("25").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("26").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("27").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("28").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("29").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("30").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("31").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("32").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("33").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("34").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("35").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("36").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("37").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("38").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("39").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("40").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("41").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("42").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("43").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("44").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("45").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("46").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("47").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("48").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("49").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("50").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("51").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("52").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("53").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("54").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("55").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("56").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("57").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("58").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("59").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("60").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("61").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("62").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("63").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("64").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("65").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("66").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("67").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("68").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("69").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("70").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("71").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("72").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("73").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("74").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("75").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("76").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("77").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("78").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("79").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("80").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("81").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("82").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("83").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("84").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("85").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("86").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("87").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("88").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("89").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("90").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("91").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("92").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("93").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("94").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("95").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("96").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("97").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("98").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("99").Ptr().generateNormalizedEnum():  struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("100").Ptr().generateNormalizedEnum(): struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("101").Ptr().generateNormalizedEnum(): struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("102").Ptr().generateNormalizedEnum(): struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("103").Ptr().generateNormalizedEnum(): struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("104").Ptr().generateNormalizedEnum(): struct{}{},
-	UpdateHolidayPreferencesHolidayIdParameter("105").Ptr().generateNormalizedEnum(): struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(1).Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(2).Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(3).Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(4).Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(5).Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(6).Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(7).Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(8).Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(9).Ptr().generateNormalizedEnum():   struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(10).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(11).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(12).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(13).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(14).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(15).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(16).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(17).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(18).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(19).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(20).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(21).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(22).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(23).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(24).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(25).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(26).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(27).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(28).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(29).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(30).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(31).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(32).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(33).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(34).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(35).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(36).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(37).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(38).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(39).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(40).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(41).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(42).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(43).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(44).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(45).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(46).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(47).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(48).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(49).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(50).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(51).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(52).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(53).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(54).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(55).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(56).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(57).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(58).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(59).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(60).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(61).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(62).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(63).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(64).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(65).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(66).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(67).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(68).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(69).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(70).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(71).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(72).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(73).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(74).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(75).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(76).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(77).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(78).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(79).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(80).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(81).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(82).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(83).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(84).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(85).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(86).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(87).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(88).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(89).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(90).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(91).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(92).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(93).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(94).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(95).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(96).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(97).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(98).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(99).Ptr().generateNormalizedEnum():  struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(100).Ptr().generateNormalizedEnum(): struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(101).Ptr().generateNormalizedEnum(): struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(102).Ptr().generateNormalizedEnum(): struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(103).Ptr().generateNormalizedEnum(): struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(104).Ptr().generateNormalizedEnum(): struct{}{},
+	UpdateHolidayPreferencesHolidayIdParameter(105).Ptr().generateNormalizedEnum(): struct{}{},
 }
 
 func (v *UpdateHolidayPreferencesHolidayIdParameter) generateNormalizedEnum() any {
@@ -353,48 +350,11 @@ func (v *UpdateHolidayPreferencesHolidayIdParameter) generateNormalizedEnum() an
 		return nil
 	}
 
-	s := *v
-	if reflect.TypeOf(*v).Kind() != reflect.String {
-		return s
-	}
-
-	var sb strings.Builder
-	sb.Grow(len(s) + 2)     // Preallocate memory for efficiency
-	var prevUnderscore bool // Track consecutive underscores
-	for i, r := range s {
-		switch {
-		case unicode.IsUpper(r):
-			// Add an underscore if:
-			// 1. Not the first character
-			// 2. Previous character is NOT uppercase (to handle acronyms like "HTTPRequest")
-			// 3. Next character is lowercase (to avoid splitting acronyms)
-			if i > 0 && (!unicode.IsUpper(rune(s[i-1])) || (i+1 < len(s) && unicode.IsLower(rune(s[i+1])))) {
-				sb.WriteByte('_')
-			}
-			sb.WriteRune(unicode.ToLower(r))
-			prevUnderscore = false
-
-		case unicode.IsSpace(r) || r == '-' || r == '_': // Convert spaces, dashes, and underscores to `_`
-			if !prevUnderscore { // Avoid consecutive `_`
-				sb.WriteByte('_')
-				prevUnderscore = true
-			}
-
-		case unicode.IsLetter(r) || unicode.IsDigit(r): // Keep letters and numbers
-			sb.WriteRune(r)
-			prevUnderscore = false
-
-		default:
-			// Ignore symbols (e.g., `@#$%&*!`)
-		}
-	}
-
-	// Trim leading/trailing underscores
-	return strings.Trim(sb.String(), "_")
+	return *v
 }
 
 func (v *UpdateHolidayPreferencesHolidayIdParameter) UnmarshalJSON(src []byte) error {
-	var value string
+	var value int64
 	err := json.Unmarshal(src, &value)
 	if err != nil {
 		return err
@@ -410,7 +370,7 @@ func (v *UpdateHolidayPreferencesHolidayIdParameter) UnmarshalJSON(src []byte) e
 
 // NewUpdateHolidayPreferencesHolidayIdParameterFromValue returns a pointer to a valid UpdateHolidayPreferencesHolidayIdParameter
 // for the value passed as argument, or an error if the value passed is not allowed by the enum
-func NewUpdateHolidayPreferencesHolidayIdParameterFromValue(v string) (*UpdateHolidayPreferencesHolidayIdParameter, error) {
+func NewUpdateHolidayPreferencesHolidayIdParameterFromValue(v int64) (*UpdateHolidayPreferencesHolidayIdParameter, error) {
 	ev := UpdateHolidayPreferencesHolidayIdParameter(v)
 	if ev.IsValid() {
 		return &ev, nil

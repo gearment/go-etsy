@@ -31,7 +31,7 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	ledgerEntryIds := []int64{int64(123)} // []int64 | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -103,7 +103,7 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	paymentIds := []int64{int64(123)} // []int64 | A comma-separated array of Payment IDs numbers.
 
 	configuration := openapiclient.NewConfiguration()
@@ -175,8 +175,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	receiptId := int64(56) // int64 | The numeric ID for the [receipt](/documentation/reference#tag/Shop-Receipt) associated to this transaction.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	receiptId := int64(789) // int64 | The numeric ID for the [receipt](/documentation/reference#tag/Shop-Receipt) associated to this transaction.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

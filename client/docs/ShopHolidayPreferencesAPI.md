@@ -30,7 +30,7 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -100,8 +100,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	holidayId := openapiclient.updateHolidayPreferences_holiday_id_parameter("1") // UpdateHolidayPreferencesHolidayIdParameter | The unique id that maps to the holiday a country observes. See the [Fulfillment Tutorial docs](https://developer.etsy.com/documentation/tutorials/fulfillment/#country-holidays) for more info
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	holidayId := openapiclient.updateHolidayPreferences_holiday_id_parameter(1) // UpdateHolidayPreferencesHolidayIdParameter | The unique id that maps to the holiday a country observes. See the [Fulfillment Tutorial docs](https://developer.etsy.com/documentation/tutorials/fulfillment/#country-holidays) for more info
 	updateHolidayPreferencesRequest := *openapiclient.NewUpdateHolidayPreferencesRequest(false) // UpdateHolidayPreferencesRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()

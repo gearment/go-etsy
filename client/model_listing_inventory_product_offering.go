@@ -1,7 +1,7 @@
 /*
 Etsy Open API v3
 
-<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features. The API endpoints are meant to replace Etsy's Open API v2, which is scheduled to end service in 2022.</p><p class=\"wt-pb-xs-2\">All of the endpoints are callable and the majority of the API endpoints are now in a beta phase. This means we do not expect to make any breaking changes before our general release. A handful of endpoints are currently interface stubs (labeled “Feedback Only”) and returns a \"501 Not Implemented\" response code when called.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2024 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
+<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2026 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
 
 API version: 3.0.0
 Contact: developers@etsy.com
@@ -29,7 +29,9 @@ type ListingInventoryProductOffering struct {
 	// Whether or not the offering has been deleted.
 	IsDeleted *bool `json:"is_deleted,omitempty"`
 	// Price data for this ProductOffering
-	Price                *Money `json:"price,omitempty"`
+	Price *Money `json:"price,omitempty"`
+	// Processing Profile for this ProductOffering
+	ReadinessStateId     NullableInt64 `json:"readiness_state_id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -212,6 +214,49 @@ func (o *ListingInventoryProductOffering) SetPrice(v Money) {
 	o.Price = &v
 }
 
+// GetReadinessStateId returns the ReadinessStateId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ListingInventoryProductOffering) GetReadinessStateId() int64 {
+	if o == nil || IsNil(o.ReadinessStateId.Get()) {
+		var ret int64
+		return ret
+	}
+	return *o.ReadinessStateId.Get()
+}
+
+// GetReadinessStateIdOk returns a tuple with the ReadinessStateId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ListingInventoryProductOffering) GetReadinessStateIdOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ReadinessStateId.Get(), o.ReadinessStateId.IsSet()
+}
+
+// HasReadinessStateId returns a boolean if a field has been set.
+func (o *ListingInventoryProductOffering) HasReadinessStateId() bool {
+	if o != nil && o.ReadinessStateId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetReadinessStateId gets a reference to the given NullableInt64 and assigns it to the ReadinessStateId field.
+func (o *ListingInventoryProductOffering) SetReadinessStateId(v int64) {
+	o.ReadinessStateId.Set(&v)
+}
+
+// SetReadinessStateIdNil sets the value for ReadinessStateId to be an explicit nil
+func (o *ListingInventoryProductOffering) SetReadinessStateIdNil() {
+	o.ReadinessStateId.Set(nil)
+}
+
+// UnsetReadinessStateId ensures that no value is present for ReadinessStateId, not even an explicit nil
+func (o *ListingInventoryProductOffering) UnsetReadinessStateId() {
+	o.ReadinessStateId.Unset()
+}
+
 func (o ListingInventoryProductOffering) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -236,6 +281,9 @@ func (o ListingInventoryProductOffering) ToMap() (map[string]interface{}, error)
 	}
 	if !IsNil(o.Price) {
 		toSerialize["price"] = o.Price
+	}
+	if o.ReadinessStateId.IsSet() {
+		toSerialize["readiness_state_id"] = o.ReadinessStateId.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {

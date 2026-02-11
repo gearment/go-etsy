@@ -1,7 +1,7 @@
 /*
 Etsy Open API v3
 
-<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features. The API endpoints are meant to replace Etsy's Open API v2, which is scheduled to end service in 2022.</p><p class=\"wt-pb-xs-2\">All of the endpoints are callable and the majority of the API endpoints are now in a beta phase. This means we do not expect to make any breaking changes before our general release. A handful of endpoints are currently interface stubs (labeled “Feedback Only”) and returns a \"501 Not Implemented\" response code when called.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2024 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
+<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2026 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
 
 API version: 3.0.0
 Contact: developers@etsy.com
@@ -44,6 +44,8 @@ type PaymentAccountLedgerEntry struct {
 	ReferenceType *string `json:"reference_type,omitempty"`
 	// The object id the ledger entry refers to.
 	ReferenceId NullableString `json:"reference_id,omitempty"`
+	// The parent ledger entry ID used to match related entries (e.g., vat_seller_services to originating seller fees).
+	ParentEntryId *int64 `json:"parent_entry_id,omitempty"`
 	// List of refund objects on an Etsy Payments transaction. All monetary amounts are in USD pennies unless otherwise specified.
 	PaymentAdjustments   []PaymentAdjustment `json:"payment_adjustments,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -463,6 +465,38 @@ func (o *PaymentAccountLedgerEntry) UnsetReferenceId() {
 	o.ReferenceId.Unset()
 }
 
+// GetParentEntryId returns the ParentEntryId field value if set, zero value otherwise.
+func (o *PaymentAccountLedgerEntry) GetParentEntryId() int64 {
+	if o == nil || IsNil(o.ParentEntryId) {
+		var ret int64
+		return ret
+	}
+	return *o.ParentEntryId
+}
+
+// GetParentEntryIdOk returns a tuple with the ParentEntryId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentAccountLedgerEntry) GetParentEntryIdOk() (*int64, bool) {
+	if o == nil || IsNil(o.ParentEntryId) {
+		return nil, false
+	}
+	return o.ParentEntryId, true
+}
+
+// HasParentEntryId returns a boolean if a field has been set.
+func (o *PaymentAccountLedgerEntry) HasParentEntryId() bool {
+	if o != nil && !IsNil(o.ParentEntryId) {
+		return true
+	}
+
+	return false
+}
+
+// SetParentEntryId gets a reference to the given int64 and assigns it to the ParentEntryId field.
+func (o *PaymentAccountLedgerEntry) SetParentEntryId(v int64) {
+	o.ParentEntryId = &v
+}
+
 // GetPaymentAdjustments returns the PaymentAdjustments field value if set, zero value otherwise.
 func (o *PaymentAccountLedgerEntry) GetPaymentAdjustments() []PaymentAdjustment {
 	if o == nil || IsNil(o.PaymentAdjustments) {
@@ -540,6 +574,9 @@ func (o PaymentAccountLedgerEntry) ToMap() (map[string]interface{}, error) {
 	}
 	if o.ReferenceId.IsSet() {
 		toSerialize["reference_id"] = o.ReferenceId.Get()
+	}
+	if !IsNil(o.ParentEntryId) {
+		toSerialize["parent_entry_id"] = o.ParentEntryId
 	}
 	if !IsNil(o.PaymentAdjustments) {
 		toSerialize["payment_adjustments"] = o.PaymentAdjustments

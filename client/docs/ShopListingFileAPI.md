@@ -32,9 +32,9 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
-	listingFileId := int64(56) // int64 | The unique numeric ID of a file associated with a digital listing.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	listingId := int64(789) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
+	listingFileId := int64(789) // int64 | The unique numeric ID of a file associated with a digital listing.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -106,8 +106,8 @@ import (
 )
 
 func main() {
-	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	listingId := int64(789) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -179,9 +179,9 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
-	listingFileId := int64(56) // int64 | The unique numeric ID of a file associated with a digital listing.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	listingId := int64(789) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
+	listingFileId := int64(789) // int64 | The unique numeric ID of a file associated with a digital listing.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -255,12 +255,12 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
-	listingFileId := int64(56) // int64 | The unique numeric ID of a file associated with a digital listing. (optional)
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	listingId := int64(789) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
+	listingFileId := int64(789) // int64 | The unique numeric ID of a file associated with a digital listing. (optional)
 	file := os.NewFile(1234, "some_file") // *os.File | A binary file to upload. (optional)
 	name := "name_example" // string | The file name string of a file to upload (optional)
-	rank := int64(56) // int64 | The positive non-zero numeric position in the images displayed in a listing, with rank 1 images appearing in the left-most position in a listing. (optional) (default to 1)
+	rank := int64(789) // int64 | The positive non-zero numeric position in the images displayed in a listing, with rank 1 images appearing in the left-most position in a listing. (optional) (default to 1)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

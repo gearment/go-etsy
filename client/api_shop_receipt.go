@@ -1,7 +1,7 @@
 /*
 Etsy Open API v3
 
-<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features. The API endpoints are meant to replace Etsy's Open API v2, which is scheduled to end service in 2022.</p><p class=\"wt-pb-xs-2\">All of the endpoints are callable and the majority of the API endpoints are now in a beta phase. This means we do not expect to make any breaking changes before our general release. A handful of endpoints are currently interface stubs (labeled “Feedback Only”) and returns a \"501 Not Implemented\" response code when called.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2024 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
+<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2026 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
 
 API version: 3.0.0
 Contact: developers@etsy.com
@@ -102,7 +102,14 @@ type ShopReceiptAPICreateReceiptShipmentRequest struct {
 	ApiService                   ShopReceiptAPI
 	shopId                       int64
 	receiptId                    int64
+	legacy                       *bool
 	createReceiptShipmentRequest *CreateReceiptShipmentRequest
+}
+
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopReceiptAPICreateReceiptShipmentRequest) Legacy(legacy bool) ShopReceiptAPICreateReceiptShipmentRequest {
+	r.legacy = &legacy
+	return r
 }
 
 func (r ShopReceiptAPICreateReceiptShipmentRequest) CreateReceiptShipmentRequest(createReceiptShipmentRequest CreateReceiptShipmentRequest) ShopReceiptAPICreateReceiptShipmentRequest {
@@ -165,6 +172,9 @@ func (a *ShopReceiptAPIService) CreateReceiptShipmentExecute(r ShopReceiptAPICre
 		return localVarReturnValue, nil, reportError("receiptId must be greater than 1")
 	}
 
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -305,6 +315,13 @@ type ShopReceiptAPIGetShopReceiptRequest struct {
 	ApiService ShopReceiptAPI
 	shopId     int64
 	receiptId  int64
+	legacy     *bool
+}
+
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopReceiptAPIGetShopReceiptRequest) Legacy(legacy bool) ShopReceiptAPIGetShopReceiptRequest {
+	r.legacy = &legacy
+	return r
 }
 
 func (r ShopReceiptAPIGetShopReceiptRequest) Execute() (*ShopReceipt, *http.Response, error) {
@@ -362,6 +379,9 @@ func (a *ShopReceiptAPIService) GetShopReceiptExecute(r ShopReceiptAPIGetShopRec
 		return localVarReturnValue, nil, reportError("receiptId must be greater than 1")
 	}
 
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -500,6 +520,7 @@ type ShopReceiptAPIGetShopReceiptsRequest struct {
 	wasShipped      *bool
 	wasDelivered    *bool
 	wasCanceled     *bool
+	legacy          *bool
 }
 
 // The earliest unix timestamp for when a record was created.
@@ -574,6 +595,12 @@ func (r ShopReceiptAPIGetShopReceiptsRequest) WasCanceled(wasCanceled bool) Shop
 	return r
 }
 
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopReceiptAPIGetShopReceiptsRequest) Legacy(legacy bool) ShopReceiptAPIGetShopReceiptsRequest {
+	r.legacy = &legacy
+	return r
+}
+
 func (r ShopReceiptAPIGetShopReceiptsRequest) Execute() (*ShopReceipts, *http.Response, error) {
 	return r.ApiService.GetShopReceiptsExecute(r)
 }
@@ -639,24 +666,28 @@ func (a *ShopReceiptAPIService) GetShopReceiptsExecute(r ShopReceiptAPIGetShopRe
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	} else {
 		var defaultValue int64 = 25
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
 		r.limit = &defaultValue
 	}
 	if r.offset != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	} else {
 		var defaultValue int64 = 0
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "form", "")
 		r.offset = &defaultValue
 	}
 	if r.sortOn != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_on", r.sortOn, "form", "")
 	} else {
 		var defaultValue GetShopReceiptsSortOnParameter = "created"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_on", defaultValue, "form", "")
 		r.sortOn = &defaultValue
 	}
 	if r.sortOrder != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_order", r.sortOrder, "form", "")
 	} else {
 		var defaultValue GetShopReceiptsSortOrderParameter = "desc"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_order", defaultValue, "form", "")
 		r.sortOrder = &defaultValue
 	}
 	if r.wasPaid != nil {
@@ -670,6 +701,9 @@ func (a *ShopReceiptAPIService) GetShopReceiptsExecute(r ShopReceiptAPIGetShopRe
 	}
 	if r.wasCanceled != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "was_canceled", r.wasCanceled, "form", "")
+	}
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -798,7 +832,14 @@ type ShopReceiptAPIUpdateShopReceiptRequest struct {
 	ApiService               ShopReceiptAPI
 	shopId                   int64
 	receiptId                int64
+	legacy                   *bool
 	updateShopReceiptRequest *UpdateShopReceiptRequest
+}
+
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopReceiptAPIUpdateShopReceiptRequest) Legacy(legacy bool) ShopReceiptAPIUpdateShopReceiptRequest {
+	r.legacy = &legacy
+	return r
 }
 
 func (r ShopReceiptAPIUpdateShopReceiptRequest) UpdateShopReceiptRequest(updateShopReceiptRequest UpdateShopReceiptRequest) ShopReceiptAPIUpdateShopReceiptRequest {
@@ -861,6 +902,9 @@ func (a *ShopReceiptAPIService) UpdateShopReceiptExecute(r ShopReceiptAPIUpdateS
 		return localVarReturnValue, nil, reportError("receiptId must be greater than 1")
 	}
 
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

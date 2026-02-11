@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ImageIds** | Pointer to **[]int64** | An array of numeric image IDs of the images in a listing, which can include up to 10 images. | [optional] 
+**ImageIds** | Pointer to **[]int64** | An array of numeric image IDs of the images in a listing, which can include up to 20 images. | [optional] 
 **Title** | Pointer to **string** | The listing&#39;s title string. When creating or updating a listing, valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\p{L}\\p{Nd}\\p{P}\\p{Sm}\\p{Zs}™©®]/u) You can only use the %, :, &amp; and + characters once each. | [optional] 
 **Description** | Pointer to **string** | A description string of the product for sale in the listing. | [optional] 
 **Materials** | Pointer to **[]string** | A list of material strings for materials used in the product. Valid materials strings contain only letters, numbers, and whitespace characters. (regex: /[^\\p{L}\\p{Nd}\\p{Zs}]/u) Default value is null. | [optional] 
@@ -23,15 +23,15 @@ Name | Type | Description | Notes
 **Tags** | Pointer to **[]string** | A comma-separated list of tag strings for the listing. When creating or updating a listing, valid tag strings contain only letters, numbers, whitespace characters, -, &#39;, ™, ©, and ®. (regex: /[^\\p{L}\\p{Nd}\\p{Zs}\\-&#39;™©®]/u) Default value is null. | [optional] 
 **WhoMade** | Pointer to [**CreateDraftListingRequestWhoMade**](CreateDraftListingRequestWhoMade.md) |  | [optional] 
 **WhenMade** | Pointer to [**CreateDraftListingRequestWhenMade**](CreateDraftListingRequestWhenMade.md) |  | [optional] 
-**FeaturedRank** | Pointer to **NullableInt64** | The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop’s home page. | [optional] 
-**IsPersonalizable** | Pointer to **bool** | When true, this listing is personalizable. The default value is null. | [optional] 
-**PersonalizationIsRequired** | Pointer to **bool** | When true, this listing requires personalization. The default value is null. Will only change if is_personalizable is &#39;true&#39;. | [optional] 
-**PersonalizationCharCountMax** | Pointer to **int64** | This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is &#39;true&#39;. | [optional] 
-**PersonalizationInstructions** | Pointer to **string** | A string representing instructions for the buyer to enter the personalization. Will only change if is_personalizable is &#39;true&#39;. | [optional] 
-**State** | Pointer to [**UpdateListingDeprecatedRequestState**](UpdateListingDeprecatedRequestState.md) |  | [optional] 
+**FeaturedRank** | Pointer to **NullableInt64** | The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop&#39;s home page. | [optional] 
+**IsPersonalizable** | Pointer to **bool** | When true, this listing is personalizable. The default value is false. | [optional] 
+**PersonalizationIsRequired** | Pointer to **bool** | [DEPRECATED] When true, this listing requires personalization. The default value is false. NOTE: This field will be removed on Apr. 9th, 2026. See https://developers.etsy.com/documentation/tutorials/personalization-migration for migration details. | [optional] 
+**PersonalizationCharCountMax** | Pointer to **int64** | [DEPRECATED] This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is &#39;true&#39;. Note: This field will be removed on Apr. 9th, 2026. See https://developers.etsy.com/documentation/tutorials/personalization-migration for migration details. | [optional] 
+**PersonalizationInstructions** | Pointer to **string** | [DEPRECATED] A string representing instructions for the buyer to enter the personalization. Will only change if is_personalizable is &#39;true&#39;. Note: This field will be removed on Apr. 9th, 2026. See https://developers.etsy.com/documentation/tutorials/personalization-migration for migration details. | [optional] 
+**State** | Pointer to [**UpdateListingRequestState**](UpdateListingRequestState.md) |  | [optional] 
 **IsSupply** | Pointer to **bool** | When true, tags the listing as a supply product, else indicates that it&#39;s a finished product. Helps buyers locate the listing under the Supplies heading. Requires &#39;who_made&#39; and &#39;when_made&#39;. | [optional] 
 **ProductionPartnerIds** | Pointer to **[]int64** | An array of unique IDs of production partner ids. | [optional] 
-**Type** | Pointer to [**NullableUpdateListingDeprecatedRequestType**](UpdateListingDeprecatedRequestType.md) |  | [optional] 
+**Type** | Pointer to [**NullableUpdateListingRequestType**](UpdateListingRequestType.md) |  | [optional] 
 
 ## Methods
 
@@ -774,20 +774,20 @@ HasPersonalizationInstructions returns a boolean if a field has been set.
 
 ### GetState
 
-`func (o *UpdateListingRequest) GetState() UpdateListingDeprecatedRequestState`
+`func (o *UpdateListingRequest) GetState() UpdateListingRequestState`
 
 GetState returns the State field if non-nil, zero value otherwise.
 
 ### GetStateOk
 
-`func (o *UpdateListingRequest) GetStateOk() (*UpdateListingDeprecatedRequestState, bool)`
+`func (o *UpdateListingRequest) GetStateOk() (*UpdateListingRequestState, bool)`
 
 GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetState
 
-`func (o *UpdateListingRequest) SetState(v UpdateListingDeprecatedRequestState)`
+`func (o *UpdateListingRequest) SetState(v UpdateListingRequestState)`
 
 SetState sets State field to given value.
 
@@ -859,20 +859,20 @@ HasProductionPartnerIds returns a boolean if a field has been set.
 UnsetProductionPartnerIds ensures that no value is present for ProductionPartnerIds, not even an explicit nil
 ### GetType
 
-`func (o *UpdateListingRequest) GetType() UpdateListingDeprecatedRequestType`
+`func (o *UpdateListingRequest) GetType() UpdateListingRequestType`
 
 GetType returns the Type field if non-nil, zero value otherwise.
 
 ### GetTypeOk
 
-`func (o *UpdateListingRequest) GetTypeOk() (*UpdateListingDeprecatedRequestType, bool)`
+`func (o *UpdateListingRequest) GetTypeOk() (*UpdateListingRequestType, bool)`
 
 GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetType
 
-`func (o *UpdateListingRequest) SetType(v UpdateListingDeprecatedRequestType)`
+`func (o *UpdateListingRequest) SetType(v UpdateListingRequestType)`
 
 SetType sets Type field to given value.
 

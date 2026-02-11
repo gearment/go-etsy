@@ -30,8 +30,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	listingId := int64(789) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -103,8 +103,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	listingId := int64(789) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
 	updateVariationImagesRequest := *openapiclient.NewUpdateVariationImagesRequest([]openapiclient.UpdateVariationImagesRequestVariationImagesInner{*openapiclient.NewUpdateVariationImagesRequestVariationImagesInner(int64(123), int64(123), int64(123))}) // UpdateVariationImagesRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()

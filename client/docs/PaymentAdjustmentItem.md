@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **ShopAmount** | Pointer to **int64** | Integer value for the amount of the adjustment in currency for the shop. | [optional] [default to 0]
 **TransactionId** | Pointer to **NullableInt64** | The unique numeric ID for a transaction. | [optional] 
 **BillPaymentId** | Pointer to **NullableInt64** | Unique ID for the bill payment adjustment. | [optional] 
-**CreatedTimestamp** | Pointer to **int64** | The transaction\\&#39;s creation date and time, in epoch seconds. | [optional] 
+**CreatedTimestamp** | Pointer to **int64** | The transaction&#39;s creation date and time, in epoch seconds. | [optional] 
 **UpdatedTimestamp** | Pointer to **int64** | The update date and time the payment adjustment in epoch seconds. | [optional] 
 
 ## Methods

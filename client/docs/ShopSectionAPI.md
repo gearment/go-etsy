@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	createShopSectionRequest := *openapiclient.NewCreateShopSectionRequest("Title_example") // CreateShopSectionRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -105,8 +105,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	shopSectionId := int64(56) // int64 | The numeric ID of a section in a specific Etsy shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopSectionId := int64(789) // int64 | The numeric ID of a section in a specific Etsy shop.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -176,8 +176,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	shopSectionId := int64(56) // int64 | The numeric ID of a section in a specific Etsy shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopSectionId := int64(789) // int64 | The numeric ID of a section in a specific Etsy shop.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -249,7 +249,7 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -319,8 +319,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	shopSectionId := int64(56) // int64 | The numeric ID of a section in a specific Etsy shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopSectionId := int64(789) // int64 | The numeric ID of a section in a specific Etsy shop.
 	createShopSectionRequest := *openapiclient.NewCreateShopSectionRequest("Title_example") // CreateShopSectionRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()

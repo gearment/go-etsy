@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## CreateReceiptShipment
 
-> ShopReceipt CreateReceiptShipment(ctx, shopId, receiptId).CreateReceiptShipmentRequest(createReceiptShipmentRequest).Execute()
+> ShopReceipt CreateReceiptShipment(ctx, shopId, receiptId).Legacy(legacy).CreateReceiptShipmentRequest(createReceiptShipmentRequest).Execute()
 
 
 
@@ -32,13 +32,14 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	receiptId := int64(56) // int64 | The receipt to submit tracking for.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	receiptId := int64(789) // int64 | The receipt to submit tracking for.
+	legacy := true // bool | This parameter needed to enable new parameters and response values related to processing profiles. (optional)
 	createReceiptShipmentRequest := *openapiclient.NewCreateReceiptShipmentRequest() // CreateReceiptShipmentRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopReceiptAPI.CreateReceiptShipment(context.Background(), shopId, receiptId).CreateReceiptShipmentRequest(createReceiptShipmentRequest).Execute()
+	resp, r, err := apiClient.ShopReceiptAPI.CreateReceiptShipment(context.Background(), shopId, receiptId).Legacy(legacy).CreateReceiptShipmentRequest(createReceiptShipmentRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopReceiptAPI.CreateReceiptShipment``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -66,6 +67,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **legacy** | **bool** | This parameter needed to enable new parameters and response values related to processing profiles. | 
  **createReceiptShipmentRequest** | [**CreateReceiptShipmentRequest**](CreateReceiptShipmentRequest.md) |  | 
 
 ### Return type
@@ -88,7 +90,7 @@ Name | Type | Description  | Notes
 
 ## GetShopReceipt
 
-> ShopReceipt GetShopReceipt(ctx, shopId, receiptId).Execute()
+> ShopReceipt GetShopReceipt(ctx, shopId, receiptId).Legacy(legacy).Execute()
 
 
 
@@ -107,12 +109,13 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	receiptId := int64(56) // int64 | The numeric ID for the [receipt](/documentation/reference#tag/Shop-Receipt) associated to this transaction.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	receiptId := int64(789) // int64 | The numeric ID for the [receipt](/documentation/reference#tag/Shop-Receipt) associated to this transaction.
+	legacy := true // bool | This parameter needed to enable new parameters and response values related to processing profiles. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopReceiptAPI.GetShopReceipt(context.Background(), shopId, receiptId).Execute()
+	resp, r, err := apiClient.ShopReceiptAPI.GetShopReceipt(context.Background(), shopId, receiptId).Legacy(legacy).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopReceiptAPI.GetShopReceipt``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -140,6 +143,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **legacy** | **bool** | This parameter needed to enable new parameters and response values related to processing profiles. | 
 
 ### Return type
 
@@ -161,7 +165,7 @@ Name | Type | Description  | Notes
 
 ## GetShopReceipts
 
-> ShopReceipts GetShopReceipts(ctx, shopId).MinCreated(minCreated).MaxCreated(maxCreated).MinLastModified(minLastModified).MaxLastModified(maxLastModified).Limit(limit).Offset(offset).SortOn(sortOn).SortOrder(sortOrder).WasPaid(wasPaid).WasShipped(wasShipped).WasDelivered(wasDelivered).WasCanceled(wasCanceled).Execute()
+> ShopReceipts GetShopReceipts(ctx, shopId).MinCreated(minCreated).MaxCreated(maxCreated).MinLastModified(minLastModified).MaxLastModified(maxLastModified).Limit(limit).Offset(offset).SortOn(sortOn).SortOrder(sortOrder).WasPaid(wasPaid).WasShipped(wasShipped).WasDelivered(wasDelivered).WasCanceled(wasCanceled).Legacy(legacy).Execute()
 
 
 
@@ -180,7 +184,7 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	minCreated := int64(56) // int64 | The earliest unix timestamp for when a record was created. (optional)
 	maxCreated := int64(56) // int64 | The latest unix timestamp for when a record was created. (optional)
 	minLastModified := int64(56) // int64 | The earliest unix timestamp for when a record last changed. (optional)
@@ -193,10 +197,11 @@ func main() {
 	wasShipped := true // bool | When `true`, returns receipts where the seller shipped the product(s) in this receipt. When `false`, returns receipts where shipment has not been set. (optional)
 	wasDelivered := true // bool | When `true`, returns receipts that have been marked as delivered. When `false`, returns receipts where shipment has not been marked as delivered. (optional)
 	wasCanceled := true // bool | When `true`, the endpoint will only return the canceled receipts. When `false`, the endpoint will only return non-canceled receipts. (optional)
+	legacy := true // bool | This parameter needed to enable new parameters and response values related to processing profiles. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopReceiptAPI.GetShopReceipts(context.Background(), shopId).MinCreated(minCreated).MaxCreated(maxCreated).MinLastModified(minLastModified).MaxLastModified(maxLastModified).Limit(limit).Offset(offset).SortOn(sortOn).SortOrder(sortOrder).WasPaid(wasPaid).WasShipped(wasShipped).WasDelivered(wasDelivered).WasCanceled(wasCanceled).Execute()
+	resp, r, err := apiClient.ShopReceiptAPI.GetShopReceipts(context.Background(), shopId).MinCreated(minCreated).MaxCreated(maxCreated).MinLastModified(minLastModified).MaxLastModified(maxLastModified).Limit(limit).Offset(offset).SortOn(sortOn).SortOrder(sortOrder).WasPaid(wasPaid).WasShipped(wasShipped).WasDelivered(wasDelivered).WasCanceled(wasCanceled).Legacy(legacy).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopReceiptAPI.GetShopReceipts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -234,6 +239,7 @@ Name | Type | Description  | Notes
  **wasShipped** | **bool** | When &#x60;true&#x60;, returns receipts where the seller shipped the product(s) in this receipt. When &#x60;false&#x60;, returns receipts where shipment has not been set. | 
  **wasDelivered** | **bool** | When &#x60;true&#x60;, returns receipts that have been marked as delivered. When &#x60;false&#x60;, returns receipts where shipment has not been marked as delivered. | 
  **wasCanceled** | **bool** | When &#x60;true&#x60;, the endpoint will only return the canceled receipts. When &#x60;false&#x60;, the endpoint will only return non-canceled receipts. | 
+ **legacy** | **bool** | This parameter needed to enable new parameters and response values related to processing profiles. | 
 
 ### Return type
 
@@ -255,7 +261,7 @@ Name | Type | Description  | Notes
 
 ## UpdateShopReceipt
 
-> ShopReceipt UpdateShopReceipt(ctx, shopId, receiptId).UpdateShopReceiptRequest(updateShopReceiptRequest).Execute()
+> ShopReceipt UpdateShopReceipt(ctx, shopId, receiptId).Legacy(legacy).UpdateShopReceiptRequest(updateShopReceiptRequest).Execute()
 
 
 
@@ -274,13 +280,14 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	receiptId := int64(56) // int64 | The numeric ID for the [receipt](/documentation/reference#tag/Shop-Receipt) associated to this transaction.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	receiptId := int64(789) // int64 | The numeric ID for the [receipt](/documentation/reference#tag/Shop-Receipt) associated to this transaction.
+	legacy := true // bool | This parameter needed to enable new parameters and response values related to processing profiles. (optional)
 	updateShopReceiptRequest := *openapiclient.NewUpdateShopReceiptRequest() // UpdateShopReceiptRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopReceiptAPI.UpdateShopReceipt(context.Background(), shopId, receiptId).UpdateShopReceiptRequest(updateShopReceiptRequest).Execute()
+	resp, r, err := apiClient.ShopReceiptAPI.UpdateShopReceipt(context.Background(), shopId, receiptId).Legacy(legacy).UpdateShopReceiptRequest(updateShopReceiptRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopReceiptAPI.UpdateShopReceipt``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -308,6 +315,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **legacy** | **bool** | This parameter needed to enable new parameters and response values related to processing profiles. | 
  **updateShopReceiptRequest** | [**UpdateShopReceiptRequest**](UpdateShopReceiptRequest.md) |  | 
 
 ### Return type

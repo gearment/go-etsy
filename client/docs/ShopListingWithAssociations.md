@@ -7,31 +7,31 @@ Name | Type | Description | Notes
 **ListingId** | Pointer to **int64** | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction. | [optional] 
 **UserId** | Pointer to **int64** | The numeric ID for the [user](/documentation/reference#tag/User) posting the listing. | [optional] 
 **ShopId** | Pointer to **int64** | The unique positive non-zero numeric ID for an Etsy Shop. | [optional] 
-**Title** | Pointer to **string** | The listing&#39;s title string. When creating or updating a listing, valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{P}\\\\p{Sm}\\\\p{Zs}™©®]/u) You can only use the %, :, &amp; and + characters once each. | [optional] 
+**Title** | Pointer to **string** | The listing&#39;s title string. When creating or updating a listing, valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\p{L}\\p{Nd}\\p{P}\\p{Sm}\\p{Zs}™©®]/u) You can only use the %, :, &amp; and + characters once each. | [optional] 
 **Description** | Pointer to **string** | A description string of the product for sale in the listing. | [optional] 
 **State** | Pointer to [**ShopListingState**](ShopListingState.md) |  | [optional] 
-**CreationTimestamp** | Pointer to **int64** | The listing\\&#39;s creation time, in epoch seconds. | [optional] 
-**CreatedTimestamp** | Pointer to **int64** | The listing\\&#39;s creation time, in epoch seconds. | [optional] 
-**EndingTimestamp** | Pointer to **int64** | The listing\\&#39;s expiration time, in epoch seconds. | [optional] 
-**OriginalCreationTimestamp** | Pointer to **int64** | The listing\\&#39;s creation time, in epoch seconds. | [optional] 
+**CreationTimestamp** | Pointer to **int64** | The listing&#39;s creation time, in epoch seconds. | [optional] 
+**CreatedTimestamp** | Pointer to **int64** | The listing&#39;s creation time, in epoch seconds. | [optional] 
+**EndingTimestamp** | Pointer to **int64** | The listing&#39;s expiration time, in epoch seconds. | [optional] 
+**OriginalCreationTimestamp** | Pointer to **int64** | The listing&#39;s creation time, in epoch seconds. | [optional] 
 **LastModifiedTimestamp** | Pointer to **int64** | The time of the last update to the listing, in epoch seconds. | [optional] 
 **UpdatedTimestamp** | Pointer to **int64** | The time of the last update to the listing, in epoch seconds. | [optional] 
 **StateTimestamp** | Pointer to **NullableInt64** | The date and time of the last state change of this listing. | [optional] 
 **Quantity** | Pointer to **int64** | The positive non-zero number of products available for purchase in the listing. Note: The listing quantity is the sum of available offering quantities. You can request the quantities for individual offerings from the ListingInventory resource using the [getListingInventory](/documentation/reference#operation/getListingInventory) endpoint. | [optional] 
 **ShopSectionId** | Pointer to **NullableInt64** | The numeric ID of a section in a specific Etsy shop. | [optional] 
-**FeaturedRank** | Pointer to **int64** | The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop’s home page. | [optional] 
+**FeaturedRank** | Pointer to **int64** | The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop&#39;s home page. | [optional] 
 **Url** | Pointer to **string** | The full URL to the listing&#39;s page on Etsy. | [optional] 
 **NumFavorers** | Pointer to **int64** | The number of users who marked this Listing a favorite. | [optional] 
 **NonTaxable** | Pointer to **bool** | When true, applicable [shop](/documentation/reference#tag/Shop) tax rates do not apply to this listing at checkout. | [optional] 
 **IsTaxable** | Pointer to **bool** | When true, applicable [shop](/documentation/reference#tag/Shop) tax rates apply to this listing at checkout. | [optional] 
 **IsCustomizable** | Pointer to **bool** | When true, a buyer may contact the seller for a customized order. The default value is true when a shop accepts custom orders. Does not apply to shops that do not accept custom orders. | [optional] 
-**IsPersonalizable** | Pointer to **bool** | When true, this listing is personalizable. The default value is null. | [optional] 
-**PersonalizationIsRequired** | Pointer to **bool** | When true, this listing requires personalization. The default value is null. Will only change if is_personalizable is &#39;true&#39;. | [optional] 
-**PersonalizationCharCountMax** | Pointer to **NullableInt64** | This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is &#39;true&#39;. | [optional] 
-**PersonalizationInstructions** | Pointer to **NullableString** | When true, this listing requires personalization. The default value is null. Will only change if is_personalizable is &#39;true&#39;. | [optional] 
+**IsPersonalizable** | Pointer to **bool** | When true, this listing is personalizable. The default value is false. | [optional] 
+**PersonalizationIsRequired** | Pointer to **bool** | [DEPRECATED] When true, this listing requires personalization. The default value is false. NOTE: This field will be removed on Apr. 9th, 2026. See https://developers.etsy.com/documentation/tutorials/personalization-migration for migration details. | [optional] 
+**PersonalizationCharCountMax** | Pointer to **NullableInt64** | [DEPRECATED] This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is &#39;true&#39;. Note: This field will be removed on Apr. 9th, 2026. See https://developers.etsy.com/documentation/tutorials/personalization-migration for migration details. | [optional] 
+**PersonalizationInstructions** | Pointer to **NullableString** | [DEPRECATED] When true, this listing requires personalization. The default value is false. NOTE: This field will be removed on Apr. 9th, 2026. See https://developers.etsy.com/documentation/tutorials/personalization-migration for migration details. | [optional] 
 **ListingType** | Pointer to [**CreateDraftListingRequestType**](CreateDraftListingRequestType.md) |  | [optional] 
-**Tags** | Pointer to **[]string** | A comma-separated list of tag strings for the listing. When creating or updating a listing, valid tag strings contain only letters, numbers, whitespace characters, -, &#39;, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}\\\\-&#39;™©®]/u) Default value is null. | [optional] 
-**Materials** | Pointer to **[]string** | A list of material strings for materials used in the product. Valid materials strings contain only letters, numbers, and whitespace characters. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}]/u) Default value is null. | [optional] 
+**Tags** | Pointer to **[]string** | A comma-separated list of tag strings for the listing. When creating or updating a listing, valid tag strings contain only letters, numbers, whitespace characters, -, &#39;, ™, ©, and ®. (regex: /[^\\p{L}\\p{Nd}\\p{Zs}\\-&#39;™©®]/u) Default value is null. | [optional] 
+**Materials** | Pointer to **[]string** | A list of material strings for materials used in the product. Valid materials strings contain only letters, numbers, and whitespace characters. (regex: /[^\\p{L}\\p{Nd}\\p{Zs}]/u) Default value is null. | [optional] 
 **ShippingProfileId** | Pointer to **NullableInt64** | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is &#x60;physical&#x60;. | [optional] 
 **ReturnPolicyId** | Pointer to **NullableInt64** | The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies). | [optional] 
 **ProcessingMin** | Pointer to **NullableInt64** | The minimum number of days required to process this listing. Default value is null. | [optional] 
@@ -39,20 +39,22 @@ Name | Type | Description | Notes
 **WhoMade** | Pointer to [**NullableShopListingWhoMade**](ShopListingWhoMade.md) |  | [optional] 
 **WhenMade** | Pointer to [**NullableShopListingWhenMade**](ShopListingWhenMade.md) |  | [optional] 
 **IsSupply** | Pointer to **NullableBool** | When true, tags the listing as a supply product, else indicates that it&#39;s a finished product. Helps buyers locate the listing under the Supplies heading. Requires &#39;who_made&#39; and &#39;when_made&#39;. | [optional] 
-**ItemWeight** | Pointer to **NullableFloat32** | The numeric weight of the product measured in units set in \\&#39;item_weight_unit\\&#39;. Default value is null. If set, the value must be greater than 0. | [optional] 
+**ItemWeight** | Pointer to **NullableFloat32** | The numeric weight of the product measured in units set in &#39;item_weight_unit&#39;. Default value is null. If set, the value must be greater than 0. | [optional] 
 **ItemWeightUnit** | Pointer to [**NullableCreateDraftListingRequestItemWeightUnit**](CreateDraftListingRequestItemWeightUnit.md) |  | [optional] 
-**ItemLength** | Pointer to **NullableFloat32** | The numeric length of the product measured in units set in \\&#39;item_dimensions_unit\\&#39;. Default value is null. If set, the value must be greater than 0. | [optional] 
-**ItemWidth** | Pointer to **NullableFloat32** | The numeric width of the product measured in units set in \\&#39;item_dimensions_unit\\&#39;. Default value is null. If set, the value must be greater than 0. | [optional] 
-**ItemHeight** | Pointer to **NullableFloat32** | The numeric length of the product measured in units set in \\&#39;item_dimensions_unit\\&#39;. Default value is null. If set, the value must be greater than 0. | [optional] 
+**ItemLength** | Pointer to **NullableFloat32** | The numeric length of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0. | [optional] 
+**ItemWidth** | Pointer to **NullableFloat32** | The numeric width of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0. | [optional] 
+**ItemHeight** | Pointer to **NullableFloat32** | The numeric length of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0. | [optional] 
 **ItemDimensionsUnit** | Pointer to [**NullableCreateDraftListingRequestItemDimensionsUnit**](CreateDraftListingRequestItemDimensionsUnit.md) |  | [optional] 
 **IsPrivate** | Pointer to **bool** | When true, this is a private listing intended for a specific buyer and hidden from shop view. | [optional] 
-**Style** | Pointer to **[]string** | An array of style strings for this listing, each of which is free-form text string such as \\\&quot;Formal\\\&quot;, or \\\&quot;Steampunk\\\&quot;. When creating or updating a listing, the listing may have up to two styles. Valid style strings contain only letters, numbers, and whitespace characters. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}]/u) Default value is null. | [optional] 
-**FileData** | Pointer to **string** | A string describing the files attached to a digital listing. | [optional] 
+**Style** | Pointer to **[]string** | An array of style strings for this listing, each of which is free-form text string such as \&quot;Formal\&quot;, or \&quot;Steampunk\&quot;. When creating or updating a listing, the listing may have up to two styles. Valid style strings contain only letters, numbers, and whitespace characters. (regex: /[^\\p{L}\\p{Nd}\\p{Zs}]/u) Default value is null. | [optional] 
+**FileData** | Pointer to **NullableString** | A string describing the files attached to a digital listing. | [optional] 
 **HasVariations** | Pointer to **bool** | When true, the listing has variations. | [optional] 
 **ShouldAutoRenew** | Pointer to **bool** | When true, renews a listing for four months upon expiration. | [optional] 
 **Language** | Pointer to **NullableString** | The IETF language tag for the default language of the listing. Ex: &#x60;de&#x60;, &#x60;en&#x60;, &#x60;es&#x60;, &#x60;fr&#x60;, &#x60;it&#x60;, &#x60;ja&#x60;, &#x60;nl&#x60;, &#x60;pl&#x60;, &#x60;pt&#x60;, &#x60;ru&#x60;. | [optional] 
 **Price** | Pointer to [**Money**](Money.md) | The positive non-zero price of the product. (Sold product listings are private) Note: The price is the minimum possible price. The [&#x60;getListingInventory&#x60;](/documentation/reference/#operation/getListingInventory) method requests exact prices for available offerings. | [optional] 
 **TaxonomyId** | Pointer to **NullableInt64** | The numerical taxonomy ID of the listing. See [SellerTaxonomy](/documentation/reference#tag/SellerTaxonomy) and [BuyerTaxonomy](/documentation/reference#tag/BuyerTaxonomy) for more information. | [optional] 
+**ReadinessStateId** | Pointer to **NullableInt64** | The numeric ID of the [processing profile](/documentation/reference#operation/getShopReadinessStateDefinition) associated with the listing. Returned only when the listing is &#x60;active&#x60; and of type &#x60;physical&#x60;, and the endpoint is either shop-scoped (path contains &#x60;shop_id&#x60;) or a single-listing request such as &#x60;getListing&#x60;. For every other case this field can be null. | [optional] 
+**SuggestedTitle** | Pointer to **NullableString** | A title string suggested by Etsy. Only available for a user&#39;s own listings, when allow_suggested_title param is present, and when a shop&#39;s language setting is English. Not all listings will have suggestions. | [optional] 
 **ShippingProfile** | Pointer to [**NullableShopShippingProfile**](ShopShippingProfile.md) | An array of data representing the shipping profile resource. | [optional] 
 **User** | Pointer to [**NullableUser**](User.md) | Represents a single user of the site | [optional] 
 **Shop** | Pointer to [**NullableShop**](Shop.md) | A shop created by an Etsy user. | [optional] 
@@ -63,6 +65,7 @@ Name | Type | Description | Notes
 **Skus** | Pointer to **[]string** | A list of SKU strings for the listing. SKUs will only appear if the requesting user owns the shop and a valid matching OAuth 2 token is provided. When requested without the token it will be an empty array. | [optional] 
 **Translations** | Pointer to [**NullableListingTranslations**](ListingTranslations.md) | A map of translations for the listing. Default value is a map of all supported languages keyed to null. | [optional] 
 **Views** | Pointer to **int64** | The number of times the listing has been viewed. This value is tabulated once per day and **only for active listings**, so the value is not real-time. If &#x60;0&#x60;, the listing has either not been viewed, not yet tabulated, was not active during the last tabulation or there was an error fetching the value. If a value is expected, call &#x60;getListing&#x60; to confirm the value. | [optional] 
+**Personalization** | Pointer to [**NullableEtsyModulesListingPersonalizationApiResourcesOpenApiListingPersonalization**](EtsyModulesListingPersonalizationApiResourcesOpenApiListingPersonalization.md) |  | [optional] 
 
 ## Methods
 
@@ -1353,6 +1356,16 @@ SetFileData sets FileData field to given value.
 
 HasFileData returns a boolean if a field has been set.
 
+### SetFileDataNil
+
+`func (o *ShopListingWithAssociations) SetFileDataNil(b bool)`
+
+ SetFileDataNil sets the value for FileData to be an explicit nil
+
+### UnsetFileData
+`func (o *ShopListingWithAssociations) UnsetFileData()`
+
+UnsetFileData ensures that no value is present for FileData, not even an explicit nil
 ### GetHasVariations
 
 `func (o *ShopListingWithAssociations) GetHasVariations() bool`
@@ -1498,6 +1511,76 @@ HasTaxonomyId returns a boolean if a field has been set.
 `func (o *ShopListingWithAssociations) UnsetTaxonomyId()`
 
 UnsetTaxonomyId ensures that no value is present for TaxonomyId, not even an explicit nil
+### GetReadinessStateId
+
+`func (o *ShopListingWithAssociations) GetReadinessStateId() int64`
+
+GetReadinessStateId returns the ReadinessStateId field if non-nil, zero value otherwise.
+
+### GetReadinessStateIdOk
+
+`func (o *ShopListingWithAssociations) GetReadinessStateIdOk() (*int64, bool)`
+
+GetReadinessStateIdOk returns a tuple with the ReadinessStateId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReadinessStateId
+
+`func (o *ShopListingWithAssociations) SetReadinessStateId(v int64)`
+
+SetReadinessStateId sets ReadinessStateId field to given value.
+
+### HasReadinessStateId
+
+`func (o *ShopListingWithAssociations) HasReadinessStateId() bool`
+
+HasReadinessStateId returns a boolean if a field has been set.
+
+### SetReadinessStateIdNil
+
+`func (o *ShopListingWithAssociations) SetReadinessStateIdNil(b bool)`
+
+ SetReadinessStateIdNil sets the value for ReadinessStateId to be an explicit nil
+
+### UnsetReadinessStateId
+`func (o *ShopListingWithAssociations) UnsetReadinessStateId()`
+
+UnsetReadinessStateId ensures that no value is present for ReadinessStateId, not even an explicit nil
+### GetSuggestedTitle
+
+`func (o *ShopListingWithAssociations) GetSuggestedTitle() string`
+
+GetSuggestedTitle returns the SuggestedTitle field if non-nil, zero value otherwise.
+
+### GetSuggestedTitleOk
+
+`func (o *ShopListingWithAssociations) GetSuggestedTitleOk() (*string, bool)`
+
+GetSuggestedTitleOk returns a tuple with the SuggestedTitle field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSuggestedTitle
+
+`func (o *ShopListingWithAssociations) SetSuggestedTitle(v string)`
+
+SetSuggestedTitle sets SuggestedTitle field to given value.
+
+### HasSuggestedTitle
+
+`func (o *ShopListingWithAssociations) HasSuggestedTitle() bool`
+
+HasSuggestedTitle returns a boolean if a field has been set.
+
+### SetSuggestedTitleNil
+
+`func (o *ShopListingWithAssociations) SetSuggestedTitleNil(b bool)`
+
+ SetSuggestedTitleNil sets the value for SuggestedTitle to be an explicit nil
+
+### UnsetSuggestedTitle
+`func (o *ShopListingWithAssociations) UnsetSuggestedTitle()`
+
+UnsetSuggestedTitle ensures that no value is present for SuggestedTitle, not even an explicit nil
 ### GetShippingProfile
 
 `func (o *ShopListingWithAssociations) GetShippingProfile() ShopShippingProfile`
@@ -1798,6 +1881,41 @@ SetViews sets Views field to given value.
 
 HasViews returns a boolean if a field has been set.
 
+### GetPersonalization
+
+`func (o *ShopListingWithAssociations) GetPersonalization() EtsyModulesListingPersonalizationApiResourcesOpenApiListingPersonalization`
+
+GetPersonalization returns the Personalization field if non-nil, zero value otherwise.
+
+### GetPersonalizationOk
+
+`func (o *ShopListingWithAssociations) GetPersonalizationOk() (*EtsyModulesListingPersonalizationApiResourcesOpenApiListingPersonalization, bool)`
+
+GetPersonalizationOk returns a tuple with the Personalization field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPersonalization
+
+`func (o *ShopListingWithAssociations) SetPersonalization(v EtsyModulesListingPersonalizationApiResourcesOpenApiListingPersonalization)`
+
+SetPersonalization sets Personalization field to given value.
+
+### HasPersonalization
+
+`func (o *ShopListingWithAssociations) HasPersonalization() bool`
+
+HasPersonalization returns a boolean if a field has been set.
+
+### SetPersonalizationNil
+
+`func (o *ShopListingWithAssociations) SetPersonalizationNil(b bool)`
+
+ SetPersonalizationNil sets the value for Personalization to be an explicit nil
+
+### UnsetPersonalization
+`func (o *ShopListingWithAssociations) UnsetPersonalization()`
+
+UnsetPersonalization ensures that no value is present for Personalization, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

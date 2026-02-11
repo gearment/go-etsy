@@ -1,7 +1,7 @@
 /*
 Etsy Open API v3
 
-<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features. The API endpoints are meant to replace Etsy's Open API v2, which is scheduled to end service in 2022.</p><p class=\"wt-pb-xs-2\">All of the endpoints are callable and the majority of the API endpoints are now in a beta phase. This means we do not expect to make any breaking changes before our general release. A handful of endpoints are currently interface stubs (labeled “Feedback Only”) and returns a \"501 Not Implemented\" response code when called.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2024 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
+<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2026 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
 
 API version: 3.0.0
 Contact: developers@etsy.com
@@ -14,29 +14,26 @@ package goEtsy
 import (
 	"encoding/json"
 	"fmt"
-	"reflect"
-	"strings"
-	"unicode"
 )
 
 // CreateShopShippingProfileUpgradeRequestType The type of the shipping upgrade. Domestic (0) or international (1).
-type CreateShopShippingProfileUpgradeRequestType string
+type CreateShopShippingProfileUpgradeRequestType int64
 
 // List of createShopShippingProfileUpgrade_request_type
 const (
-	CREATESHOPSHIPPINGPROFILEUPGRADEREQUESTTYPE__0 CreateShopShippingProfileUpgradeRequestType = "0"
-	CREATESHOPSHIPPINGPROFILEUPGRADEREQUESTTYPE__1 CreateShopShippingProfileUpgradeRequestType = "1"
+	CREATESHOPSHIPPINGPROFILEUPGRADEREQUESTTYPE__0 CreateShopShippingProfileUpgradeRequestType = 0
+	CREATESHOPSHIPPINGPROFILEUPGRADEREQUESTTYPE__1 CreateShopShippingProfileUpgradeRequestType = 1
 )
 
 // All allowed values of CreateShopShippingProfileUpgradeRequestType enum
 var AllowedCreateShopShippingProfileUpgradeRequestTypeEnumValues = []CreateShopShippingProfileUpgradeRequestType{
-	"0",
-	"1",
+	0,
+	1,
 }
 
 var AllowedCreateShopShippingProfileUpgradeRequestTypeEnumValuesValidator = map[interface{}]struct{}{
-	CreateShopShippingProfileUpgradeRequestType("0").Ptr().generateNormalizedEnum(): struct{}{},
-	CreateShopShippingProfileUpgradeRequestType("1").Ptr().generateNormalizedEnum(): struct{}{},
+	CreateShopShippingProfileUpgradeRequestType(0).Ptr().generateNormalizedEnum(): struct{}{},
+	CreateShopShippingProfileUpgradeRequestType(1).Ptr().generateNormalizedEnum(): struct{}{},
 }
 
 func (v *CreateShopShippingProfileUpgradeRequestType) generateNormalizedEnum() any {
@@ -44,48 +41,11 @@ func (v *CreateShopShippingProfileUpgradeRequestType) generateNormalizedEnum() a
 		return nil
 	}
 
-	s := *v
-	if reflect.TypeOf(*v).Kind() != reflect.String {
-		return s
-	}
-
-	var sb strings.Builder
-	sb.Grow(len(s) + 2)     // Preallocate memory for efficiency
-	var prevUnderscore bool // Track consecutive underscores
-	for i, r := range s {
-		switch {
-		case unicode.IsUpper(r):
-			// Add an underscore if:
-			// 1. Not the first character
-			// 2. Previous character is NOT uppercase (to handle acronyms like "HTTPRequest")
-			// 3. Next character is lowercase (to avoid splitting acronyms)
-			if i > 0 && (!unicode.IsUpper(rune(s[i-1])) || (i+1 < len(s) && unicode.IsLower(rune(s[i+1])))) {
-				sb.WriteByte('_')
-			}
-			sb.WriteRune(unicode.ToLower(r))
-			prevUnderscore = false
-
-		case unicode.IsSpace(r) || r == '-' || r == '_': // Convert spaces, dashes, and underscores to `_`
-			if !prevUnderscore { // Avoid consecutive `_`
-				sb.WriteByte('_')
-				prevUnderscore = true
-			}
-
-		case unicode.IsLetter(r) || unicode.IsDigit(r): // Keep letters and numbers
-			sb.WriteRune(r)
-			prevUnderscore = false
-
-		default:
-			// Ignore symbols (e.g., `@#$%&*!`)
-		}
-	}
-
-	// Trim leading/trailing underscores
-	return strings.Trim(sb.String(), "_")
+	return *v
 }
 
 func (v *CreateShopShippingProfileUpgradeRequestType) UnmarshalJSON(src []byte) error {
-	var value string
+	var value int64
 	err := json.Unmarshal(src, &value)
 	if err != nil {
 		return err
@@ -101,7 +61,7 @@ func (v *CreateShopShippingProfileUpgradeRequestType) UnmarshalJSON(src []byte) 
 
 // NewCreateShopShippingProfileUpgradeRequestTypeFromValue returns a pointer to a valid CreateShopShippingProfileUpgradeRequestType
 // for the value passed as argument, or an error if the value passed is not allowed by the enum
-func NewCreateShopShippingProfileUpgradeRequestTypeFromValue(v string) (*CreateShopShippingProfileUpgradeRequestType, error) {
+func NewCreateShopShippingProfileUpgradeRequestTypeFromValue(v int64) (*CreateShopShippingProfileUpgradeRequestType, error) {
 	ev := CreateShopShippingProfileUpgradeRequestType(v)
 	if ev.IsValid() {
 		return &ev, nil

@@ -30,7 +30,7 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	minCreated := int64(56) // int64 | The earliest unix timestamp for when a record was created.
 	maxCreated := int64(56) // int64 | The latest unix timestamp for when a record was created.
 	limit := int64(56) // int64 | The maximum number of results to return. (optional) (default to 25)
@@ -108,8 +108,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	ledgerEntryId := int64(56) // int64 | The unique ID of the shop owner ledger entry.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	ledgerEntryId := int64(789) // int64 | The unique ID of the shop owner ledger entry.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

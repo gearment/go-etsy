@@ -1,7 +1,7 @@
 /*
 Etsy Open API v3
 
-<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features. The API endpoints are meant to replace Etsy's Open API v2, which is scheduled to end service in 2022.</p><p class=\"wt-pb-xs-2\">All of the endpoints are callable and the majority of the API endpoints are now in a beta phase. This means we do not expect to make any breaking changes before our general release. A handful of endpoints are currently interface stubs (labeled “Feedback Only”) and returns a \"501 Not Implemented\" response code when called.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2024 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
+<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2026 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
 
 API version: 3.0.0
 Contact: developers@etsy.com
@@ -51,6 +51,13 @@ type ShopListingOfferingAPIGetListingOfferingRequest struct {
 	listingId         int64
 	productId         int64
 	productOfferingId int64
+	legacy            *bool
+}
+
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopListingOfferingAPIGetListingOfferingRequest) Legacy(legacy bool) ShopListingOfferingAPIGetListingOfferingRequest {
+	r.legacy = &legacy
+	return r
 }
 
 func (r ShopListingOfferingAPIGetListingOfferingRequest) Execute() (*ListingInventoryProductOffering, *http.Response, error) {
@@ -114,6 +121,9 @@ func (a *ShopListingOfferingAPIService) GetListingOfferingExecute(r ShopListingO
 		return localVarReturnValue, nil, reportError("productOfferingId must be greater than 1")
 	}
 
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

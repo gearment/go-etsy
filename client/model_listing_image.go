@@ -1,7 +1,7 @@
 /*
 Etsy Open API v3
 
-<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features. The API endpoints are meant to replace Etsy's Open API v2, which is scheduled to end service in 2022.</p><p class=\"wt-pb-xs-2\">All of the endpoints are callable and the majority of the API endpoints are now in a beta phase. This means we do not expect to make any breaking changes before our general release. A handful of endpoints are currently interface stubs (labeled “Feedback Only”) and returns a \"501 Not Implemented\" response code when called.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2024 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
+<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2026 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
 
 API version: 3.0.0
 Contact: developers@etsy.com
@@ -40,9 +40,9 @@ type ListingImage struct {
 	Brightness NullableInt64 `json:"brightness,omitempty"`
 	// When true, the image is in black & white.
 	IsBlackAndWhite NullableBool `json:"is_black_and_white,omitempty"`
-	// The listing image\\'s creation time, in epoch seconds.
+	// The listing image's creation time, in epoch seconds.
 	CreationTsz *int64 `json:"creation_tsz,omitempty"`
-	// The listing image\\'s creation time, in epoch seconds.
+	// The listing image's creation time, in epoch seconds.
 	CreatedTimestamp *int64 `json:"created_timestamp,omitempty"`
 	// The positive non-zero numeric position in the images displayed in a listing, with rank 1 images appearing in the left-most position in a listing.
 	Rank *int64 `json:"rank,omitempty"`
@@ -58,7 +58,7 @@ type ListingImage struct {
 	FullHeight NullableInt64 `json:"full_height,omitempty"`
 	// The numeric width, measured in pixels, of the full-sized image referenced in url_fullxfull.
 	FullWidth NullableInt64 `json:"full_width,omitempty"`
-	// Alt text for the listing image. Max length 250 characters.
+	// Alt text for the listing image. Max length 500 characters.
 	AltText              NullableString `json:"alt_text,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

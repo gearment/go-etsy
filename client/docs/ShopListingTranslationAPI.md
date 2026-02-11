@@ -31,8 +31,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	listingId := int64(789) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
 	language := "language_example" // string | The IETF language tag for the language of this translation. Ex: `de`, `en`, `es`, `fr`, `it`, `ja`, `nl`, `pl`, `pt`.
 	updateListingTranslationRequest := *openapiclient.NewUpdateListingTranslationRequest("Title_example", "Description_example") // UpdateListingTranslationRequest |  (optional)
 
@@ -109,8 +109,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	listingId := int64(789) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
 	language := "language_example" // string | The IETF language tag for the language of this translation. Ex: `de`, `en`, `es`, `fr`, `it`, `ja`, `nl`, `pl`, `pt`.
 
 	configuration := openapiclient.NewConfiguration()
@@ -185,8 +185,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	listingId := int64(789) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
 	language := "language_example" // string | The IETF language tag for the language of this translation. Ex: `de`, `en`, `es`, `fr`, `it`, `ja`, `nl`, `pl`, `pt`.
 	updateListingTranslationRequest := *openapiclient.NewUpdateListingTranslationRequest("Title_example", "Description_example") // UpdateListingTranslationRequest |  (optional)
 

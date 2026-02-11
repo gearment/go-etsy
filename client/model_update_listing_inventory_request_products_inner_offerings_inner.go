@@ -1,7 +1,7 @@
 /*
 Etsy Open API v3
 
-<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features. The API endpoints are meant to replace Etsy's Open API v2, which is scheduled to end service in 2022.</p><p class=\"wt-pb-xs-2\">All of the endpoints are callable and the majority of the API endpoints are now in a beta phase. This means we do not expect to make any breaking changes before our general release. A handful of endpoints are currently interface stubs (labeled “Feedback Only”) and returns a \"501 Not Implemented\" response code when called.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2024 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
+<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2026 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
 
 API version: 3.0.0
 Contact: developers@etsy.com
@@ -25,7 +25,9 @@ type UpdateListingInventoryRequestProductsInnerOfferingsInner struct {
 	// How many of this product are available?
 	Quantity int64 `json:"quantity"`
 	// True if the offering is shown to buyers
-	IsEnabled            bool `json:"is_enabled"`
+	IsEnabled bool `json:"is_enabled"`
+	// The numeric ID of the [processing profile](/documentation/reference#operation/getShopReadinessStateDefinition) associated with the listing. Returned only when the listing is `active` and of type `physical`, and the endpoint is either shop-scoped (path contains `shop_id`) or a single-listing request such as `getListing`. For every other case this field can be null.
+	ReadinessStateId     NullableInt64 `json:"readiness_state_id"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -35,11 +37,12 @@ type _UpdateListingInventoryRequestProductsInnerOfferingsInner UpdateListingInve
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateListingInventoryRequestProductsInnerOfferingsInner(price float32, quantity int64, isEnabled bool) *UpdateListingInventoryRequestProductsInnerOfferingsInner {
+func NewUpdateListingInventoryRequestProductsInnerOfferingsInner(price float32, quantity int64, isEnabled bool, readinessStateId NullableInt64) *UpdateListingInventoryRequestProductsInnerOfferingsInner {
 	this := UpdateListingInventoryRequestProductsInnerOfferingsInner{}
 	this.Price = price
 	this.Quantity = quantity
 	this.IsEnabled = isEnabled
+	this.ReadinessStateId = readinessStateId
 	return &this
 }
 
@@ -123,6 +126,32 @@ func (o *UpdateListingInventoryRequestProductsInnerOfferingsInner) SetIsEnabled(
 	o.IsEnabled = v
 }
 
+// GetReadinessStateId returns the ReadinessStateId field value
+// If the value is explicit nil, the zero value for int64 will be returned
+func (o *UpdateListingInventoryRequestProductsInnerOfferingsInner) GetReadinessStateId() int64 {
+	if o == nil || o.ReadinessStateId.Get() == nil {
+		var ret int64
+		return ret
+	}
+
+	return *o.ReadinessStateId.Get()
+}
+
+// GetReadinessStateIdOk returns a tuple with the ReadinessStateId field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateListingInventoryRequestProductsInnerOfferingsInner) GetReadinessStateIdOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ReadinessStateId.Get(), o.ReadinessStateId.IsSet()
+}
+
+// SetReadinessStateId sets field value
+func (o *UpdateListingInventoryRequestProductsInnerOfferingsInner) SetReadinessStateId(v int64) {
+	o.ReadinessStateId.Set(&v)
+}
+
 func (o UpdateListingInventoryRequestProductsInnerOfferingsInner) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -136,6 +165,7 @@ func (o UpdateListingInventoryRequestProductsInnerOfferingsInner) ToMap() (map[s
 	toSerialize["price"] = o.Price
 	toSerialize["quantity"] = o.Quantity
 	toSerialize["is_enabled"] = o.IsEnabled
+	toSerialize["readiness_state_id"] = o.ReadinessStateId.Get()
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value

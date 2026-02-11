@@ -102,7 +102,7 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -172,7 +172,7 @@ import (
 )
 
 func main() {
-	userId := int64(56) // int64 | The numeric user ID of the [user](/documentation/reference#tag/User) who owns this shop.
+	userId := int64(789) // int64 | The numeric user ID of the [user](/documentation/reference#tag/User) who owns this shop.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -242,7 +242,7 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	updateShopRequest := *openapiclient.NewUpdateShopRequest() // UpdateShopRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()

@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **Saturation** | Pointer to **NullableInt64** | The numeric saturation equal to the image&#39;s average saturation, from 0-100 (HSV color). | [optional] 
 **Brightness** | Pointer to **NullableInt64** | The numeric brightness equal to the image&#39;s average brightness, from 0-100 (HSV color). | [optional] 
 **IsBlackAndWhite** | Pointer to **NullableBool** | When true, the image is in black &amp; white. | [optional] 
-**CreationTsz** | Pointer to **int64** | The listing image\\&#39;s creation time, in epoch seconds. | [optional] 
-**CreatedTimestamp** | Pointer to **int64** | The listing image\\&#39;s creation time, in epoch seconds. | [optional] 
+**CreationTsz** | Pointer to **int64** | The listing image&#39;s creation time, in epoch seconds. | [optional] 
+**CreatedTimestamp** | Pointer to **int64** | The listing image&#39;s creation time, in epoch seconds. | [optional] 
 **Rank** | Pointer to **int64** | The positive non-zero numeric position in the images displayed in a listing, with rank 1 images appearing in the left-most position in a listing. | [optional] 
 **Url75x75** | Pointer to **string** | The url string for a 75x75 pixel thumbnail of the image. | [optional] 
 **Url170x135** | Pointer to **string** | The url string for a 170x135 pixel thumbnail of the image. | [optional] 
@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **UrlFullxfull** | Pointer to **string** | The url string for the full-size image, up to 3000 pixels in each dimension. | [optional] 
 **FullHeight** | Pointer to **NullableInt64** | The numeric height, measured in pixels, of the full-sized image referenced in url_fullxfull. | [optional] 
 **FullWidth** | Pointer to **NullableInt64** | The numeric width, measured in pixels, of the full-sized image referenced in url_fullxfull. | [optional] 
-**AltText** | Pointer to **NullableString** | Alt text for the listing image. Max length 250 characters. | [optional] 
+**AltText** | Pointer to **NullableString** | Alt text for the listing image. Max length 500 characters. | [optional] 
 
 ## Methods
 

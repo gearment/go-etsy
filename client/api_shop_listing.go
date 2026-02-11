@@ -1,7 +1,7 @@
 /*
 Etsy Open API v3
 
-<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features. The API endpoints are meant to replace Etsy's Open API v2, which is scheduled to end service in 2022.</p><p class=\"wt-pb-xs-2\">All of the endpoints are callable and the majority of the API endpoints are now in a beta phase. This means we do not expect to make any breaking changes before our general release. A handful of endpoints are currently interface stubs (labeled “Feedback Only”) and returns a \"501 Not Implemented\" response code when called.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2024 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
+<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2026 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
 
 API version: 3.0.0
 Contact: developers@etsy.com
@@ -268,7 +268,7 @@ type ShopListingAPI interface {
 
 			<div class="wt-display-flex-xs wt-align-items-center wt-mt-xs-2 wt-mb-xs-3"><span class="wt-badge wt-badge--notificationPrimary wt-bg-slime-tint wt-mr-xs-2">General Release</span><a class="wt-text-link" href="https://github.com/etsy/open-api/discussions" target="_blank" rel="noopener noreferrer">Report bug</a></div><div class="wt-display-flex-xs wt-align-items-center wt-mt-xs-2 wt-mb-xs-3"><p class="wt-text-body-01 banner-text">This endpoint is ready for production use.</p></div>
 
-		Updates a listing, identified by a listing ID, for a specific shop identified by a shop ID. Note that this is a PATCH method type. When activating, or manually renewing a physical listing, the shipping profile referenced by the `shipping_profile_id`, and all of its fields, along with its entries and upgrades must be complete and valid. If the shipping profile is not complete and valid, we will throw an exception with an error message that guides the request sender to update whatever data is bad.
+		Updates a listing, identified by a listing ID, for a specific shop identified by a shop ID. Note that this is a PATCH method type. When activating, or manually renewing a physical listing, the shipping profile referenced by the `shipping_profile_id`, and all of its fields, along with its entries and upgrades must be complete and valid. If the shipping profile is not complete and valid, we will throw an exception with an error message that guides the request sender to update whatever data is bad.   Digital listings that are not made to order must have a file upload associated with it to be activated. While the listing is a draft, shipping profile and file upload are not required in any case.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param shopId The unique positive non-zero numeric ID for an Etsy Shop.
@@ -280,24 +280,6 @@ type ShopListingAPI interface {
 	// UpdateListingExecute executes the request
 	//  @return ShopListing
 	UpdateListingExecute(r ShopListingAPIUpdateListingRequest) (*ShopListing, *http.Response, error)
-
-	/*
-			UpdateListingDeprecated Method for UpdateListingDeprecated
-
-			<div class="wt-display-flex-xs wt-align-items-center wt-mt-xs-2 wt-mb-xs-3"><span class="wt-badge wt-badge--notificationPrimary wt-bg-slime-tint wt-mr-xs-2">General Release</span><a class="wt-text-link" href="https://github.com/etsy/open-api/discussions" target="_blank" rel="noopener noreferrer">Report bug</a></div><div class="wt-display-flex-xs wt-align-items-center wt-mt-xs-2 wt-mb-xs-3"><p class="wt-text-body-01 banner-text">This endpoint is ready for production use.</p></div>
-
-		Updates a listing, identified by a listing ID, for a specific shop identified by a shop ID. This endpoint will be removed in the near future in favor of `updateListing` PATCH version.
-
-			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param shopId The unique positive non-zero numeric ID for an Etsy Shop.
-			@param listingId The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
-			@return ShopListingAPIUpdateListingDeprecatedRequest
-	*/
-	UpdateListingDeprecated(ctx context.Context, shopId int64, listingId int64) ShopListingAPIUpdateListingDeprecatedRequest
-
-	// UpdateListingDeprecatedExecute executes the request
-	//  @return ShopListing
-	UpdateListingDeprecatedExecute(r ShopListingAPIUpdateListingDeprecatedRequest) (*ShopListing, *http.Response, error)
 
 	/*
 			UpdateListingProperty Method for UpdateListingProperty
@@ -326,7 +308,14 @@ type ShopListingAPICreateDraftListingRequest struct {
 	ctx                       context.Context
 	ApiService                ShopListingAPI
 	shopId                    int64
+	legacy                    *bool
 	createDraftListingRequest *CreateDraftListingRequest
+}
+
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopListingAPICreateDraftListingRequest) Legacy(legacy bool) ShopListingAPICreateDraftListingRequest {
+	r.legacy = &legacy
+	return r
 }
 
 func (r ShopListingAPICreateDraftListingRequest) CreateDraftListingRequest(createDraftListingRequest CreateDraftListingRequest) ShopListingAPICreateDraftListingRequest {
@@ -383,6 +372,9 @@ func (a *ShopListingAPIService) CreateDraftListingExecute(r ShopListingAPICreate
 		return localVarReturnValue, nil, reportError("shopId must be greater than 1")
 	}
 
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -871,6 +863,7 @@ type ShopListingAPIFindAllActiveListingsByShopRequest struct {
 	sortOrder  *GetListingsByShopSortOrderParameter
 	offset     *int64
 	keywords   *string
+	legacy     *bool
 }
 
 // The maximum number of results to return.
@@ -900,6 +893,12 @@ func (r ShopListingAPIFindAllActiveListingsByShopRequest) Offset(offset int64) S
 // Search term or phrase that must appear in all results.
 func (r ShopListingAPIFindAllActiveListingsByShopRequest) Keywords(keywords string) ShopListingAPIFindAllActiveListingsByShopRequest {
 	r.keywords = &keywords
+	return r
+}
+
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopListingAPIFindAllActiveListingsByShopRequest) Legacy(legacy bool) ShopListingAPIFindAllActiveListingsByShopRequest {
+	r.legacy = &legacy
 	return r
 }
 
@@ -956,28 +955,35 @@ func (a *ShopListingAPIService) FindAllActiveListingsByShopExecute(r ShopListing
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	} else {
 		var defaultValue int64 = 25
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
 		r.limit = &defaultValue
 	}
 	if r.sortOn != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_on", r.sortOn, "form", "")
 	} else {
 		var defaultValue GetListingsByShopSortOnParameter = "created"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_on", defaultValue, "form", "")
 		r.sortOn = &defaultValue
 	}
 	if r.sortOrder != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_order", r.sortOrder, "form", "")
 	} else {
 		var defaultValue GetListingsByShopSortOrderParameter = "desc"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_order", defaultValue, "form", "")
 		r.sortOrder = &defaultValue
 	}
 	if r.offset != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	} else {
 		var defaultValue int64 = 0
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "form", "")
 		r.offset = &defaultValue
 	}
 	if r.keywords != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "keywords", r.keywords, "form", "")
+	}
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1091,6 +1097,7 @@ type ShopListingAPIFindAllListingsActiveRequest struct {
 	maxPrice     *float32
 	taxonomyId   *int64
 	shopLocation *string
+	legacy       *bool
 }
 
 // The maximum number of results to return.
@@ -1147,6 +1154,12 @@ func (r ShopListingAPIFindAllListingsActiveRequest) ShopLocation(shopLocation st
 	return r
 }
 
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopListingAPIFindAllListingsActiveRequest) Legacy(legacy bool) ShopListingAPIFindAllListingsActiveRequest {
+	r.legacy = &legacy
+	return r
+}
+
 func (r ShopListingAPIFindAllListingsActiveRequest) Execute() (*ShopListings, *http.Response, error) {
 	return r.ApiService.FindAllListingsActiveExecute(r)
 }
@@ -1194,12 +1207,14 @@ func (a *ShopListingAPIService) FindAllListingsActiveExecute(r ShopListingAPIFin
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	} else {
 		var defaultValue int64 = 25
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
 		r.limit = &defaultValue
 	}
 	if r.offset != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	} else {
 		var defaultValue int64 = 0
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "form", "")
 		r.offset = &defaultValue
 	}
 	if r.keywords != nil {
@@ -1209,12 +1224,14 @@ func (a *ShopListingAPIService) FindAllListingsActiveExecute(r ShopListingAPIFin
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_on", r.sortOn, "form", "")
 	} else {
 		var defaultValue GetListingsByShopSortOnParameter = "created"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_on", defaultValue, "form", "")
 		r.sortOn = &defaultValue
 	}
 	if r.sortOrder != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_order", r.sortOrder, "form", "")
 	} else {
 		var defaultValue GetListingsByShopSortOrderParameter = "desc"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_order", defaultValue, "form", "")
 		r.sortOrder = &defaultValue
 	}
 	if r.minPrice != nil {
@@ -1228,6 +1245,9 @@ func (a *ShopListingAPIService) FindAllListingsActiveExecute(r ShopListingAPIFin
 	}
 	if r.shopLocation != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "shop_location", r.shopLocation, "form", "")
+	}
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1324,6 +1344,7 @@ type ShopListingAPIGetFeaturedListingsByShopRequest struct {
 	shopId     int64
 	limit      *int64
 	offset     *int64
+	legacy     *bool
 }
 
 // The maximum number of results to return.
@@ -1335,6 +1356,12 @@ func (r ShopListingAPIGetFeaturedListingsByShopRequest) Limit(limit int64) ShopL
 // The number of records to skip before selecting the first result.
 func (r ShopListingAPIGetFeaturedListingsByShopRequest) Offset(offset int64) ShopListingAPIGetFeaturedListingsByShopRequest {
 	r.offset = &offset
+	return r
+}
+
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopListingAPIGetFeaturedListingsByShopRequest) Legacy(legacy bool) ShopListingAPIGetFeaturedListingsByShopRequest {
+	r.legacy = &legacy
 	return r
 }
 
@@ -1391,13 +1418,18 @@ func (a *ShopListingAPIService) GetFeaturedListingsByShopExecute(r ShopListingAP
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	} else {
 		var defaultValue int64 = 25
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
 		r.limit = &defaultValue
 	}
 	if r.offset != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	} else {
 		var defaultValue int64 = 0
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "form", "")
 		r.offset = &defaultValue
+	}
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1500,14 +1532,16 @@ func (a *ShopListingAPIService) GetFeaturedListingsByShopExecute(r ShopListingAP
 }
 
 type ShopListingAPIGetListingRequest struct {
-	ctx        context.Context
-	ApiService ShopListingAPI
-	listingId  int64
-	includes   *[]GetListingsByShopIncludesParameterInner
-	language   *string
+	ctx                 context.Context
+	ApiService          ShopListingAPI
+	listingId           int64
+	includes            *[]GetListingsByShopIncludesParameterInner
+	language            *string
+	legacy              *bool
+	allowSuggestedTitle *bool
 }
 
-// An enumerated string that attaches a valid association. Acceptable inputs are &#39;Shipping&#39;, &#39;Shop&#39;, &#39;Images&#39;, &#39;User&#39;, &#39;Translations&#39; and &#39;Inventory&#39;.
+// An enumerated string that attaches a valid association. Acceptable inputs are &#39;Shipping&#39;, &#39;Shop&#39;, &#39;Images&#39;, &#39;User&#39;, &#39;Translations&#39;, &#39;Videos&#39;, &#39;Inventory&#39; and &#39;Personalization&#39;.
 func (r ShopListingAPIGetListingRequest) Includes(includes []GetListingsByShopIncludesParameterInner) ShopListingAPIGetListingRequest {
 	r.includes = &includes
 	return r
@@ -1516,6 +1550,18 @@ func (r ShopListingAPIGetListingRequest) Includes(includes []GetListingsByShopIn
 // The IETF language tag for the language of this translation. Ex: &#x60;de&#x60;, &#x60;en&#x60;, &#x60;es&#x60;, &#x60;fr&#x60;, &#x60;it&#x60;, &#x60;ja&#x60;, &#x60;nl&#x60;, &#x60;pl&#x60;, &#x60;pt&#x60;.
 func (r ShopListingAPIGetListingRequest) Language(language string) ShopListingAPIGetListingRequest {
 	r.language = &language
+	return r
+}
+
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopListingAPIGetListingRequest) Legacy(legacy bool) ShopListingAPIGetListingRequest {
+	r.legacy = &legacy
+	return r
+}
+
+// This parameter will include in the response a suggested title for the listing, if one is available. Since suggestions are only available to the listing&#39;s owner, client must submit an oauth_access_token scoped to the owner of the listing.
+func (r ShopListingAPIGetListingRequest) AllowSuggestedTitle(allowSuggestedTitle bool) ShopListingAPIGetListingRequest {
+	r.allowSuggestedTitle = &allowSuggestedTitle
 	return r
 }
 
@@ -1581,6 +1627,12 @@ func (a *ShopListingAPIService) GetListingExecute(r ShopListingAPIGetListingRequ
 	}
 	if r.language != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "language", r.language, "form", "")
+	}
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
+	}
+	if r.allowSuggestedTitle != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "allow_suggested_title", r.allowSuggestedTitle, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2022,6 +2074,7 @@ type ShopListingAPIGetListingsByListingIdsRequest struct {
 	ApiService ShopListingAPI
 	listingIds *[]int64
 	includes   *[]GetListingsByShopIncludesParameterInner
+	legacy     *bool
 }
 
 // The list of numeric IDS for the listings in a specific Etsy shop.
@@ -2030,9 +2083,15 @@ func (r ShopListingAPIGetListingsByListingIdsRequest) ListingIds(listingIds []in
 	return r
 }
 
-// An enumerated string that attaches a valid association. Acceptable inputs are &#39;Shipping&#39;, &#39;Shop&#39;, &#39;Images&#39;, &#39;User&#39;, &#39;Translations&#39; and &#39;Inventory&#39;.
+// An enumerated string that attaches a valid association. Acceptable inputs are &#39;Shipping&#39;, &#39;Shop&#39;, &#39;Images&#39;, &#39;User&#39;, &#39;Translations&#39;, &#39;Videos&#39;, &#39;Inventory&#39; and &#39;Personalization&#39;.
 func (r ShopListingAPIGetListingsByListingIdsRequest) Includes(includes []GetListingsByShopIncludesParameterInner) ShopListingAPIGetListingsByListingIdsRequest {
 	r.includes = &includes
+	return r
+}
+
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopListingAPIGetListingsByListingIdsRequest) Legacy(legacy bool) ShopListingAPIGetListingsByListingIdsRequest {
+	r.legacy = &legacy
 	return r
 }
 
@@ -2103,6 +2162,9 @@ func (a *ShopListingAPIService) GetListingsByListingIdsExecute(r ShopListingAPIG
 		} else {
 			parameterAddToHeaderOrQuery(localVarQueryParams, "includes", t, "form", "multi")
 		}
+	}
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2214,6 +2276,7 @@ type ShopListingAPIGetListingsByShopRequest struct {
 	sortOn     *GetListingsByShopSortOnParameter
 	sortOrder  *GetListingsByShopSortOrderParameter
 	includes   *[]GetListingsByShopIncludesParameterInner
+	legacy     *bool
 }
 
 // When _updating_ a listing, this value can be either &#x60;active&#x60; or &#x60;inactive&#x60;. Note: Setting a &#x60;draft&#x60; listing to &#x60;active&#x60; will also publish the listing on etsy.com and requires that the listing have an image set. Setting a &#x60;sold_out&#x60; listing to active will update the quantity to 1 and renew the listing on etsy.com.
@@ -2246,9 +2309,15 @@ func (r ShopListingAPIGetListingsByShopRequest) SortOrder(sortOrder GetListingsB
 	return r
 }
 
-// An enumerated string that attaches a valid association. Acceptable inputs are &#39;Shipping&#39;, &#39;Shop&#39;, &#39;Images&#39;, &#39;User&#39;, &#39;Translations&#39; and &#39;Inventory&#39;.
+// An enumerated string that attaches a valid association. Acceptable inputs are &#39;Shipping&#39;, &#39;Shop&#39;, &#39;Images&#39;, &#39;User&#39;, &#39;Translations&#39;, &#39;Videos&#39;, &#39;Inventory&#39; and &#39;Personalization&#39;.
 func (r ShopListingAPIGetListingsByShopRequest) Includes(includes []GetListingsByShopIncludesParameterInner) ShopListingAPIGetListingsByShopRequest {
 	r.includes = &includes
+	return r
+}
+
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopListingAPIGetListingsByShopRequest) Legacy(legacy bool) ShopListingAPIGetListingsByShopRequest {
+	r.legacy = &legacy
 	return r
 }
 
@@ -2305,30 +2374,35 @@ func (a *ShopListingAPIService) GetListingsByShopExecute(r ShopListingAPIGetList
 		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "")
 	} else {
 		var defaultValue GetListingsByShopStateParameter = "active"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", defaultValue, "form", "")
 		r.state = &defaultValue
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	} else {
 		var defaultValue int64 = 25
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
 		r.limit = &defaultValue
 	}
 	if r.offset != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	} else {
 		var defaultValue int64 = 0
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "form", "")
 		r.offset = &defaultValue
 	}
 	if r.sortOn != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_on", r.sortOn, "form", "")
 	} else {
 		var defaultValue GetListingsByShopSortOnParameter = "created"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_on", defaultValue, "form", "")
 		r.sortOn = &defaultValue
 	}
 	if r.sortOrder != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_order", r.sortOrder, "form", "")
 	} else {
 		var defaultValue GetListingsByShopSortOrderParameter = "desc"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_order", defaultValue, "form", "")
 		r.sortOrder = &defaultValue
 	}
 	if r.includes != nil {
@@ -2341,6 +2415,9 @@ func (a *ShopListingAPIService) GetListingsByShopExecute(r ShopListingAPIGetList
 		} else {
 			parameterAddToHeaderOrQuery(localVarQueryParams, "includes", t, "form", "multi")
 		}
+	}
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2460,6 +2537,7 @@ type ShopListingAPIGetListingsByShopReceiptRequest struct {
 	shopId     int64
 	limit      *int64
 	offset     *int64
+	legacy     *bool
 }
 
 // The maximum number of results to return.
@@ -2471,6 +2549,12 @@ func (r ShopListingAPIGetListingsByShopReceiptRequest) Limit(limit int64) ShopLi
 // The number of records to skip before selecting the first result.
 func (r ShopListingAPIGetListingsByShopReceiptRequest) Offset(offset int64) ShopListingAPIGetListingsByShopReceiptRequest {
 	r.offset = &offset
+	return r
+}
+
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopListingAPIGetListingsByShopReceiptRequest) Legacy(legacy bool) ShopListingAPIGetListingsByShopReceiptRequest {
+	r.legacy = &legacy
 	return r
 }
 
@@ -2533,13 +2617,18 @@ func (a *ShopListingAPIService) GetListingsByShopReceiptExecute(r ShopListingAPI
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	} else {
 		var defaultValue int64 = 25
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
 		r.limit = &defaultValue
 	}
 	if r.offset != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	} else {
 		var defaultValue int64 = 0
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "form", "")
 		r.offset = &defaultValue
+	}
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2668,6 +2757,13 @@ type ShopListingAPIGetListingsByShopReturnPolicyRequest struct {
 	ApiService     ShopListingAPI
 	returnPolicyId int64
 	shopId         int64
+	legacy         *bool
+}
+
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopListingAPIGetListingsByShopReturnPolicyRequest) Legacy(legacy bool) ShopListingAPIGetListingsByShopReturnPolicyRequest {
+	r.legacy = &legacy
+	return r
 }
 
 func (r ShopListingAPIGetListingsByShopReturnPolicyRequest) Execute() (*ShopListings, *http.Response, error) {
@@ -2725,6 +2821,9 @@ func (a *ShopListingAPIService) GetListingsByShopReturnPolicyExecute(r ShopListi
 		return localVarReturnValue, nil, reportError("shopId must be greater than 1")
 	}
 
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2856,6 +2955,7 @@ type ShopListingAPIGetListingsByShopSectionIdRequest struct {
 	offset         *int64
 	sortOn         *GetListingsByShopSortOnParameter
 	sortOrder      *GetListingsByShopSortOrderParameter
+	legacy         *bool
 }
 
 // A list of numeric IDS for all sections in a specific Etsy shop.
@@ -2885,6 +2985,12 @@ func (r ShopListingAPIGetListingsByShopSectionIdRequest) SortOn(sortOn GetListin
 // The ascending(up) or descending(down) order to sort listings by. NOTE: sort_order only works when combined with one of the search options (keywords, region, etc.).
 func (r ShopListingAPIGetListingsByShopSectionIdRequest) SortOrder(sortOrder GetListingsByShopSortOrderParameter) ShopListingAPIGetListingsByShopSectionIdRequest {
 	r.sortOrder = &sortOrder
+	return r
+}
+
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopListingAPIGetListingsByShopSectionIdRequest) Legacy(legacy bool) ShopListingAPIGetListingsByShopSectionIdRequest {
+	r.legacy = &legacy
 	return r
 }
 
@@ -2955,25 +3061,32 @@ func (a *ShopListingAPIService) GetListingsByShopSectionIdExecute(r ShopListingA
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	} else {
 		var defaultValue int64 = 25
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
 		r.limit = &defaultValue
 	}
 	if r.offset != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	} else {
 		var defaultValue int64 = 0
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "form", "")
 		r.offset = &defaultValue
 	}
 	if r.sortOn != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_on", r.sortOn, "form", "")
 	} else {
 		var defaultValue GetListingsByShopSortOnParameter = "created"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_on", defaultValue, "form", "")
 		r.sortOn = &defaultValue
 	}
 	if r.sortOrder != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_order", r.sortOrder, "form", "")
 	} else {
 		var defaultValue GetListingsByShopSortOrderParameter = "desc"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort_order", defaultValue, "form", "")
 		r.sortOrder = &defaultValue
+	}
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3069,7 +3182,14 @@ type ShopListingAPIUpdateListingRequest struct {
 	ApiService           ShopListingAPI
 	shopId               int64
 	listingId            int64
+	legacy               *bool
 	updateListingRequest *UpdateListingRequest
+}
+
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopListingAPIUpdateListingRequest) Legacy(legacy bool) ShopListingAPIUpdateListingRequest {
+	r.legacy = &legacy
+	return r
 }
 
 func (r ShopListingAPIUpdateListingRequest) UpdateListingRequest(updateListingRequest UpdateListingRequest) ShopListingAPIUpdateListingRequest {
@@ -3086,7 +3206,7 @@ UpdateListing Method for UpdateListing
 
 <div class="wt-display-flex-xs wt-align-items-center wt-mt-xs-2 wt-mb-xs-3"><span class="wt-badge wt-badge--notificationPrimary wt-bg-slime-tint wt-mr-xs-2">General Release</span><a class="wt-text-link" href="https://github.com/etsy/open-api/discussions" target="_blank" rel="noopener noreferrer">Report bug</a></div><div class="wt-display-flex-xs wt-align-items-center wt-mt-xs-2 wt-mb-xs-3"><p class="wt-text-body-01 banner-text">This endpoint is ready for production use.</p></div>
 
-Updates a listing, identified by a listing ID, for a specific shop identified by a shop ID. Note that this is a PATCH method type. When activating, or manually renewing a physical listing, the shipping profile referenced by the `shipping_profile_id`, and all of its fields, along with its entries and upgrades must be complete and valid. If the shipping profile is not complete and valid, we will throw an exception with an error message that guides the request sender to update whatever data is bad.
+Updates a listing, identified by a listing ID, for a specific shop identified by a shop ID. Note that this is a PATCH method type. When activating, or manually renewing a physical listing, the shipping profile referenced by the `shipping_profile_id`, and all of its fields, along with its entries and upgrades must be complete and valid. If the shipping profile is not complete and valid, we will throw an exception with an error message that guides the request sender to update whatever data is bad.   Digital listings that are not made to order must have a file upload associated with it to be activated. While the listing is a draft, shipping profile and file upload are not required in any case.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param shopId The unique positive non-zero numeric ID for an Etsy Shop.
@@ -3132,6 +3252,9 @@ func (a *ShopListingAPIService) UpdateListingExecute(r ShopListingAPIUpdateListi
 		return localVarReturnValue, nil, reportError("listingId must be greater than 1")
 	}
 
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
@@ -3151,209 +3274,6 @@ func (a *ShopListingAPIService) UpdateListingExecute(r ShopListingAPIUpdateListi
 	}
 	// body params
 	localVarPostBody = r.updateListingRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["x-api-key"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["x-api-key"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ErrorSchema
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrorSchema
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v ErrorSchema
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v ErrorSchema
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v ErrorSchema
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v ErrorSchema
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ShopListingAPIUpdateListingDeprecatedRequest struct {
-	ctx                            context.Context
-	ApiService                     ShopListingAPI
-	shopId                         int64
-	listingId                      int64
-	updateListingDeprecatedRequest *UpdateListingDeprecatedRequest
-}
-
-func (r ShopListingAPIUpdateListingDeprecatedRequest) UpdateListingDeprecatedRequest(updateListingDeprecatedRequest UpdateListingDeprecatedRequest) ShopListingAPIUpdateListingDeprecatedRequest {
-	r.updateListingDeprecatedRequest = &updateListingDeprecatedRequest
-	return r
-}
-
-func (r ShopListingAPIUpdateListingDeprecatedRequest) Execute() (*ShopListing, *http.Response, error) {
-	return r.ApiService.UpdateListingDeprecatedExecute(r)
-}
-
-/*
-UpdateListingDeprecated Method for UpdateListingDeprecated
-
-<div class="wt-display-flex-xs wt-align-items-center wt-mt-xs-2 wt-mb-xs-3"><span class="wt-badge wt-badge--notificationPrimary wt-bg-slime-tint wt-mr-xs-2">General Release</span><a class="wt-text-link" href="https://github.com/etsy/open-api/discussions" target="_blank" rel="noopener noreferrer">Report bug</a></div><div class="wt-display-flex-xs wt-align-items-center wt-mt-xs-2 wt-mb-xs-3"><p class="wt-text-body-01 banner-text">This endpoint is ready for production use.</p></div>
-
-Updates a listing, identified by a listing ID, for a specific shop identified by a shop ID. This endpoint will be removed in the near future in favor of `updateListing` PATCH version.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param shopId The unique positive non-zero numeric ID for an Etsy Shop.
-	@param listingId The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
-	@return ShopListingAPIUpdateListingDeprecatedRequest
-*/
-func (a *ShopListingAPIService) UpdateListingDeprecated(ctx context.Context, shopId int64, listingId int64) ShopListingAPIUpdateListingDeprecatedRequest {
-	return ShopListingAPIUpdateListingDeprecatedRequest{
-		ApiService: a,
-		ctx:        ctx,
-		shopId:     shopId,
-		listingId:  listingId,
-	}
-}
-
-// Execute executes the request
-//
-//	@return ShopListing
-func (a *ShopListingAPIService) UpdateListingDeprecatedExecute(r ShopListingAPIUpdateListingDeprecatedRequest) (*ShopListing, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPut
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ShopListing
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ShopListingAPIService.UpdateListingDeprecated")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/v3/application/shops/{shop_id}/listings/{listing_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"shop_id"+"}", url.PathEscape(parameterValueToString(r.shopId, "shopId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"listing_id"+"}", url.PathEscape(parameterValueToString(r.listingId, "listingId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.shopId < 1 {
-		return localVarReturnValue, nil, reportError("shopId must be greater than 1")
-	}
-	if r.listingId < 1 {
-		return localVarReturnValue, nil, reportError("listingId must be greater than 1")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.updateListingDeprecatedRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

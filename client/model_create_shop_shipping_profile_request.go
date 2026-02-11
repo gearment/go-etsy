@@ -1,7 +1,7 @@
 /*
 Etsy Open API v3
 
-<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features. The API endpoints are meant to replace Etsy's Open API v2, which is scheduled to end service in 2022.</p><p class=\"wt-pb-xs-2\">All of the endpoints are callable and the majority of the API endpoints are now in a beta phase. This means we do not expect to make any breaking changes before our general release. A handful of endpoints are currently interface stubs (labeled “Feedback Only”) and returns a \"501 Not Implemented\" response code when called.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2024 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
+<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2026 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
 
 API version: 3.0.0
 Contact: developers@etsy.com
@@ -29,9 +29,9 @@ type CreateShopShippingProfileRequest struct {
 	// The cost of shipping to this country/region with another item, measured in the store's default currency.
 	SecondaryCost float32 `json:"secondary_cost"`
 	// The minimum time required to process to ship listings with this shipping profile.
-	MinProcessingTime int64 `json:"min_processing_time"`
+	MinProcessingTime *int64 `json:"min_processing_time,omitempty"`
 	// The maximum processing time the listing needs to ship.
-	MaxProcessingTime  int64                                               `json:"max_processing_time"`
+	MaxProcessingTime  *int64                                              `json:"max_processing_time,omitempty"`
 	ProcessingTimeUnit *CreateShopShippingProfileRequestProcessingTimeUnit `json:"processing_time_unit,omitempty"`
 	// The ISO code of the country to which the listing ships. If null, request sets destination to destination_region. Required if destination_region is null or not provided.
 	DestinationCountryIso *string                                            `json:"destination_country_iso,omitempty"`
@@ -55,14 +55,12 @@ type _CreateShopShippingProfileRequest CreateShopShippingProfileRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateShopShippingProfileRequest(title string, originCountryIso string, primaryCost float32, secondaryCost float32, minProcessingTime int64, maxProcessingTime int64) *CreateShopShippingProfileRequest {
+func NewCreateShopShippingProfileRequest(title string, originCountryIso string, primaryCost float32, secondaryCost float32) *CreateShopShippingProfileRequest {
 	this := CreateShopShippingProfileRequest{}
 	this.Title = title
 	this.OriginCountryIso = originCountryIso
 	this.PrimaryCost = primaryCost
 	this.SecondaryCost = secondaryCost
-	this.MinProcessingTime = minProcessingTime
-	this.MaxProcessingTime = maxProcessingTime
 	var processingTimeUnit CreateShopShippingProfileRequestProcessingTimeUnit = CREATESHOPSHIPPINGPROFILEREQUESTPROCESSINGTIMEUNIT_BUSINESS_DAYS
 	this.ProcessingTimeUnit = &processingTimeUnit
 	var destinationRegion CreateShopShippingProfileRequestDestinationRegion = CREATESHOPSHIPPINGPROFILEREQUESTDESTINATIONREGION_NONE
@@ -186,52 +184,68 @@ func (o *CreateShopShippingProfileRequest) SetSecondaryCost(v float32) {
 	o.SecondaryCost = v
 }
 
-// GetMinProcessingTime returns the MinProcessingTime field value
+// GetMinProcessingTime returns the MinProcessingTime field value if set, zero value otherwise.
 func (o *CreateShopShippingProfileRequest) GetMinProcessingTime() int64 {
-	if o == nil {
+	if o == nil || IsNil(o.MinProcessingTime) {
 		var ret int64
 		return ret
 	}
-
-	return o.MinProcessingTime
+	return *o.MinProcessingTime
 }
 
-// GetMinProcessingTimeOk returns a tuple with the MinProcessingTime field value
+// GetMinProcessingTimeOk returns a tuple with the MinProcessingTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateShopShippingProfileRequest) GetMinProcessingTimeOk() (*int64, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.MinProcessingTime) {
 		return nil, false
 	}
-	return &o.MinProcessingTime, true
+	return o.MinProcessingTime, true
 }
 
-// SetMinProcessingTime sets field value
+// HasMinProcessingTime returns a boolean if a field has been set.
+func (o *CreateShopShippingProfileRequest) HasMinProcessingTime() bool {
+	if o != nil && !IsNil(o.MinProcessingTime) {
+		return true
+	}
+
+	return false
+}
+
+// SetMinProcessingTime gets a reference to the given int64 and assigns it to the MinProcessingTime field.
 func (o *CreateShopShippingProfileRequest) SetMinProcessingTime(v int64) {
-	o.MinProcessingTime = v
+	o.MinProcessingTime = &v
 }
 
-// GetMaxProcessingTime returns the MaxProcessingTime field value
+// GetMaxProcessingTime returns the MaxProcessingTime field value if set, zero value otherwise.
 func (o *CreateShopShippingProfileRequest) GetMaxProcessingTime() int64 {
-	if o == nil {
+	if o == nil || IsNil(o.MaxProcessingTime) {
 		var ret int64
 		return ret
 	}
-
-	return o.MaxProcessingTime
+	return *o.MaxProcessingTime
 }
 
-// GetMaxProcessingTimeOk returns a tuple with the MaxProcessingTime field value
+// GetMaxProcessingTimeOk returns a tuple with the MaxProcessingTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateShopShippingProfileRequest) GetMaxProcessingTimeOk() (*int64, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.MaxProcessingTime) {
 		return nil, false
 	}
-	return &o.MaxProcessingTime, true
+	return o.MaxProcessingTime, true
 }
 
-// SetMaxProcessingTime sets field value
+// HasMaxProcessingTime returns a boolean if a field has been set.
+func (o *CreateShopShippingProfileRequest) HasMaxProcessingTime() bool {
+	if o != nil && !IsNil(o.MaxProcessingTime) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxProcessingTime gets a reference to the given int64 and assigns it to the MaxProcessingTime field.
 func (o *CreateShopShippingProfileRequest) SetMaxProcessingTime(v int64) {
-	o.MaxProcessingTime = v
+	o.MaxProcessingTime = &v
 }
 
 // GetProcessingTimeUnit returns the ProcessingTimeUnit field value if set, zero value otherwise.
@@ -504,8 +518,12 @@ func (o CreateShopShippingProfileRequest) ToMap() (map[string]interface{}, error
 	toSerialize["origin_country_iso"] = o.OriginCountryIso
 	toSerialize["primary_cost"] = o.PrimaryCost
 	toSerialize["secondary_cost"] = o.SecondaryCost
-	toSerialize["min_processing_time"] = o.MinProcessingTime
-	toSerialize["max_processing_time"] = o.MaxProcessingTime
+	if !IsNil(o.MinProcessingTime) {
+		toSerialize["min_processing_time"] = o.MinProcessingTime
+	}
+	if !IsNil(o.MaxProcessingTime) {
+		toSerialize["max_processing_time"] = o.MaxProcessingTime
+	}
 	if !IsNil(o.ProcessingTimeUnit) {
 		toSerialize["processing_time_unit"] = o.ProcessingTimeUnit
 	}

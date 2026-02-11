@@ -1,7 +1,7 @@
 /*
 Etsy Open API v3
 
-<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features. The API endpoints are meant to replace Etsy's Open API v2, which is scheduled to end service in 2022.</p><p class=\"wt-pb-xs-2\">All of the endpoints are callable and the majority of the API endpoints are now in a beta phase. This means we do not expect to make any breaking changes before our general release. A handful of endpoints are currently interface stubs (labeled “Feedback Only”) and returns a \"501 Not Implemented\" response code when called.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2024 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
+<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2026 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
 
 API version: 3.0.0
 Contact: developers@etsy.com
@@ -66,6 +66,7 @@ type ShopListingInventoryAPIGetListingInventoryRequest struct {
 	listingId   int64
 	showDeleted *bool
 	includes    *GetListingInventoryIncludesParameter
+	legacy      *bool
 }
 
 // A boolean value for inventory whether to include deleted products and their offerings. Default value is false.
@@ -77,6 +78,12 @@ func (r ShopListingInventoryAPIGetListingInventoryRequest) ShowDeleted(showDelet
 // An enumerated string that attaches a valid association. Default value is null.
 func (r ShopListingInventoryAPIGetListingInventoryRequest) Includes(includes GetListingInventoryIncludesParameter) ShopListingInventoryAPIGetListingInventoryRequest {
 	r.includes = &includes
+	return r
+}
+
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopListingInventoryAPIGetListingInventoryRequest) Legacy(legacy bool) ShopListingInventoryAPIGetListingInventoryRequest {
+	r.legacy = &legacy
 	return r
 }
 
@@ -134,6 +141,9 @@ func (a *ShopListingInventoryAPIService) GetListingInventoryExecute(r ShopListin
 	}
 	if r.includes != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "includes", r.includes, "form", "")
+	}
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -261,7 +271,14 @@ type ShopListingInventoryAPIUpdateListingInventoryRequest struct {
 	ctx                           context.Context
 	ApiService                    ShopListingInventoryAPI
 	listingId                     int64
+	legacy                        *bool
 	updateListingInventoryRequest *UpdateListingInventoryRequest
+}
+
+// This parameter needed to enable new parameters and response values related to processing profiles.
+func (r ShopListingInventoryAPIUpdateListingInventoryRequest) Legacy(legacy bool) ShopListingInventoryAPIUpdateListingInventoryRequest {
+	r.legacy = &legacy
+	return r
 }
 
 func (r ShopListingInventoryAPIUpdateListingInventoryRequest) UpdateListingInventoryRequest(updateListingInventoryRequest UpdateListingInventoryRequest) ShopListingInventoryAPIUpdateListingInventoryRequest {
@@ -318,6 +335,9 @@ func (a *ShopListingInventoryAPIService) UpdateListingInventoryExecute(r ShopLis
 		return localVarReturnValue, nil, reportError("listingId must be greater than 1")
 	}
 
+	if r.legacy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "legacy", r.legacy, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 
