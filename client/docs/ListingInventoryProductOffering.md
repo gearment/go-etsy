@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **IsEnabled** | Pointer to **bool** | Whether or not the offering can be shown to buyers. | [optional] 
 **IsDeleted** | Pointer to **bool** | Whether or not the offering has been deleted. | [optional] 
 **Price** | Pointer to [**Money**](Money.md) | Price data for this ProductOffering | [optional] 
+**ReadinessStateId** | Pointer to **NullableInt64** | Processing Profile for this ProductOffering | [optional] 
 
 ## Methods
 
@@ -154,6 +155,41 @@ SetPrice sets Price field to given value.
 
 HasPrice returns a boolean if a field has been set.
 
+### GetReadinessStateId
+
+`func (o *ListingInventoryProductOffering) GetReadinessStateId() int64`
+
+GetReadinessStateId returns the ReadinessStateId field if non-nil, zero value otherwise.
+
+### GetReadinessStateIdOk
+
+`func (o *ListingInventoryProductOffering) GetReadinessStateIdOk() (*int64, bool)`
+
+GetReadinessStateIdOk returns a tuple with the ReadinessStateId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReadinessStateId
+
+`func (o *ListingInventoryProductOffering) SetReadinessStateId(v int64)`
+
+SetReadinessStateId sets ReadinessStateId field to given value.
+
+### HasReadinessStateId
+
+`func (o *ListingInventoryProductOffering) HasReadinessStateId() bool`
+
+HasReadinessStateId returns a boolean if a field has been set.
+
+### SetReadinessStateIdNil
+
+`func (o *ListingInventoryProductOffering) SetReadinessStateIdNil(b bool)`
+
+ SetReadinessStateIdNil sets the value for ReadinessStateId to be an explicit nil
+
+### UnsetReadinessStateId
+`func (o *ListingInventoryProductOffering) UnsetReadinessStateId()`
+
+UnsetReadinessStateId ensures that no value is present for ReadinessStateId, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

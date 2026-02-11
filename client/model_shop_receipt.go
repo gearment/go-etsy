@@ -1,7 +1,7 @@
 /*
 Etsy Open API v3
 
-<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features. The API endpoints are meant to replace Etsy's Open API v2, which is scheduled to end service in 2022.</p><p class=\"wt-pb-xs-2\">All of the endpoints are callable and the majority of the API endpoints are now in a beta phase. This means we do not expect to make any breaking changes before our general release. A handful of endpoints are currently interface stubs (labeled “Feedback Only”) and returns a \"501 Not Implemented\" response code when called.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2024 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
+<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2026 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
 
 API version: 3.0.0
 Contact: developers@etsy.com
@@ -22,7 +22,7 @@ var _ MappedNullable = &ShopReceipt{}
 type ShopReceipt struct {
 	// The numeric ID for the [receipt](/documentation/reference#tag/Shop-Receipt) associated to this transaction.
 	ReceiptId *int64 `json:"receipt_id,omitempty"`
-	// The numeric value for the Etsy channel that serviced the purchase: 0 for Etsy.com, 1 for a Pattern shop.
+	// The numeric value for the Etsy channel that serviced the purchase: 0 or 5 for Etsy.com, 1 for a Pattern shop.
 	ReceiptType *int64 `json:"receipt_type,omitempty"`
 	// The numeric ID for the [user](/documentation/reference#tag/User) (seller) fulfilling the purchase.
 	SellerUserId *int64 `json:"seller_user_id,omitempty"`
@@ -49,7 +49,7 @@ type ShopReceipt struct {
 	FormattedAddress NullableString `json:"formatted_address,omitempty"`
 	// The ISO-3166 alpha-2 country code string for the recipient in the shipping address.
 	CountryIso NullableString `json:"country_iso,omitempty"`
-	// The payment method string identifying purchaser's payment method, which must be one of: \\'cc\\' (credit card), \\'paypal\\', \\'check\\', \\'mo\\' (money order), \\'bt\\' (bank transfer), \\'other\\', \\'ideal\\', \\'sofort\\', \\'apple_pay\\', \\'google\\', \\'android_pay\\', \\'google_pay\\', \\'klarna\\', \\'k_pay_in_4\\' (klarna), \\'k_pay_in_3\\' (klarna), or \\'k_financing\\' (klarna).
+	// The payment method string identifying purchaser's payment method, which must be one of: 'cc' (credit card), 'paypal', 'check', 'mo' (money order), 'bt' (bank transfer), 'other', 'ideal', 'sofort', 'apple_pay', 'google', 'android_pay', 'google_pay', 'klarna', 'k_pay_in_4' (klarna), 'k_pay_in_3' (klarna), or 'k_financing' (klarna).
 	PaymentMethod *string `json:"payment_method,omitempty"`
 	// The email address string for the email address to which to send payment confirmation
 	PaymentEmail NullableString `json:"payment_email,omitempty"`
@@ -63,9 +63,9 @@ type ShopReceipt struct {
 	IsPaid *bool `json:"is_paid,omitempty"`
 	// When true, seller shipped the products.
 	IsShipped *bool `json:"is_shipped,omitempty"`
-	// The receipt\\'s creation time, in epoch seconds.
+	// The receipt's creation time, in epoch seconds.
 	CreateTimestamp *int64 `json:"create_timestamp,omitempty"`
-	// The receipt\\'s creation time, in epoch seconds.
+	// The receipt's creation time, in epoch seconds.
 	CreatedTimestamp *int64 `json:"created_timestamp,omitempty"`
 	// The time of the last update to the receipt, in epoch seconds.
 	UpdateTimestamp *int64 `json:"update_timestamp,omitempty"`
@@ -81,7 +81,7 @@ type ShopReceipt struct {
 	Grandtotal *Money `json:"grandtotal,omitempty"`
 	// A number equal to the total_price minus coupon discounts. Does not included tax or shipping costs.
 	Subtotal *Money `json:"subtotal,omitempty"`
-	// A number equal to the sum of the individual listings\\' (price * quantity). Does not included tax or shipping costs.
+	// A number equal to the sum of the individual listings' (price * quantity). Does not included tax or shipping costs.
 	TotalPrice *Money `json:"total_price,omitempty"`
 	// A number equal to the total shipping cost of the receipt.
 	TotalShippingCost *Money `json:"total_shipping_cost,omitempty"`

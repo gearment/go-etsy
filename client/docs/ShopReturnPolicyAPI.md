@@ -34,7 +34,7 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	consolidateShopReturnPoliciesRequest := *openapiclient.NewConsolidateShopReturnPoliciesRequest(int64(123), int64(123)) // ConsolidateShopReturnPoliciesRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -106,7 +106,7 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	createShopReturnPolicyRequest := *openapiclient.NewCreateShopReturnPolicyRequest(false, false) // CreateShopReturnPolicyRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -178,8 +178,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	returnPolicyId := int64(56) // int64 | The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies).
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	returnPolicyId := int64(789) // int64 | The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies).
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -249,7 +249,7 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -319,8 +319,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	returnPolicyId := int64(56) // int64 | The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies).
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	returnPolicyId := int64(789) // int64 | The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies).
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -392,8 +392,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	returnPolicyId := int64(56) // int64 | The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies).
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	returnPolicyId := int64(789) // int64 | The numeric ID of the [Return Policy](/documentation/reference#operation/getShopReturnPolicies).
 	createShopReturnPolicyRequest := *openapiclient.NewCreateShopReturnPolicyRequest(false, false) // CreateShopReturnPolicyRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()

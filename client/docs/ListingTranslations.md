@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **Pl** | Pointer to [**NullableListingTranslation**](ListingTranslation.md) |  | [optional] 
 **Pt** | Pointer to [**NullableListingTranslation**](ListingTranslation.md) |  | [optional] 
 **Ru** | Pointer to [**NullableListingTranslation**](ListingTranslation.md) |  | [optional] 
+**Sv** | Pointer to [**NullableListingTranslation**](ListingTranslation.md) |  | [optional] 
 
 ## Methods
 
@@ -456,6 +457,41 @@ HasRu returns a boolean if a field has been set.
 `func (o *ListingTranslations) UnsetRu()`
 
 UnsetRu ensures that no value is present for Ru, not even an explicit nil
+### GetSv
+
+`func (o *ListingTranslations) GetSv() ListingTranslation`
+
+GetSv returns the Sv field if non-nil, zero value otherwise.
+
+### GetSvOk
+
+`func (o *ListingTranslations) GetSvOk() (*ListingTranslation, bool)`
+
+GetSvOk returns a tuple with the Sv field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSv
+
+`func (o *ListingTranslations) SetSv(v ListingTranslation)`
+
+SetSv sets Sv field to given value.
+
+### HasSv
+
+`func (o *ListingTranslations) HasSv() bool`
+
+HasSv returns a boolean if a field has been set.
+
+### SetSvNil
+
+`func (o *ListingTranslations) SetSvNil(b bool)`
+
+ SetSvNil sets the value for Sv to be an explicit nil
+
+### UnsetSv
+`func (o *ListingTranslations) UnsetSv()`
+
+UnsetSv ensures that no value is present for Sv, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

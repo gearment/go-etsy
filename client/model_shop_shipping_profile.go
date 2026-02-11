@@ -1,7 +1,7 @@
 /*
 Etsy Open API v3
 
-<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features. The API endpoints are meant to replace Etsy's Open API v2, which is scheduled to end service in 2022.</p><p class=\"wt-pb-xs-2\">All of the endpoints are callable and the majority of the API endpoints are now in a beta phase. This means we do not expect to make any breaking changes before our general release. A handful of endpoints are currently interface stubs (labeled “Feedback Only”) and returns a \"501 Not Implemented\" response code when called.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2024 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
+<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2026 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
 
 API version: 3.0.0
 Contact: developers@etsy.com
@@ -26,12 +26,6 @@ type ShopShippingProfile struct {
 	Title NullableString `json:"title,omitempty"`
 	// The numeric ID for the [user](/documentation/reference#tag/User) who owns the shipping profile.
 	UserId *int64 `json:"user_id,omitempty"`
-	// The minimum number of days for processing the listing.
-	MinProcessingDays NullableInt64 `json:"min_processing_days,omitempty"`
-	// The maximum number of days for processing the listing.
-	MaxProcessingDays NullableInt64 `json:"max_processing_days,omitempty"`
-	// Translated display label string for processing days.
-	ProcessingDaysDisplayLabel *string `json:"processing_days_display_label,omitempty"`
 	// The ISO code of the country from which the listing ships.
 	OriginCountryIso *string `json:"origin_country_iso,omitempty"`
 	// When true, someone deleted this shipping profile.
@@ -186,124 +180,6 @@ func (o *ShopShippingProfile) HasUserId() bool {
 // SetUserId gets a reference to the given int64 and assigns it to the UserId field.
 func (o *ShopShippingProfile) SetUserId(v int64) {
 	o.UserId = &v
-}
-
-// GetMinProcessingDays returns the MinProcessingDays field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ShopShippingProfile) GetMinProcessingDays() int64 {
-	if o == nil || IsNil(o.MinProcessingDays.Get()) {
-		var ret int64
-		return ret
-	}
-	return *o.MinProcessingDays.Get()
-}
-
-// GetMinProcessingDaysOk returns a tuple with the MinProcessingDays field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ShopShippingProfile) GetMinProcessingDaysOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.MinProcessingDays.Get(), o.MinProcessingDays.IsSet()
-}
-
-// HasMinProcessingDays returns a boolean if a field has been set.
-func (o *ShopShippingProfile) HasMinProcessingDays() bool {
-	if o != nil && o.MinProcessingDays.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetMinProcessingDays gets a reference to the given NullableInt64 and assigns it to the MinProcessingDays field.
-func (o *ShopShippingProfile) SetMinProcessingDays(v int64) {
-	o.MinProcessingDays.Set(&v)
-}
-
-// SetMinProcessingDaysNil sets the value for MinProcessingDays to be an explicit nil
-func (o *ShopShippingProfile) SetMinProcessingDaysNil() {
-	o.MinProcessingDays.Set(nil)
-}
-
-// UnsetMinProcessingDays ensures that no value is present for MinProcessingDays, not even an explicit nil
-func (o *ShopShippingProfile) UnsetMinProcessingDays() {
-	o.MinProcessingDays.Unset()
-}
-
-// GetMaxProcessingDays returns the MaxProcessingDays field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ShopShippingProfile) GetMaxProcessingDays() int64 {
-	if o == nil || IsNil(o.MaxProcessingDays.Get()) {
-		var ret int64
-		return ret
-	}
-	return *o.MaxProcessingDays.Get()
-}
-
-// GetMaxProcessingDaysOk returns a tuple with the MaxProcessingDays field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ShopShippingProfile) GetMaxProcessingDaysOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.MaxProcessingDays.Get(), o.MaxProcessingDays.IsSet()
-}
-
-// HasMaxProcessingDays returns a boolean if a field has been set.
-func (o *ShopShippingProfile) HasMaxProcessingDays() bool {
-	if o != nil && o.MaxProcessingDays.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetMaxProcessingDays gets a reference to the given NullableInt64 and assigns it to the MaxProcessingDays field.
-func (o *ShopShippingProfile) SetMaxProcessingDays(v int64) {
-	o.MaxProcessingDays.Set(&v)
-}
-
-// SetMaxProcessingDaysNil sets the value for MaxProcessingDays to be an explicit nil
-func (o *ShopShippingProfile) SetMaxProcessingDaysNil() {
-	o.MaxProcessingDays.Set(nil)
-}
-
-// UnsetMaxProcessingDays ensures that no value is present for MaxProcessingDays, not even an explicit nil
-func (o *ShopShippingProfile) UnsetMaxProcessingDays() {
-	o.MaxProcessingDays.Unset()
-}
-
-// GetProcessingDaysDisplayLabel returns the ProcessingDaysDisplayLabel field value if set, zero value otherwise.
-func (o *ShopShippingProfile) GetProcessingDaysDisplayLabel() string {
-	if o == nil || IsNil(o.ProcessingDaysDisplayLabel) {
-		var ret string
-		return ret
-	}
-	return *o.ProcessingDaysDisplayLabel
-}
-
-// GetProcessingDaysDisplayLabelOk returns a tuple with the ProcessingDaysDisplayLabel field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ShopShippingProfile) GetProcessingDaysDisplayLabelOk() (*string, bool) {
-	if o == nil || IsNil(o.ProcessingDaysDisplayLabel) {
-		return nil, false
-	}
-	return o.ProcessingDaysDisplayLabel, true
-}
-
-// HasProcessingDaysDisplayLabel returns a boolean if a field has been set.
-func (o *ShopShippingProfile) HasProcessingDaysDisplayLabel() bool {
-	if o != nil && !IsNil(o.ProcessingDaysDisplayLabel) {
-		return true
-	}
-
-	return false
-}
-
-// SetProcessingDaysDisplayLabel gets a reference to the given string and assigns it to the ProcessingDaysDisplayLabel field.
-func (o *ShopShippingProfile) SetProcessingDaysDisplayLabel(v string) {
-	o.ProcessingDaysDisplayLabel = &v
 }
 
 // GetOriginCountryIso returns the OriginCountryIso field value if set, zero value otherwise.
@@ -591,15 +467,6 @@ func (o ShopShippingProfile) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.UserId) {
 		toSerialize["user_id"] = o.UserId
-	}
-	if o.MinProcessingDays.IsSet() {
-		toSerialize["min_processing_days"] = o.MinProcessingDays.Get()
-	}
-	if o.MaxProcessingDays.IsSet() {
-		toSerialize["max_processing_days"] = o.MaxProcessingDays.Get()
-	}
-	if !IsNil(o.ProcessingDaysDisplayLabel) {
-		toSerialize["processing_days_display_label"] = o.ProcessingDaysDisplayLabel
 	}
 	if !IsNil(o.OriginCountryIso) {
 		toSerialize["origin_country_iso"] = o.OriginCountryIso

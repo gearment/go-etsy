@@ -34,11 +34,8 @@ func (v *{{{classname}}}) generateNormalizedEnum() any {
 		return nil
 	}
 
+    {{#isString}}
 	s := *v
-	if reflect.TypeOf(*v).Kind() != reflect.String {
-		return s
-	}
-
 	var sb strings.Builder
 	sb.Grow(len(s) + 2) // Preallocate memory for efficiency
 	var prevUnderscore bool // Track consecutive underscores
@@ -72,6 +69,11 @@ func (v *{{{classname}}}) generateNormalizedEnum() any {
 
 	// Trim leading/trailing underscores
 	return strings.Trim(sb.String(), "_")
+    {{/isString}}
+
+	{{^isString}}
+    return *v
+    {{/isString}}
 }
 
 func (v *{{{classname}}}) UnmarshalJSON(src []byte) error {

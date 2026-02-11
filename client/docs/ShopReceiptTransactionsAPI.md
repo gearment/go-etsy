@@ -32,8 +32,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	transactionId := int64(56) // int64 | The unique numeric ID for a transaction.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	transactionId := int64(789) // int64 | The unique numeric ID for a transaction.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 ## GetShopReceiptTransactionsByListing
 
-> ShopReceiptTransactions GetShopReceiptTransactionsByListing(ctx, shopId, listingId).Limit(limit).Offset(offset).Execute()
+> ShopReceiptTransactions GetShopReceiptTransactionsByListing(ctx, shopId, listingId).Limit(limit).Offset(offset).Legacy(legacy).Execute()
 
 
 
@@ -105,14 +105,15 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	listingId := int64(789) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
 	limit := int64(56) // int64 | The maximum number of results to return. (optional) (default to 25)
 	offset := int64(56) // int64 | The number of records to skip before selecting the first result. (optional) (default to 0)
+	legacy := true // bool | This parameter needed to enable new parameters and response values related to processing profiles. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopReceiptTransactionsAPI.GetShopReceiptTransactionsByListing(context.Background(), shopId, listingId).Limit(limit).Offset(offset).Execute()
+	resp, r, err := apiClient.ShopReceiptTransactionsAPI.GetShopReceiptTransactionsByListing(context.Background(), shopId, listingId).Limit(limit).Offset(offset).Legacy(legacy).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopReceiptTransactionsAPI.GetShopReceiptTransactionsByListing``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -142,6 +143,7 @@ Name | Type | Description  | Notes
 
  **limit** | **int64** | The maximum number of results to return. | [default to 25]
  **offset** | **int64** | The number of records to skip before selecting the first result. | [default to 0]
+ **legacy** | **bool** | This parameter needed to enable new parameters and response values related to processing profiles. | 
 
 ### Return type
 
@@ -163,7 +165,7 @@ Name | Type | Description  | Notes
 
 ## GetShopReceiptTransactionsByReceipt
 
-> ShopReceiptTransactions GetShopReceiptTransactionsByReceipt(ctx, shopId, receiptId).Execute()
+> ShopReceiptTransactions GetShopReceiptTransactionsByReceipt(ctx, shopId, receiptId).Legacy(legacy).Execute()
 
 
 
@@ -182,12 +184,13 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	receiptId := int64(56) // int64 | The numeric ID for the [receipt](/documentation/reference#tag/Shop-Receipt) associated to this transaction.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	receiptId := int64(789) // int64 | The numeric ID for the [receipt](/documentation/reference#tag/Shop-Receipt) associated to this transaction.
+	legacy := true // bool | This parameter needed to enable new parameters and response values related to processing profiles. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopReceiptTransactionsAPI.GetShopReceiptTransactionsByReceipt(context.Background(), shopId, receiptId).Execute()
+	resp, r, err := apiClient.ShopReceiptTransactionsAPI.GetShopReceiptTransactionsByReceipt(context.Background(), shopId, receiptId).Legacy(legacy).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopReceiptTransactionsAPI.GetShopReceiptTransactionsByReceipt``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -215,6 +218,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **legacy** | **bool** | This parameter needed to enable new parameters and response values related to processing profiles. | 
 
 ### Return type
 
@@ -236,7 +240,7 @@ Name | Type | Description  | Notes
 
 ## GetShopReceiptTransactionsByShop
 
-> ShopReceiptTransactions GetShopReceiptTransactionsByShop(ctx, shopId).Limit(limit).Offset(offset).Execute()
+> ShopReceiptTransactions GetShopReceiptTransactionsByShop(ctx, shopId).Limit(limit).Offset(offset).Legacy(legacy).Execute()
 
 
 
@@ -255,13 +259,14 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	limit := int64(56) // int64 | The maximum number of results to return. (optional) (default to 25)
 	offset := int64(56) // int64 | The number of records to skip before selecting the first result. (optional) (default to 0)
+	legacy := true // bool | This parameter needed to enable new parameters and response values related to processing profiles. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopReceiptTransactionsAPI.GetShopReceiptTransactionsByShop(context.Background(), shopId).Limit(limit).Offset(offset).Execute()
+	resp, r, err := apiClient.ShopReceiptTransactionsAPI.GetShopReceiptTransactionsByShop(context.Background(), shopId).Limit(limit).Offset(offset).Legacy(legacy).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopReceiptTransactionsAPI.GetShopReceiptTransactionsByShop``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -289,6 +294,7 @@ Name | Type | Description  | Notes
 
  **limit** | **int64** | The maximum number of results to return. | [default to 25]
  **offset** | **int64** | The number of records to skip before selecting the first result. | [default to 0]
+ **legacy** | **bool** | This parameter needed to enable new parameters and response values related to processing profiles. | 
 
 ### Return type
 

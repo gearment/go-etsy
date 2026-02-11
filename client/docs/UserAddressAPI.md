@@ -31,7 +31,7 @@ import (
 )
 
 func main() {
-	userAddressId := int64(56) // int64 | The numeric ID of the user's address.
+	userAddressId := int64(789) // int64 | The numeric ID of the user's address.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -99,7 +99,7 @@ import (
 )
 
 func main() {
-	userAddressId := int64(56) // int64 | The numeric ID of the user's address.
+	userAddressId := int64(789) // int64 | The numeric ID of the user's address.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

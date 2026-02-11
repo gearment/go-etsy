@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## GetListingOffering
 
-> ListingInventoryProductOffering GetListingOffering(ctx, listingId, productId, productOfferingId).Execute()
+> ListingInventoryProductOffering GetListingOffering(ctx, listingId, productId, productOfferingId).Legacy(legacy).Execute()
 
 
 
@@ -29,13 +29,14 @@ import (
 )
 
 func main() {
-	listingId := int64(56) // int64 | 
-	productId := int64(56) // int64 | 
-	productOfferingId := int64(56) // int64 | 
+	listingId := int64(789) // int64 | 
+	productId := int64(789) // int64 | 
+	productOfferingId := int64(789) // int64 | 
+	legacy := true // bool | This parameter needed to enable new parameters and response values related to processing profiles. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopListingOfferingAPI.GetListingOffering(context.Background(), listingId, productId, productOfferingId).Execute()
+	resp, r, err := apiClient.ShopListingOfferingAPI.GetListingOffering(context.Background(), listingId, productId, productOfferingId).Legacy(legacy).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopListingOfferingAPI.GetListingOffering``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -65,6 +66,7 @@ Name | Type | Description  | Notes
 
 
 
+ **legacy** | **bool** | This parameter needed to enable new parameters and response values related to processing profiles. | 
 
 ### Return type
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**UserId** | Pointer to **int64** | The numeric ID of a user. This number is also a valid shop ID for the user\\&#39;s shop. | [optional] 
+**UserId** | Pointer to **int64** | The numeric ID of a user. This number is also a valid shop ID for the user&#39;s shop. | [optional] 
 **ShopId** | Pointer to **int64** | The unique positive non-zero numeric ID for an Etsy Shop. | [optional] 
 
 ## Methods

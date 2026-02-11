@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **LedgerType** | Pointer to **string** | The original reference type for the ledger entry. | [optional] 
 **ReferenceType** | Pointer to **string** | The object type the ledger entry refers to. | [optional] 
 **ReferenceId** | Pointer to **NullableString** | The object id the ledger entry refers to. | [optional] 
+**ParentEntryId** | Pointer to **int64** | The parent ledger entry ID used to match related entries (e.g., vat_seller_services to originating seller fees). | [optional] 
 **PaymentAdjustments** | Pointer to [**[]PaymentAdjustment**](PaymentAdjustment.md) | List of refund objects on an Etsy Payments transaction. All monetary amounts are in USD pennies unless otherwise specified. | [optional] 
 
 ## Methods
@@ -347,6 +348,31 @@ HasReferenceId returns a boolean if a field has been set.
 `func (o *PaymentAccountLedgerEntry) UnsetReferenceId()`
 
 UnsetReferenceId ensures that no value is present for ReferenceId, not even an explicit nil
+### GetParentEntryId
+
+`func (o *PaymentAccountLedgerEntry) GetParentEntryId() int64`
+
+GetParentEntryId returns the ParentEntryId field if non-nil, zero value otherwise.
+
+### GetParentEntryIdOk
+
+`func (o *PaymentAccountLedgerEntry) GetParentEntryIdOk() (*int64, bool)`
+
+GetParentEntryIdOk returns a tuple with the ParentEntryId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetParentEntryId
+
+`func (o *PaymentAccountLedgerEntry) SetParentEntryId(v int64)`
+
+SetParentEntryId sets ParentEntryId field to given value.
+
+### HasParentEntryId
+
+`func (o *PaymentAccountLedgerEntry) HasParentEntryId() bool`
+
+HasParentEntryId returns a boolean if a field has been set.
+
 ### GetPaymentAdjustments
 
 `func (o *PaymentAccountLedgerEntry) GetPaymentAdjustments() []PaymentAdjustment`

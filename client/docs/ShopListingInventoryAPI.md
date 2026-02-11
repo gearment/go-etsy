@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## GetListingInventory
 
-> ListingInventoryWithAssociations GetListingInventory(ctx, listingId).ShowDeleted(showDeleted).Includes(includes).Execute()
+> ListingInventoryWithAssociations GetListingInventory(ctx, listingId).ShowDeleted(showDeleted).Includes(includes).Legacy(legacy).Execute()
 
 
 
@@ -30,13 +30,14 @@ import (
 )
 
 func main() {
-	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
+	listingId := int64(789) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
 	showDeleted := true // bool | A boolean value for inventory whether to include deleted products and their offerings. Default value is false. (optional)
 	includes := openapiclient.getListingInventory_includes_parameter("Listing") // GetListingInventoryIncludesParameter | An enumerated string that attaches a valid association. Default value is null. (optional)
+	legacy := true // bool | This parameter needed to enable new parameters and response values related to processing profiles. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopListingInventoryAPI.GetListingInventory(context.Background(), listingId).ShowDeleted(showDeleted).Includes(includes).Execute()
+	resp, r, err := apiClient.ShopListingInventoryAPI.GetListingInventory(context.Background(), listingId).ShowDeleted(showDeleted).Includes(includes).Legacy(legacy).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopListingInventoryAPI.GetListingInventory``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -64,6 +65,7 @@ Name | Type | Description  | Notes
 
  **showDeleted** | **bool** | A boolean value for inventory whether to include deleted products and their offerings. Default value is false. | 
  **includes** | [**GetListingInventoryIncludesParameter**](GetListingInventoryIncludesParameter.md) | An enumerated string that attaches a valid association. Default value is null. | 
+ **legacy** | **bool** | This parameter needed to enable new parameters and response values related to processing profiles. | 
 
 ### Return type
 
@@ -85,7 +87,7 @@ Name | Type | Description  | Notes
 
 ## UpdateListingInventory
 
-> ListingInventory UpdateListingInventory(ctx, listingId).UpdateListingInventoryRequest(updateListingInventoryRequest).Execute()
+> ListingInventory UpdateListingInventory(ctx, listingId).Legacy(legacy).UpdateListingInventoryRequest(updateListingInventoryRequest).Execute()
 
 
 
@@ -104,12 +106,13 @@ import (
 )
 
 func main() {
-	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
-	updateListingInventoryRequest := *openapiclient.NewUpdateListingInventoryRequest([]openapiclient.UpdateListingInventoryRequestProductsInner{*openapiclient.NewUpdateListingInventoryRequestProductsInner([]openapiclient.UpdateListingInventoryRequestProductsInnerOfferingsInner{*openapiclient.NewUpdateListingInventoryRequestProductsInnerOfferingsInner(float32(123), int64(123), false)})}) // UpdateListingInventoryRequest |  (optional)
+	listingId := int64(789) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
+	legacy := true // bool | This parameter needed to enable new parameters and response values related to processing profiles. (optional)
+	updateListingInventoryRequest := *openapiclient.NewUpdateListingInventoryRequest([]openapiclient.UpdateListingInventoryRequestProductsInner{*openapiclient.NewUpdateListingInventoryRequestProductsInner([]openapiclient.UpdateListingInventoryRequestProductsInnerOfferingsInner{*openapiclient.NewUpdateListingInventoryRequestProductsInnerOfferingsInner(float32(123), int64(123), false, NullableInt64(123))})}) // UpdateListingInventoryRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ShopListingInventoryAPI.UpdateListingInventory(context.Background(), listingId).UpdateListingInventoryRequest(updateListingInventoryRequest).Execute()
+	resp, r, err := apiClient.ShopListingInventoryAPI.UpdateListingInventory(context.Background(), listingId).Legacy(legacy).UpdateListingInventoryRequest(updateListingInventoryRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ShopListingInventoryAPI.UpdateListingInventory``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -135,6 +138,7 @@ Other parameters are passed through a pointer to a apiUpdateListingInventoryRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **legacy** | **bool** | This parameter needed to enable new parameters and response values related to processing profiles. | 
  **updateListingInventoryRequest** | [**UpdateListingInventoryRequest**](UpdateListingInventoryRequest.md) |  | 
 
 ### Return type

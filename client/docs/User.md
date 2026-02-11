@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**UserId** | Pointer to **int64** | The numeric ID of a user. This number is also a valid shop ID for the user\\&#39;s shop. | [optional] 
-**PrimaryEmail** | Pointer to **NullableString** | An email address string for the user\\&#39;s primary email address. Access to this field is granted on a case by case basis for third-party integrations that require full access | [optional] 
-**FirstName** | Pointer to **NullableString** | The user\\&#39;s first name. | [optional] 
-**LastName** | Pointer to **NullableString** | The user\\&#39;s last name. | [optional] 
-**ImageUrl75x75** | Pointer to **NullableString** | The user\\&#39;s avatar URL. | [optional] 
+**UserId** | Pointer to **int64** | The numeric ID of a user. This number is also a valid shop ID for the user&#39;s shop. | [optional] 
+**PrimaryEmail** | Pointer to **NullableString** | An email address string for the user&#39;s primary email address. Access to this field is granted on a case by case basis for third-party integrations that require full access | [optional] 
+**FirstName** | Pointer to **NullableString** | The user&#39;s first name. | [optional] 
+**LastName** | Pointer to **NullableString** | The user&#39;s last name. | [optional] 
+**ImageUrl75x75** | Pointer to **NullableString** | The user&#39;s avatar URL. | [optional] 
 
 ## Methods
 

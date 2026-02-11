@@ -1,7 +1,7 @@
 /*
 Etsy Open API v3
 
-<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features. The API endpoints are meant to replace Etsy's Open API v2, which is scheduled to end service in 2022.</p><p class=\"wt-pb-xs-2\">All of the endpoints are callable and the majority of the API endpoints are now in a beta phase. This means we do not expect to make any breaking changes before our general release. A handful of endpoints are currently interface stubs (labeled “Feedback Only”) and returns a \"501 Not Implemented\" response code when called.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2024 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
+<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2026 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
 
 API version: 3.0.0
 Contact: developers@etsy.com
@@ -27,8 +27,10 @@ type UpdateListingInventoryRequest struct {
 	// An array of unique [listing property](/documentation/reference#operation/getListingProperties) ID integers for the properties that change the quantity of the products, if any. For example, if you stock specific quantities of different colored products in the same listing, then this array contains the property ID for color.
 	QuantityOnProperty []int64 `json:"quantity_on_property,omitempty"`
 	// An array of unique [listing property](/documentation/reference#operation/getListingProperties) ID integers for the properties that change the product SKU, if any. For example, if you use specific skus for different colored products in the same listing, then this array contains the property ID for color.
-	SkuOnProperty        []int64 `json:"sku_on_property,omitempty"`
-	AdditionalProperties map[string]interface{}
+	SkuOnProperty []int64 `json:"sku_on_property,omitempty"`
+	// An array of unique [listing property](/documentation/reference#operation/getListingProperties) ID integers for the properties that change processing profile, if any. For example, if you need specific processing profiles for different colored products in the same listing, then this array contains the property ID for color.
+	ReadinessStateOnProperty []int64 `json:"readiness_state_on_property,omitempty"`
+	AdditionalProperties     map[string]interface{}
 }
 
 type _UpdateListingInventoryRequest UpdateListingInventoryRequest
@@ -171,6 +173,39 @@ func (o *UpdateListingInventoryRequest) SetSkuOnProperty(v []int64) {
 	o.SkuOnProperty = v
 }
 
+// GetReadinessStateOnProperty returns the ReadinessStateOnProperty field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *UpdateListingInventoryRequest) GetReadinessStateOnProperty() []int64 {
+	if o == nil {
+		var ret []int64
+		return ret
+	}
+	return o.ReadinessStateOnProperty
+}
+
+// GetReadinessStateOnPropertyOk returns a tuple with the ReadinessStateOnProperty field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *UpdateListingInventoryRequest) GetReadinessStateOnPropertyOk() ([]int64, bool) {
+	if o == nil || IsNil(o.ReadinessStateOnProperty) {
+		return nil, false
+	}
+	return o.ReadinessStateOnProperty, true
+}
+
+// HasReadinessStateOnProperty returns a boolean if a field has been set.
+func (o *UpdateListingInventoryRequest) HasReadinessStateOnProperty() bool {
+	if o != nil && !IsNil(o.ReadinessStateOnProperty) {
+		return true
+	}
+
+	return false
+}
+
+// SetReadinessStateOnProperty gets a reference to the given []int64 and assigns it to the ReadinessStateOnProperty field.
+func (o *UpdateListingInventoryRequest) SetReadinessStateOnProperty(v []int64) {
+	o.ReadinessStateOnProperty = v
+}
+
 func (o UpdateListingInventoryRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -190,6 +225,9 @@ func (o UpdateListingInventoryRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.SkuOnProperty) {
 		toSerialize["sku_on_property"] = o.SkuOnProperty
+	}
+	if o.ReadinessStateOnProperty != nil {
+		toSerialize["readiness_state_on_property"] = o.ReadinessStateOnProperty
 	}
 
 	for key, value := range o.AdditionalProperties {

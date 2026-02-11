@@ -1,7 +1,7 @@
 /*
 Etsy Open API v3
 
-<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features. The API endpoints are meant to replace Etsy's Open API v2, which is scheduled to end service in 2022.</p><p class=\"wt-pb-xs-2\">All of the endpoints are callable and the majority of the API endpoints are now in a beta phase. This means we do not expect to make any breaking changes before our general release. A handful of endpoints are currently interface stubs (labeled “Feedback Only”) and returns a \"501 Not Implemented\" response code when called.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2024 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
+<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2026 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
 
 API version: 3.0.0
 Contact: developers@etsy.com
@@ -26,18 +26,18 @@ type ShopListing struct {
 	UserId *int64 `json:"user_id,omitempty"`
 	// The unique positive non-zero numeric ID for an Etsy Shop.
 	ShopId *int64 `json:"shop_id,omitempty"`
-	// The listing's title string. When creating or updating a listing, valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{P}\\\\p{Sm}\\\\p{Zs}™©®]/u) You can only use the %, :, & and + characters once each.
+	// The listing's title string. When creating or updating a listing, valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\p{L}\\p{Nd}\\p{P}\\p{Sm}\\p{Zs}™©®]/u) You can only use the %, :, & and + characters once each.
 	Title *string `json:"title,omitempty"`
 	// A description string of the product for sale in the listing.
 	Description *string           `json:"description,omitempty"`
 	State       *ShopListingState `json:"state,omitempty"`
-	// The listing\\'s creation time, in epoch seconds.
+	// The listing's creation time, in epoch seconds.
 	CreationTimestamp *int64 `json:"creation_timestamp,omitempty"`
-	// The listing\\'s creation time, in epoch seconds.
+	// The listing's creation time, in epoch seconds.
 	CreatedTimestamp *int64 `json:"created_timestamp,omitempty"`
-	// The listing\\'s expiration time, in epoch seconds.
+	// The listing's expiration time, in epoch seconds.
 	EndingTimestamp *int64 `json:"ending_timestamp,omitempty"`
-	// The listing\\'s creation time, in epoch seconds.
+	// The listing's creation time, in epoch seconds.
 	OriginalCreationTimestamp *int64 `json:"original_creation_timestamp,omitempty"`
 	// The time of the last update to the listing, in epoch seconds.
 	LastModifiedTimestamp *int64 `json:"last_modified_timestamp,omitempty"`
@@ -49,7 +49,7 @@ type ShopListing struct {
 	Quantity *int64 `json:"quantity,omitempty"`
 	// The numeric ID of a section in a specific Etsy shop.
 	ShopSectionId NullableInt64 `json:"shop_section_id,omitempty"`
-	// The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop’s home page.
+	// The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop's home page.
 	FeaturedRank *int64 `json:"featured_rank,omitempty"`
 	// The full URL to the listing's page on Etsy.
 	Url *string `json:"url,omitempty"`
@@ -61,18 +61,18 @@ type ShopListing struct {
 	IsTaxable *bool `json:"is_taxable,omitempty"`
 	// When true, a buyer may contact the seller for a customized order. The default value is true when a shop accepts custom orders. Does not apply to shops that do not accept custom orders.
 	IsCustomizable *bool `json:"is_customizable,omitempty"`
-	// When true, this listing is personalizable. The default value is null.
+	// When true, this listing is personalizable. The default value is false.
 	IsPersonalizable *bool `json:"is_personalizable,omitempty"`
-	// When true, this listing requires personalization. The default value is null. Will only change if is_personalizable is 'true'.
+	// [DEPRECATED] When true, this listing requires personalization. The default value is false. NOTE: This field will be removed on Apr. 9th, 2026. See https://developers.etsy.com/documentation/tutorials/personalization-migration for migration details.
 	PersonalizationIsRequired *bool `json:"personalization_is_required,omitempty"`
-	// This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is 'true'.
+	// [DEPRECATED] This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is 'true'. Note: This field will be removed on Apr. 9th, 2026. See https://developers.etsy.com/documentation/tutorials/personalization-migration for migration details.
 	PersonalizationCharCountMax NullableInt64 `json:"personalization_char_count_max,omitempty"`
-	// When true, this listing requires personalization. The default value is null. Will only change if is_personalizable is 'true'.
+	// [DEPRECATED] When true, this listing requires personalization. The default value is false. NOTE: This field will be removed on Apr. 9th, 2026. See https://developers.etsy.com/documentation/tutorials/personalization-migration for migration details.
 	PersonalizationInstructions NullableString                 `json:"personalization_instructions,omitempty"`
 	ListingType                 *CreateDraftListingRequestType `json:"listing_type,omitempty"`
-	// A comma-separated list of tag strings for the listing. When creating or updating a listing, valid tag strings contain only letters, numbers, whitespace characters, -, ', ™, ©, and ®. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}\\\\-'™©®]/u) Default value is null.
+	// A comma-separated list of tag strings for the listing. When creating or updating a listing, valid tag strings contain only letters, numbers, whitespace characters, -, ', ™, ©, and ®. (regex: /[^\\p{L}\\p{Nd}\\p{Zs}\\-'™©®]/u) Default value is null.
 	Tags []string `json:"tags,omitempty"`
-	// A list of material strings for materials used in the product. Valid materials strings contain only letters, numbers, and whitespace characters. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}]/u) Default value is null.
+	// A list of material strings for materials used in the product. Valid materials strings contain only letters, numbers, and whitespace characters. (regex: /[^\\p{L}\\p{Nd}\\p{Zs}]/u) Default value is null.
 	Materials []string `json:"materials,omitempty"`
 	// The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
 	ShippingProfileId NullableInt64 `json:"shipping_profile_id,omitempty"`
@@ -86,22 +86,22 @@ type ShopListing struct {
 	WhenMade      NullableShopListingWhenMade `json:"when_made,omitempty"`
 	// When true, tags the listing as a supply product, else indicates that it's a finished product. Helps buyers locate the listing under the Supplies heading. Requires 'who_made' and 'when_made'.
 	IsSupply NullableBool `json:"is_supply,omitempty"`
-	// The numeric weight of the product measured in units set in \\'item_weight_unit\\'. Default value is null. If set, the value must be greater than 0.
+	// The numeric weight of the product measured in units set in 'item_weight_unit'. Default value is null. If set, the value must be greater than 0.
 	ItemWeight     NullableFloat32                                 `json:"item_weight,omitempty"`
 	ItemWeightUnit NullableCreateDraftListingRequestItemWeightUnit `json:"item_weight_unit,omitempty"`
-	// The numeric length of the product measured in units set in \\'item_dimensions_unit\\'. Default value is null. If set, the value must be greater than 0.
+	// The numeric length of the product measured in units set in 'item_dimensions_unit'. Default value is null. If set, the value must be greater than 0.
 	ItemLength NullableFloat32 `json:"item_length,omitempty"`
-	// The numeric width of the product measured in units set in \\'item_dimensions_unit\\'. Default value is null. If set, the value must be greater than 0.
+	// The numeric width of the product measured in units set in 'item_dimensions_unit'. Default value is null. If set, the value must be greater than 0.
 	ItemWidth NullableFloat32 `json:"item_width,omitempty"`
-	// The numeric length of the product measured in units set in \\'item_dimensions_unit\\'. Default value is null. If set, the value must be greater than 0.
+	// The numeric length of the product measured in units set in 'item_dimensions_unit'. Default value is null. If set, the value must be greater than 0.
 	ItemHeight         NullableFloat32                                     `json:"item_height,omitempty"`
 	ItemDimensionsUnit NullableCreateDraftListingRequestItemDimensionsUnit `json:"item_dimensions_unit,omitempty"`
 	// When true, this is a private listing intended for a specific buyer and hidden from shop view.
 	IsPrivate *bool `json:"is_private,omitempty"`
-	// An array of style strings for this listing, each of which is free-form text string such as \\\"Formal\\\", or \\\"Steampunk\\\". When creating or updating a listing, the listing may have up to two styles. Valid style strings contain only letters, numbers, and whitespace characters. (regex: /[^\\\\p{L}\\\\p{Nd}\\\\p{Zs}]/u) Default value is null.
+	// An array of style strings for this listing, each of which is free-form text string such as \"Formal\", or \"Steampunk\". When creating or updating a listing, the listing may have up to two styles. Valid style strings contain only letters, numbers, and whitespace characters. (regex: /[^\\p{L}\\p{Nd}\\p{Zs}]/u) Default value is null.
 	Style []string `json:"style,omitempty"`
 	// A string describing the files attached to a digital listing.
-	FileData *string `json:"file_data,omitempty"`
+	FileData NullableString `json:"file_data,omitempty"`
 	// When true, the listing has variations.
 	HasVariations *bool `json:"has_variations,omitempty"`
 	// When true, renews a listing for four months upon expiration.
@@ -111,7 +111,11 @@ type ShopListing struct {
 	// The positive non-zero price of the product. (Sold product listings are private) Note: The price is the minimum possible price. The [`getListingInventory`](/documentation/reference/#operation/getListingInventory) method requests exact prices for available offerings.
 	Price *Money `json:"price,omitempty"`
 	// The numerical taxonomy ID of the listing. See [SellerTaxonomy](/documentation/reference#tag/SellerTaxonomy) and [BuyerTaxonomy](/documentation/reference#tag/BuyerTaxonomy) for more information.
-	TaxonomyId           NullableInt64 `json:"taxonomy_id,omitempty"`
+	TaxonomyId NullableInt64 `json:"taxonomy_id,omitempty"`
+	// The numeric ID of the [processing profile](/documentation/reference#operation/getShopReadinessStateDefinition) associated with the listing. Returned only when the listing is `active` and of type `physical`, and the endpoint is either shop-scoped (path contains `shop_id`) or a single-listing request such as `getListing`. For every other case this field can be null.
+	ReadinessStateId NullableInt64 `json:"readiness_state_id,omitempty"`
+	// A title string suggested by Etsy. Only available for a user's own listings, when allow_suggested_title param is present, and when a shop's language setting is English. Not all listings will have suggestions.
+	SuggestedTitle       NullableString `json:"suggested_title,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -1697,36 +1701,47 @@ func (o *ShopListing) SetStyle(v []string) {
 	o.Style = v
 }
 
-// GetFileData returns the FileData field value if set, zero value otherwise.
+// GetFileData returns the FileData field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ShopListing) GetFileData() string {
-	if o == nil || IsNil(o.FileData) {
+	if o == nil || IsNil(o.FileData.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.FileData
+	return *o.FileData.Get()
 }
 
 // GetFileDataOk returns a tuple with the FileData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ShopListing) GetFileDataOk() (*string, bool) {
-	if o == nil || IsNil(o.FileData) {
+	if o == nil {
 		return nil, false
 	}
-	return o.FileData, true
+	return o.FileData.Get(), o.FileData.IsSet()
 }
 
 // HasFileData returns a boolean if a field has been set.
 func (o *ShopListing) HasFileData() bool {
-	if o != nil && !IsNil(o.FileData) {
+	if o != nil && o.FileData.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetFileData gets a reference to the given string and assigns it to the FileData field.
+// SetFileData gets a reference to the given NullableString and assigns it to the FileData field.
 func (o *ShopListing) SetFileData(v string) {
-	o.FileData = &v
+	o.FileData.Set(&v)
+}
+
+// SetFileDataNil sets the value for FileData to be an explicit nil
+func (o *ShopListing) SetFileDataNil() {
+	o.FileData.Set(nil)
+}
+
+// UnsetFileData ensures that no value is present for FileData, not even an explicit nil
+func (o *ShopListing) UnsetFileData() {
+	o.FileData.Unset()
 }
 
 // GetHasVariations returns the HasVariations field value if set, zero value otherwise.
@@ -1911,6 +1926,92 @@ func (o *ShopListing) UnsetTaxonomyId() {
 	o.TaxonomyId.Unset()
 }
 
+// GetReadinessStateId returns the ReadinessStateId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ShopListing) GetReadinessStateId() int64 {
+	if o == nil || IsNil(o.ReadinessStateId.Get()) {
+		var ret int64
+		return ret
+	}
+	return *o.ReadinessStateId.Get()
+}
+
+// GetReadinessStateIdOk returns a tuple with the ReadinessStateId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ShopListing) GetReadinessStateIdOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ReadinessStateId.Get(), o.ReadinessStateId.IsSet()
+}
+
+// HasReadinessStateId returns a boolean if a field has been set.
+func (o *ShopListing) HasReadinessStateId() bool {
+	if o != nil && o.ReadinessStateId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetReadinessStateId gets a reference to the given NullableInt64 and assigns it to the ReadinessStateId field.
+func (o *ShopListing) SetReadinessStateId(v int64) {
+	o.ReadinessStateId.Set(&v)
+}
+
+// SetReadinessStateIdNil sets the value for ReadinessStateId to be an explicit nil
+func (o *ShopListing) SetReadinessStateIdNil() {
+	o.ReadinessStateId.Set(nil)
+}
+
+// UnsetReadinessStateId ensures that no value is present for ReadinessStateId, not even an explicit nil
+func (o *ShopListing) UnsetReadinessStateId() {
+	o.ReadinessStateId.Unset()
+}
+
+// GetSuggestedTitle returns the SuggestedTitle field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ShopListing) GetSuggestedTitle() string {
+	if o == nil || IsNil(o.SuggestedTitle.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.SuggestedTitle.Get()
+}
+
+// GetSuggestedTitleOk returns a tuple with the SuggestedTitle field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ShopListing) GetSuggestedTitleOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.SuggestedTitle.Get(), o.SuggestedTitle.IsSet()
+}
+
+// HasSuggestedTitle returns a boolean if a field has been set.
+func (o *ShopListing) HasSuggestedTitle() bool {
+	if o != nil && o.SuggestedTitle.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetSuggestedTitle gets a reference to the given NullableString and assigns it to the SuggestedTitle field.
+func (o *ShopListing) SetSuggestedTitle(v string) {
+	o.SuggestedTitle.Set(&v)
+}
+
+// SetSuggestedTitleNil sets the value for SuggestedTitle to be an explicit nil
+func (o *ShopListing) SetSuggestedTitleNil() {
+	o.SuggestedTitle.Set(nil)
+}
+
+// UnsetSuggestedTitle ensures that no value is present for SuggestedTitle, not even an explicit nil
+func (o *ShopListing) UnsetSuggestedTitle() {
+	o.SuggestedTitle.Unset()
+}
+
 func (o ShopListing) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -2050,8 +2151,8 @@ func (o ShopListing) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Style) {
 		toSerialize["style"] = o.Style
 	}
-	if !IsNil(o.FileData) {
-		toSerialize["file_data"] = o.FileData
+	if o.FileData.IsSet() {
+		toSerialize["file_data"] = o.FileData.Get()
 	}
 	if !IsNil(o.HasVariations) {
 		toSerialize["has_variations"] = o.HasVariations
@@ -2067,6 +2168,12 @@ func (o ShopListing) ToMap() (map[string]interface{}, error) {
 	}
 	if o.TaxonomyId.IsSet() {
 		toSerialize["taxonomy_id"] = o.TaxonomyId.Get()
+	}
+	if o.ReadinessStateId.IsSet() {
+		toSerialize["readiness_state_id"] = o.ReadinessStateId.Get()
+	}
+	if o.SuggestedTitle.IsSet() {
+		toSerialize["suggested_title"] = o.SuggestedTitle.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {

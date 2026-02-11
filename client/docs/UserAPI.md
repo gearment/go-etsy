@@ -91,7 +91,7 @@ import (
 )
 
 func main() {
-	userId := int64(56) // int64 | 
+	userId := int64(789) // int64 | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

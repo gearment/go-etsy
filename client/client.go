@@ -1,7 +1,7 @@
 /*
 Etsy Open API v3
 
-<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features. The API endpoints are meant to replace Etsy's Open API v2, which is scheduled to end service in 2022.</p><p class=\"wt-pb-xs-2\">All of the endpoints are callable and the majority of the API endpoints are now in a beta phase. This means we do not expect to make any breaking changes before our general release. A handful of endpoints are currently interface stubs (labeled “Feedback Only”) and returns a \"501 Not Implemented\" response code when called.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2024 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
+<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2026 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
 
 API version: 3.0.0
 Contact: developers@etsy.com
@@ -77,6 +77,8 @@ type APIClient struct {
 
 	ShopListingOfferingAPI ShopListingOfferingAPI
 
+	ShopListingPersonalizationAPI ShopListingPersonalizationAPI
+
 	ShopListingProductAPI ShopListingProductAPI
 
 	ShopListingTranslationAPI ShopListingTranslationAPI
@@ -84,6 +86,8 @@ type APIClient struct {
 	ShopListingVariationImageAPI ShopListingVariationImageAPI
 
 	ShopListingVideoAPI ShopListingVideoAPI
+
+	ShopProcessingProfilesAPI ShopProcessingProfilesAPI
 
 	ShopProductionPartnerAPI ShopProductionPartnerAPI
 
@@ -131,10 +135,12 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ShopListingImageAPI = (*ShopListingImageAPIService)(&c.common)
 	c.ShopListingInventoryAPI = (*ShopListingInventoryAPIService)(&c.common)
 	c.ShopListingOfferingAPI = (*ShopListingOfferingAPIService)(&c.common)
+	c.ShopListingPersonalizationAPI = (*ShopListingPersonalizationAPIService)(&c.common)
 	c.ShopListingProductAPI = (*ShopListingProductAPIService)(&c.common)
 	c.ShopListingTranslationAPI = (*ShopListingTranslationAPIService)(&c.common)
 	c.ShopListingVariationImageAPI = (*ShopListingVariationImageAPIService)(&c.common)
 	c.ShopListingVideoAPI = (*ShopListingVideoAPIService)(&c.common)
+	c.ShopProcessingProfilesAPI = (*ShopProcessingProfilesAPIService)(&c.common)
 	c.ShopProductionPartnerAPI = (*ShopProductionPartnerAPIService)(&c.common)
 	c.ShopReceiptAPI = (*ShopReceiptAPIService)(&c.common)
 	c.ShopReceiptTransactionsAPI = (*ShopReceiptTransactionsAPIService)(&c.common)
@@ -201,6 +207,10 @@ func typeCheckParameter(obj interface{}, expected string, name string) error {
 
 func parameterValueToString(obj interface{}, key string) string {
 	if reflect.TypeOf(obj).Kind() != reflect.Ptr {
+		if actualObj, ok := obj.(interface{ GetActualInstanceValue() interface{} }); ok {
+			return fmt.Sprintf("%v", actualObj.GetActualInstanceValue())
+		}
+
 		return fmt.Sprintf("%v", obj)
 	}
 	var param, ok = obj.(MappedNullable)
@@ -568,10 +578,7 @@ func addFile(w *multipart.Writer, fieldName, path string) error {
 	if err != nil {
 		return err
 	}
-	err = file.Close()
-	if err != nil {
-		return err
-	}
+	defer file.Close()
 
 	part, err := w.CreateFormFile(fieldName, filepath.Base(path))
 	if err != nil {

@@ -42,8 +42,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	createShopShippingProfileRequest := *openapiclient.NewCreateShopShippingProfileRequest("Title_example", "OriginCountryIso_example", float32(123), float32(123), int64(123), int64(123)) // CreateShopShippingProfileRequest |  (optional)
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	createShopShippingProfileRequest := *openapiclient.NewCreateShopShippingProfileRequest("Title_example", "OriginCountryIso_example", float32(123), float32(123)) // CreateShopShippingProfileRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -114,8 +114,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shippingProfileId := int64(789) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
 	createShopShippingProfileDestinationRequest := *openapiclient.NewCreateShopShippingProfileDestinationRequest(float32(123), float32(123)) // CreateShopShippingProfileDestinationRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -189,9 +189,9 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
-	createShopShippingProfileUpgradeRequest := *openapiclient.NewCreateShopShippingProfileUpgradeRequest(openapiclient.createShopShippingProfileUpgrade_request_type("0"), "UpgradeName_example", float32(123), float32(123)) // CreateShopShippingProfileUpgradeRequest |  (optional)
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shippingProfileId := int64(789) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
+	createShopShippingProfileUpgradeRequest := *openapiclient.NewCreateShopShippingProfileUpgradeRequest(openapiclient.createShopShippingProfileUpgrade_request_type(0), "UpgradeName_example", float32(123), float32(123)) // CreateShopShippingProfileUpgradeRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -264,8 +264,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shippingProfileId := int64(789) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -335,9 +335,9 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
-	shippingProfileDestinationId := int64(56) // int64 | The numeric ID of the shipping profile destination in the [shipping profile](/documentation/reference#tag/Shop-ShippingProfile) associated with the listing.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shippingProfileId := int64(789) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
+	shippingProfileDestinationId := int64(789) // int64 | The numeric ID of the shipping profile destination in the [shipping profile](/documentation/reference#tag/Shop-ShippingProfile) associated with the listing.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -409,9 +409,9 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	shippingProfileId := int64(56) // int64 | The numeric ID of the shipping profile.
-	upgradeId := int64(56) // int64 | The numeric ID that is associated with a shipping upgrade
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shippingProfileId := int64(789) // int64 | The numeric ID of the shipping profile.
+	upgradeId := int64(789) // int64 | The numeric ID that is associated with a shipping upgrade
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -549,8 +549,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shippingProfileId := int64(789) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -622,8 +622,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shippingProfileId := int64(789) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
 	limit := int64(56) // int64 | The maximum number of results to return. (optional) (default to 25)
 	offset := int64(56) // int64 | The number of records to skip before selecting the first result. (optional) (default to 0)
 
@@ -699,8 +699,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shippingProfileId := int64(789) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -772,7 +772,7 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -842,8 +842,8 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shippingProfileId := int64(789) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
 	updateShopShippingProfileRequest := *openapiclient.NewUpdateShopShippingProfileRequest() // UpdateShopShippingProfileRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -917,9 +917,9 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
-	shippingProfileDestinationId := int64(56) // int64 | The numeric ID of the shipping profile destination in the [shipping profile](/documentation/reference#tag/Shop-ShippingProfile) associated with the listing.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shippingProfileId := int64(789) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
+	shippingProfileDestinationId := int64(789) // int64 | The numeric ID of the shipping profile destination in the [shipping profile](/documentation/reference#tag/Shop-ShippingProfile) associated with the listing.
 	updateShopShippingProfileDestinationRequest := *openapiclient.NewUpdateShopShippingProfileDestinationRequest() // UpdateShopShippingProfileDestinationRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -995,9 +995,9 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	shippingProfileId := int64(56) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
-	upgradeId := int64(56) // int64 | The numeric ID that is associated with a shipping upgrade
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shippingProfileId := int64(789) // int64 | The numeric ID of the [shipping profile](/documentation/reference#operation/getShopShippingProfile) associated with the listing. Required when listing type is `physical`.
+	upgradeId := int64(789) // int64 | The numeric ID that is associated with a shipping upgrade
 	updateShopShippingProfileUpgradeRequest := *openapiclient.NewUpdateShopShippingProfileUpgradeRequest() // UpdateShopShippingProfileUpgradeRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()

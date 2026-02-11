@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **ShopSectionId** | Pointer to **NullableInt64** | The numeric ID of the [shop section](/documentation/reference#tag/Shop-Section) for this listing. Default value is null. | [optional] 
 **ProcessingMin** | Pointer to **NullableInt64** | The minimum number of days required to process this listing. Default value is null. | [optional] 
 **ProcessingMax** | Pointer to **NullableInt64** | The maximum number of days required to process this listing. Default value is null. | [optional] 
+**ReadinessStateId** | Pointer to **NullableInt64** | The numeric ID of the [processing profile](/documentation/reference#operation/getShopReadinessStateDefinition) associated with the listing. Returned only when the listing is &#x60;active&#x60; and of type &#x60;physical&#x60;, and the endpoint is either shop-scoped (path contains &#x60;shop_id&#x60;) or a single-listing request such as &#x60;getListing&#x60;. For every other case this field can be null. | [optional] 
 **Tags** | Pointer to **[]string** | A comma-separated list of tag strings for the listing. When creating or updating a listing, valid tag strings contain only letters, numbers, whitespace characters, -, &#39;, ™, ©, and ®. (regex: /[^\\p{L}\\p{Nd}\\p{Zs}\\-&#39;™©®]/u) Default value is null. | [optional] 
 **Styles** | Pointer to **[]string** | An array of style strings for this listing, each of which is free-form text string such as \&quot;Formal\&quot;, or \&quot;Steampunk\&quot;. When creating or updating a listing, the listing may have up to two styles. Valid style strings contain only letters, numbers, and whitespace characters. (regex: /[^\\p{L}\\p{Nd}\\p{Zs}]/u) Default value is null. | [optional] 
 **ItemWeight** | Pointer to **NullableFloat32** | The numeric weight of the product measured in units set in &#39;item_weight_unit&#39;. Default value is null. If set, the value must be greater than 0. | [optional] 
@@ -25,12 +26,12 @@ Name | Type | Description | Notes
 **ItemHeight** | Pointer to **NullableFloat32** | The numeric height of the product measured in units set in &#39;item_dimensions_unit&#39;. Default value is null. If set, the value must be greater than 0. | [optional] 
 **ItemWeightUnit** | Pointer to [**NullableCreateDraftListingRequestItemWeightUnit**](CreateDraftListingRequestItemWeightUnit.md) |  | [optional] 
 **ItemDimensionsUnit** | Pointer to [**NullableCreateDraftListingRequestItemDimensionsUnit**](CreateDraftListingRequestItemDimensionsUnit.md) |  | [optional] 
-**IsPersonalizable** | Pointer to **bool** | When true, this listing is personalizable. The default value is null. | [optional] 
-**PersonalizationIsRequired** | Pointer to **bool** | When true, this listing requires personalization. The default value is null. Will only change if is_personalizable is &#39;true&#39;. | [optional] 
-**PersonalizationCharCountMax** | Pointer to **int64** | This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is &#39;true&#39;. | [optional] 
-**PersonalizationInstructions** | Pointer to **string** | A string representing instructions for the buyer to enter the personalization. Will only change if is_personalizable is &#39;true&#39;. | [optional] 
+**IsPersonalizable** | Pointer to **bool** | When true, this listing is personalizable. The default value is false. | [optional] 
+**PersonalizationIsRequired** | Pointer to **bool** | [DEPRECATED] When true, this listing requires personalization. The default value is false. NOTE: This field will be removed on Apr. 9th, 2026. See https://developers.etsy.com/documentation/tutorials/personalization-migration for migration details. | [optional] 
+**PersonalizationCharCountMax** | Pointer to **int64** | [DEPRECATED] This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is &#39;true&#39;. Note: This field will be removed on Apr. 9th, 2026. See https://developers.etsy.com/documentation/tutorials/personalization-migration for migration details. | [optional] 
+**PersonalizationInstructions** | Pointer to **string** | [DEPRECATED] A string representing instructions for the buyer to enter the personalization. Will only change if is_personalizable is &#39;true&#39;. Note: This field will be removed on Apr. 9th, 2026. See https://developers.etsy.com/documentation/tutorials/personalization-migration for migration details. | [optional] 
 **ProductionPartnerIds** | Pointer to **[]int64** | An array of unique IDs of production partner ids. | [optional] 
-**ImageIds** | Pointer to **[]int64** | An array of numeric image IDs of the images in a listing, which can include up to 10 images. | [optional] 
+**ImageIds** | Pointer to **[]int64** | An array of numeric image IDs of the images in a listing, which can include up to 20 images. | [optional] 
 **IsSupply** | Pointer to **bool** | When true, tags the listing as a supply product, else indicates that it&#39;s a finished product. Helps buyers locate the listing under the Supplies heading. Requires &#39;who_made&#39; and &#39;when_made&#39;. | [optional] 
 **IsCustomizable** | Pointer to **bool** | When true, a buyer may contact the seller for a customized order. The default value is true when a shop accepts custom orders. Does not apply to shops that do not accept custom orders. | [optional] 
 **ShouldAutoRenew** | Pointer to **bool** | When true, renews a listing for four months upon expiration. | [optional] 
@@ -406,6 +407,41 @@ HasProcessingMax returns a boolean if a field has been set.
 `func (o *CreateDraftListingRequest) UnsetProcessingMax()`
 
 UnsetProcessingMax ensures that no value is present for ProcessingMax, not even an explicit nil
+### GetReadinessStateId
+
+`func (o *CreateDraftListingRequest) GetReadinessStateId() int64`
+
+GetReadinessStateId returns the ReadinessStateId field if non-nil, zero value otherwise.
+
+### GetReadinessStateIdOk
+
+`func (o *CreateDraftListingRequest) GetReadinessStateIdOk() (*int64, bool)`
+
+GetReadinessStateIdOk returns a tuple with the ReadinessStateId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReadinessStateId
+
+`func (o *CreateDraftListingRequest) SetReadinessStateId(v int64)`
+
+SetReadinessStateId sets ReadinessStateId field to given value.
+
+### HasReadinessStateId
+
+`func (o *CreateDraftListingRequest) HasReadinessStateId() bool`
+
+HasReadinessStateId returns a boolean if a field has been set.
+
+### SetReadinessStateIdNil
+
+`func (o *CreateDraftListingRequest) SetReadinessStateIdNil(b bool)`
+
+ SetReadinessStateIdNil sets the value for ReadinessStateId to be an explicit nil
+
+### UnsetReadinessStateId
+`func (o *CreateDraftListingRequest) UnsetReadinessStateId()`
+
+UnsetReadinessStateId ensures that no value is present for ReadinessStateId, not even an explicit nil
 ### GetTags
 
 `func (o *CreateDraftListingRequest) GetTags() []string`

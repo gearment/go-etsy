@@ -28,14 +28,14 @@ test-server:
 
 preprocess-spec:
 	@jq . $(ETSY_SPEC) > $(ETSY_SPEC).tmp
-	#@bash scripts/fix_includes.sh $(ETSY_SPEC).tmp $(ETSY_SPEC)
+	@bash scripts/fix_includes.sh $(ETSY_SPEC).tmp $(ETSY_SPEC)
 	@mv $(ETSY_SPEC).tmp $(ETSY_SPEC)
-	@sed -i 's|"application/x-www-form-urlencoded"|"application/json"|g' $(ETSY_SPEC)
+	@sed -i '' 's|"application/x-www-form-urlencoded"|"application/json"|g' $(ETSY_SPEC)
 	@rm -f $(ETSY_SPEC).tmp
 
 generate: preprocess-spec
 	@rm -rf client
-	@openapi-generator-cli generate \
+	@openapi-generator generate \
 		-i $(ETSY_SPEC) \
 		-g go \
 		-t custom-templates/go \
@@ -49,7 +49,7 @@ generate: preprocess-spec
 		--skip-overwrite \
 		--ignore-file-override=custom-templates/go/.openapi-generator-ignore
 	@for file in $(shell find client -name '*.go'); do \
-		sed -i 's/auth\["api_key"\]/auth\["x-api-key"\]/g' $$file; \
+		sed -i '' 's/auth\["api_key"\]/auth\["x-api-key"\]/g' $$file; \
 		$(GOFMT) -w $$file; \
 	done
 

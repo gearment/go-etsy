@@ -1,7 +1,7 @@
 /*
 Etsy Open API v3
 
-<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features. The API endpoints are meant to replace Etsy's Open API v2, which is scheduled to end service in 2022.</p><p class=\"wt-pb-xs-2\">All of the endpoints are callable and the majority of the API endpoints are now in a beta phase. This means we do not expect to make any breaking changes before our general release. A handful of endpoints are currently interface stubs (labeled “Feedback Only”) and returns a \"501 Not Implemented\" response code when called.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2024 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
+<div class=\"wt-text-body-01\"><p class=\"wt-pt-xs-2 wt-pb-xs-2\">Etsy's Open API provides a simple RESTful interface for various Etsy.com features.</p><p class=\"wt-pb-xs-2\">If you'd like to report an issue or provide feedback on the API design, <a target=\"_blank\" class=\"wt-text-link wt-p-xs-0\" href=\"https://github.com/etsy/open-api/discussions\">please add an issue in Github</a>.</p></div>&copy; 2021-2026 Etsy, Inc. All Rights Reserved. Use of this code is subject to Etsy's <a class='wt-text-link wt-p-xs-0' target='_blank' href='https://www.etsy.com/legal/api'>API Developer Terms of Use</a>.
 
 API version: 3.0.0
 Contact: developers@etsy.com
@@ -20,7 +20,7 @@ var _ MappedNullable = &UpdateListingRequest{}
 
 // UpdateListingRequest struct for UpdateListingRequest
 type UpdateListingRequest struct {
-	// An array of numeric image IDs of the images in a listing, which can include up to 10 images.
+	// An array of numeric image IDs of the images in a listing, which can include up to 20 images.
 	ImageIds []int64 `json:"image_ids,omitempty"`
 	// The listing's title string. When creating or updating a listing, valid title strings contain only letters, numbers, punctuation marks, mathematical symbols, whitespace characters, ™, ©, and ®. (regex: /[^\\p{L}\\p{Nd}\\p{P}\\p{Sm}\\p{Zs}™©®]/u) You can only use the %, :, & and + characters once each.
 	Title *string `json:"title,omitempty"`
@@ -54,22 +54,22 @@ type UpdateListingRequest struct {
 	Tags     []string                           `json:"tags,omitempty"`
 	WhoMade  *CreateDraftListingRequestWhoMade  `json:"who_made,omitempty"`
 	WhenMade *CreateDraftListingRequestWhenMade `json:"when_made,omitempty"`
-	// The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop’s home page.
+	// The positive non-zero numeric position in the featured listings of the shop, with rank 1 listings appearing in the left-most position in featured listing on a shop's home page.
 	FeaturedRank NullableInt64 `json:"featured_rank,omitempty"`
-	// When true, this listing is personalizable. The default value is null.
+	// When true, this listing is personalizable. The default value is false.
 	IsPersonalizable *bool `json:"is_personalizable,omitempty"`
-	// When true, this listing requires personalization. The default value is null. Will only change if is_personalizable is 'true'.
+	// [DEPRECATED] When true, this listing requires personalization. The default value is false. NOTE: This field will be removed on Apr. 9th, 2026. See https://developers.etsy.com/documentation/tutorials/personalization-migration for migration details.
 	PersonalizationIsRequired *bool `json:"personalization_is_required,omitempty"`
-	// This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is 'true'.
+	// [DEPRECATED] This is an integer value representing the maximum length for the personalization message entered by the buyer. Will only change if is_personalizable is 'true'. Note: This field will be removed on Apr. 9th, 2026. See https://developers.etsy.com/documentation/tutorials/personalization-migration for migration details.
 	PersonalizationCharCountMax *int64 `json:"personalization_char_count_max,omitempty"`
-	// A string representing instructions for the buyer to enter the personalization. Will only change if is_personalizable is 'true'.
-	PersonalizationInstructions *string                              `json:"personalization_instructions,omitempty"`
-	State                       *UpdateListingDeprecatedRequestState `json:"state,omitempty"`
+	// [DEPRECATED] A string representing instructions for the buyer to enter the personalization. Will only change if is_personalizable is 'true'. Note: This field will be removed on Apr. 9th, 2026. See https://developers.etsy.com/documentation/tutorials/personalization-migration for migration details.
+	PersonalizationInstructions *string                    `json:"personalization_instructions,omitempty"`
+	State                       *UpdateListingRequestState `json:"state,omitempty"`
 	// When true, tags the listing as a supply product, else indicates that it's a finished product. Helps buyers locate the listing under the Supplies heading. Requires 'who_made' and 'when_made'.
 	IsSupply *bool `json:"is_supply,omitempty"`
 	// An array of unique IDs of production partner ids.
-	ProductionPartnerIds []int64                                    `json:"production_partner_ids,omitempty"`
-	Type                 NullableUpdateListingDeprecatedRequestType `json:"type,omitempty"`
+	ProductionPartnerIds []int64                          `json:"production_partner_ids,omitempty"`
+	Type                 NullableUpdateListingRequestType `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -973,9 +973,9 @@ func (o *UpdateListingRequest) SetPersonalizationInstructions(v string) {
 }
 
 // GetState returns the State field value if set, zero value otherwise.
-func (o *UpdateListingRequest) GetState() UpdateListingDeprecatedRequestState {
+func (o *UpdateListingRequest) GetState() UpdateListingRequestState {
 	if o == nil || IsNil(o.State) {
-		var ret UpdateListingDeprecatedRequestState
+		var ret UpdateListingRequestState
 		return ret
 	}
 	return *o.State
@@ -983,7 +983,7 @@ func (o *UpdateListingRequest) GetState() UpdateListingDeprecatedRequestState {
 
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateListingRequest) GetStateOk() (*UpdateListingDeprecatedRequestState, bool) {
+func (o *UpdateListingRequest) GetStateOk() (*UpdateListingRequestState, bool) {
 	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
@@ -999,8 +999,8 @@ func (o *UpdateListingRequest) HasState() bool {
 	return false
 }
 
-// SetState gets a reference to the given UpdateListingDeprecatedRequestState and assigns it to the State field.
-func (o *UpdateListingRequest) SetState(v UpdateListingDeprecatedRequestState) {
+// SetState gets a reference to the given UpdateListingRequestState and assigns it to the State field.
+func (o *UpdateListingRequest) SetState(v UpdateListingRequestState) {
 	o.State = &v
 }
 
@@ -1070,9 +1070,9 @@ func (o *UpdateListingRequest) SetProductionPartnerIds(v []int64) {
 }
 
 // GetType returns the Type field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdateListingRequest) GetType() UpdateListingDeprecatedRequestType {
+func (o *UpdateListingRequest) GetType() UpdateListingRequestType {
 	if o == nil || IsNil(o.Type.Get()) {
-		var ret UpdateListingDeprecatedRequestType
+		var ret UpdateListingRequestType
 		return ret
 	}
 	return *o.Type.Get()
@@ -1081,7 +1081,7 @@ func (o *UpdateListingRequest) GetType() UpdateListingDeprecatedRequestType {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdateListingRequest) GetTypeOk() (*UpdateListingDeprecatedRequestType, bool) {
+func (o *UpdateListingRequest) GetTypeOk() (*UpdateListingRequestType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -1097,8 +1097,8 @@ func (o *UpdateListingRequest) HasType() bool {
 	return false
 }
 
-// SetType gets a reference to the given NullableUpdateListingDeprecatedRequestType and assigns it to the Type field.
-func (o *UpdateListingRequest) SetType(v UpdateListingDeprecatedRequestType) {
+// SetType gets a reference to the given NullableUpdateListingRequestType and assigns it to the Type field.
+func (o *UpdateListingRequest) SetType(v UpdateListingRequestType) {
 	o.Type.Set(&v)
 }
 

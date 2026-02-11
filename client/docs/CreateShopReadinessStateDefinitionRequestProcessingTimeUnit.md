@@ -1,11 +1,11 @@
-# UpdateListingDeprecatedRequestState
+# CreateShopReadinessStateDefinitionRequestProcessingTimeUnit
 
 ## Enum
 
 
-* `ACTIVE` (value: `"active"`)
+* `DAYS` (value: `"days"`)
 
-* `INACTIVE` (value: `"inactive"`)
+* `WEEKS` (value: `"weeks"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

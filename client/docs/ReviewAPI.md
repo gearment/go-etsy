@@ -30,7 +30,7 @@ import (
 )
 
 func main() {
-	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
+	listingId := int64(789) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
 	limit := int64(56) // int64 | The maximum number of results to return. (optional) (default to 25)
 	offset := int64(56) // int64 | The number of records to skip before selecting the first result. (optional) (default to 0)
 	minCreated := int64(56) // int64 | The earliest unix timestamp for when a record was created. (optional)
@@ -108,7 +108,7 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
 	limit := int64(56) // int64 | The maximum number of results to return. (optional) (default to 25)
 	offset := int64(56) // int64 | The number of records to skip before selecting the first result. (optional) (default to 0)
 	minCreated := int64(56) // int64 | The earliest unix timestamp for when a record was created. (optional)

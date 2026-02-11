@@ -7,9 +7,6 @@ Name | Type | Description | Notes
 **ShippingProfileId** | Pointer to **int64** | The numeric ID of the shipping profile. | [optional] 
 **Title** | Pointer to **NullableString** | The name string of this shipping profile. | [optional] 
 **UserId** | Pointer to **int64** | The numeric ID for the [user](/documentation/reference#tag/User) who owns the shipping profile. | [optional] 
-**MinProcessingDays** | Pointer to **NullableInt64** | The minimum number of days for processing the listing. | [optional] 
-**MaxProcessingDays** | Pointer to **NullableInt64** | The maximum number of days for processing the listing. | [optional] 
-**ProcessingDaysDisplayLabel** | Pointer to **string** | Translated display label string for processing days. | [optional] 
 **OriginCountryIso** | Pointer to **string** | The ISO code of the country from which the listing ships. | [optional] 
 **IsDeleted** | Pointer to **bool** | When true, someone deleted this shipping profile. | [optional] 
 **ShippingProfileDestinations** | Pointer to [**[]ShopShippingProfileDestination**](ShopShippingProfileDestination.md) | A list of [shipping profile destinations](/documentation/reference/#operation/createShopShippingProfileDestination) available for this shipping profile. | [optional] 
@@ -122,101 +119,6 @@ SetUserId sets UserId field to given value.
 `func (o *ShopShippingProfile) HasUserId() bool`
 
 HasUserId returns a boolean if a field has been set.
-
-### GetMinProcessingDays
-
-`func (o *ShopShippingProfile) GetMinProcessingDays() int64`
-
-GetMinProcessingDays returns the MinProcessingDays field if non-nil, zero value otherwise.
-
-### GetMinProcessingDaysOk
-
-`func (o *ShopShippingProfile) GetMinProcessingDaysOk() (*int64, bool)`
-
-GetMinProcessingDaysOk returns a tuple with the MinProcessingDays field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMinProcessingDays
-
-`func (o *ShopShippingProfile) SetMinProcessingDays(v int64)`
-
-SetMinProcessingDays sets MinProcessingDays field to given value.
-
-### HasMinProcessingDays
-
-`func (o *ShopShippingProfile) HasMinProcessingDays() bool`
-
-HasMinProcessingDays returns a boolean if a field has been set.
-
-### SetMinProcessingDaysNil
-
-`func (o *ShopShippingProfile) SetMinProcessingDaysNil(b bool)`
-
- SetMinProcessingDaysNil sets the value for MinProcessingDays to be an explicit nil
-
-### UnsetMinProcessingDays
-`func (o *ShopShippingProfile) UnsetMinProcessingDays()`
-
-UnsetMinProcessingDays ensures that no value is present for MinProcessingDays, not even an explicit nil
-### GetMaxProcessingDays
-
-`func (o *ShopShippingProfile) GetMaxProcessingDays() int64`
-
-GetMaxProcessingDays returns the MaxProcessingDays field if non-nil, zero value otherwise.
-
-### GetMaxProcessingDaysOk
-
-`func (o *ShopShippingProfile) GetMaxProcessingDaysOk() (*int64, bool)`
-
-GetMaxProcessingDaysOk returns a tuple with the MaxProcessingDays field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMaxProcessingDays
-
-`func (o *ShopShippingProfile) SetMaxProcessingDays(v int64)`
-
-SetMaxProcessingDays sets MaxProcessingDays field to given value.
-
-### HasMaxProcessingDays
-
-`func (o *ShopShippingProfile) HasMaxProcessingDays() bool`
-
-HasMaxProcessingDays returns a boolean if a field has been set.
-
-### SetMaxProcessingDaysNil
-
-`func (o *ShopShippingProfile) SetMaxProcessingDaysNil(b bool)`
-
- SetMaxProcessingDaysNil sets the value for MaxProcessingDays to be an explicit nil
-
-### UnsetMaxProcessingDays
-`func (o *ShopShippingProfile) UnsetMaxProcessingDays()`
-
-UnsetMaxProcessingDays ensures that no value is present for MaxProcessingDays, not even an explicit nil
-### GetProcessingDaysDisplayLabel
-
-`func (o *ShopShippingProfile) GetProcessingDaysDisplayLabel() string`
-
-GetProcessingDaysDisplayLabel returns the ProcessingDaysDisplayLabel field if non-nil, zero value otherwise.
-
-### GetProcessingDaysDisplayLabelOk
-
-`func (o *ShopShippingProfile) GetProcessingDaysDisplayLabelOk() (*string, bool)`
-
-GetProcessingDaysDisplayLabelOk returns a tuple with the ProcessingDaysDisplayLabel field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetProcessingDaysDisplayLabel
-
-`func (o *ShopShippingProfile) SetProcessingDaysDisplayLabel(v string)`
-
-SetProcessingDaysDisplayLabel sets ProcessingDaysDisplayLabel field to given value.
-
-### HasProcessingDaysDisplayLabel
-
-`func (o *ShopShippingProfile) HasProcessingDaysDisplayLabel() bool`
-
-HasProcessingDaysDisplayLabel returns a boolean if a field has been set.
 
 ### GetOriginCountryIso
 

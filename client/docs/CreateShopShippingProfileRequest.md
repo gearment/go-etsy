@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **OriginCountryIso** | **string** | The ISO code of the country from which the listing ships. | 
 **PrimaryCost** | **float32** | The cost of shipping to this country/region alone, measured in the store&#39;s default currency. | 
 **SecondaryCost** | **float32** | The cost of shipping to this country/region with another item, measured in the store&#39;s default currency. | 
-**MinProcessingTime** | **int64** | The minimum time required to process to ship listings with this shipping profile. | 
-**MaxProcessingTime** | **int64** | The maximum processing time the listing needs to ship. | 
+**MinProcessingTime** | Pointer to **int64** | The minimum time required to process to ship listings with this shipping profile. | [optional] 
+**MaxProcessingTime** | Pointer to **int64** | The maximum processing time the listing needs to ship. | [optional] 
 **ProcessingTimeUnit** | Pointer to [**CreateShopShippingProfileRequestProcessingTimeUnit**](CreateShopShippingProfileRequestProcessingTimeUnit.md) |  | [optional] [default to CREATESHOPSHIPPINGPROFILEREQUESTPROCESSINGTIMEUNIT_BUSINESS_DAYS]
 **DestinationCountryIso** | Pointer to **string** | The ISO code of the country to which the listing ships. If null, request sets destination to destination_region. Required if destination_region is null or not provided. | [optional] 
 **DestinationRegion** | Pointer to [**CreateShopShippingProfileRequestDestinationRegion**](CreateShopShippingProfileRequestDestinationRegion.md) |  | [optional] [default to CREATESHOPSHIPPINGPROFILEREQUESTDESTINATIONREGION_NONE]
@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 
 ### NewCreateShopShippingProfileRequest
 
-`func NewCreateShopShippingProfileRequest(title string, originCountryIso string, primaryCost float32, secondaryCost float32, minProcessingTime int64, maxProcessingTime int64, ) *CreateShopShippingProfileRequest`
+`func NewCreateShopShippingProfileRequest(title string, originCountryIso string, primaryCost float32, secondaryCost float32, ) *CreateShopShippingProfileRequest`
 
 NewCreateShopShippingProfileRequest instantiates a new CreateShopShippingProfileRequest object
 This constructor will assign default values to properties that have it defined,
@@ -137,6 +137,11 @@ and a boolean to check if the value has been set.
 
 SetMinProcessingTime sets MinProcessingTime field to given value.
 
+### HasMinProcessingTime
+
+`func (o *CreateShopShippingProfileRequest) HasMinProcessingTime() bool`
+
+HasMinProcessingTime returns a boolean if a field has been set.
 
 ### GetMaxProcessingTime
 
@@ -157,6 +162,11 @@ and a boolean to check if the value has been set.
 
 SetMaxProcessingTime sets MaxProcessingTime field to given value.
 
+### HasMaxProcessingTime
+
+`func (o *CreateShopShippingProfileRequest) HasMaxProcessingTime() bool`
+
+HasMaxProcessingTime returns a boolean if a field has been set.
 
 ### GetProcessingTimeUnit
 

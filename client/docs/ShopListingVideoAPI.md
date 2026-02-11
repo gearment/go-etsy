@@ -32,9 +32,9 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
-	videoId := int64(56) // int64 | The unique ID of a video associated with a listing.
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	listingId := int64(789) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
+	videoId := int64(789) // int64 | The unique ID of a video associated with a listing.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -106,8 +106,8 @@ import (
 )
 
 func main() {
-	videoId := int64(56) // int64 | The unique ID of a video associated with a listing.
-	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
+	videoId := int64(789) // int64 | The unique ID of a video associated with a listing.
+	listingId := int64(789) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -179,7 +179,7 @@ import (
 )
 
 func main() {
-	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
+	listingId := int64(789) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -249,9 +249,9 @@ import (
 )
 
 func main() {
-	shopId := int64(56) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
-	listingId := int64(56) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
-	videoId := int64(56) // int64 | The unique ID of a video associated with a listing. (optional)
+	shopId := int64(789) // int64 | The unique positive non-zero numeric ID for an Etsy Shop.
+	listingId := int64(789) // int64 | The numeric ID for the [listing](/documentation/reference#tag/ShopListing) associated to this transaction.
+	videoId := int64(789) // int64 | The unique ID of a video associated with a listing. (optional)
 	video := os.NewFile(1234, "some_file") // *os.File | A video file to upload. (optional)
 	name := "name_example" // string | The file name string for the video to upload. (optional)
 
